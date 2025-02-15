@@ -3,10 +3,12 @@
 ## **Description**
 This repository contains the implementation and experiments related to our paper: **"WTPose: Waterfall Transformer for Pose Estimation"**. WTPose introduces a novel **Waterfall Transformer Module (WTM)** that enhances pose estimation by improving the performance of vision transformers like the Shifted Window (Swin) transformer. 
 
-The WTM processes multi-scale feature maps through its waterfall branches and utilizes a **dilated attention mechanism** to increase the Field-of-View (FOV), capturing both local and global context more effectively. This leads to significant improvements over baseline models. 
+<p align="center">
+  <img src="https://github.com/navinranjan7/WTPose/blob/main/resources/WTPose.pdf" title="Waterfall Transformer Framework for Multi-persion Pose Estimation.">
+  Figure 1: UniPose architecture for single frame pose detection. The input color image of dimensions (HxW) is fed through the ResNet backbone and WASP module to obtain 256 feature channels at reduced resolution by a factor of 8. The decoder module generates K heatmaps, one per joint, at the original resolution, and the locations of the joints are determined by a local max operation.
+</p><br />
 
-Pose estimation examples using WTPose can be seen in the figures included in our paper.
-This repository contains the implementation and experiments related to our paper: **"Your Paper Title Here"**. The paper explores novel techniques in [briefly describe the core topic of your research, e.g., vision transformers, quantization, model compression, etc.].
+The WTM processes multi-scale feature maps through its waterfall branches and utilizes a **dilated attention mechanism** to increase the Field-of-View (FOV), capturing both local and global context more effectively. This leads to significant improvements over baseline models. 
 
 
 ## **Paper Link**
