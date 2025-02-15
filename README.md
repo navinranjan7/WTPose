@@ -33,6 +33,9 @@ Pose estimation examples using WTPose, showcasing the effectiveness of our appro
 ## Results on MS COCO Val set
 Using detection results from a detector that obtains 56 mAP on person. The configs here are for both training and test.
 
+|Model | Resolution | Params (M) | GFLOPs | AP | AR | config | log | weight |
+| :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+| Swin-T | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config]() | [log]() | [drive] () |
 
 ## **Installation**
 To use this code, clone the repository and install the dependencies:
