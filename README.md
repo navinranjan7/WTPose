@@ -5,7 +5,7 @@ This repository contains the pytorch implementation and experiments related to o
 
 ## **Paper Link**
 📄 [T4V@CVPR 2023 (Poster)](https://arxiv.org/abs/2411.18944)
-📄 [WACV Workshop 2025 (Oral)](https://www.overleaf.com/read/kvcqxcsfdpfj#12d0aa)
+📄 [WACV Workshop 2025 (Oral)](https://github.com/navinranjan7/WTPose/blob/main/WTPose%20Waterfall%20Transformer%20for%20Multi-Person%20Pose%20Estimation.pdf)
 
 ## **Installation**
 To use this code, clone the repository and install the dependencies:
