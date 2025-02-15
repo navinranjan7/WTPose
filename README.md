@@ -19,7 +19,7 @@ and low-level features from the ResNet bottleneck. The waterfall module creates 
 creating a new branch. The feature dimensions (spatial and channel dimensions) output by various blocks are shown in parentheses.
 </p><br />
 
-Pose estimation examples using WTPose are demonstrated in our paper, showcasing the effectiveness of our approach.
+Pose estimation examples using WTPose, showcasing the effectiveness of our approach.
 
 
 ## **Paper Link**
