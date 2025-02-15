@@ -37,24 +37,24 @@ Using detection results from a detector that obtains 56 mAP on person. The confi
 
 |Model | Resolution | Params (M) | GFLOPs | AP | AR | config | log | weight |
 | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-| Swin-T | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-t-p4-w7_8xb32-210e_coco-256x192.py) | log | [drive]() |
-| WTPose-T | 256x192 | 30.0 | 12.8 | 74.23 | 79.43 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtpose_swin_t_w7_coco_256x192_1k.py) | log | [drive]() |
-| Swin-B | 256x192 | 93.0 | 19.0 | 73.72 | 79.32 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-b-p4-w7_8xb32-210e_coco-256x192.py) | log | [drive]() |
-| WTPose-B | 256x192 | 89.3 | 25.6 | 74.96 | 80.51 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/wtm_resnet101_swin_b_w7_coco_256x192_1.py) | [log]() | [drive]() |
-| Swin-L | 256x192 | 32.8 | 41.0 | 74.30 | 79.82 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-l-p4-w7_8xb32-210e_coco-256x192.py) | log | [drive]() |
-| WTPose-L | 256x192 | 32.8 | 47.9 | 75.40 | 80.81 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtpose_swin-l-p4-w7_coco_256x192.py) | log | [drive]() |
+| Swin-T | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-t-p4-w7_8xb32-210e_coco-256x192.py) | log | - |
+| WTPose-T | 256x192 | 30.0 | 12.8 | 74.23 | 79.43 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtpose_swin_t_w7_coco_256x192_1k.py) | log | - |
+| Swin-B | 256x192 | 93.0 | 19.0 | 73.72 | 79.32 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-b-p4-w7_8xb32-210e_coco-256x192.py) | log | - |
+| WTPose-B | 256x192 | 89.3 | 25.6 | 74.96 | 80.51 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/wtm_resnet101_swin_b_w7_coco_256x192_1.py) | [log](https://github.com/navinranjan7/WTPose/blob/main/logs/log2/WTPose-b_19703812.err) | - |
+| Swin-L | 256x192 | 32.8 | 41.0 | 74.30 | 79.82 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-l-p4-w7_8xb32-210e_coco-256x192.py) | log | - |
+| WTPose-L | 256x192 | 32.8 | 47.9 | 75.40 | 80.81 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtpose_swin-l-p4-w7_coco_256x192.py) | log | - |
 
 
 > 384x288 resolution
 
 |Model | Resolution | Params (M) | GFLOPs | AP | AR | config | log | weight |
 | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-| Swin-T | 384x288 | 32.8 | 13.8 | 74.89 | 80.93 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin_t-p4-w7_8xb32-210e_coco-384x288.py) | log | [drive]() |
-| WTPose-T | 384x288 | 30.0 | 28.3 | 76.36 | 81.43 | [config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtm_ResNet101_swin_t_coco_384x288.py) | log | [drive]() |
-| Swin-B | 384x288 | 93.0 | 41.6 | 75.81 | 80.99 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-b-p4-w7_8xb32-210e_coco-384x288.py) | log | [drive]() |
-| WTPose-B | 384x288 | 89.3 | 55.8 | 77.18 | 82.07 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtpose_swin_b_w7_coco_384x288.py) | log | [drive]() |
-| Swin-L | 384x288 | 32.8 | 88.2 | 76.30 | 81.44 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-l-p4-w7_8xb32-210e_coco-384x288.py) | log | [drive]() |
-| WTPose-L | 384x288 | 32.8 | 104.2 | 77.56 | 82.61 |config | [log]() | [drive]() |
+| Swin-T | 384x288 | 32.8 | 13.8 | 74.89 | 80.93 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin_t-p4-w7_8xb32-210e_coco-384x288.py) | log | -  |
+| WTPose-T | 384x288 | 30.0 | 28.3 | 76.36 | 81.43 | [config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtm_ResNet101_swin_t_coco_384x288.py) | log | - |
+| Swin-B | 384x288 | 93.0 | 41.6 | 75.81 | 80.99 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-b-p4-w7_8xb32-210e_coco-384x288.py) | log | - |
+| WTPose-B | 384x288 | 89.3 | 55.8 | 77.18 | 82.07 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtpose_swin_b_w7_coco_384x288.py) | log | - |
+| Swin-L | 384x288 | 32.8 | 88.2 | 76.30 | 81.44 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-l-p4-w7_8xb32-210e_coco-384x288.py) | log | - |
+| WTPose-L | 384x288 | 32.8 | 104.2 | 77.56 | 82.61 |config | log | - |
 
 
 ## **Installation**
