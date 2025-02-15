@@ -21,6 +21,11 @@ creating a new branch. The feature dimensions (spatial and channel dimensions) o
 
 Pose estimation examples using WTPose, showcasing the effectiveness of our approach.
 
+<p align="center">
+  <img src="https://github.com/navinranjan7/WTPose/blob/main/resources/WTPose_base_COCO_result.png" width="45%" title="Pose Estimation Result 1">
+  <img src="https://github.com/navinranjan7/WTPose/blob/main/resources/WTPose_examples.png" width="45%" title="Pose Estimation Result 2">
+</p>
+
 
 ## **Paper Link**
 📄 [T4V@CVPR 2023 (Poster)](https://arxiv.org/abs/2411.18944)
