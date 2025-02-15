@@ -1,6 +1,6 @@
 # **WTPose: Waterfall Transformer for Multi-Person Pose Estimaiton**
 
-[![DOI]([https://img.shields.io/badge/DOI-Link-blue.svg](https://arxiv.org/pdf/2411.18944))](your-paper-link-here)
+[![DOI]([https://img.shields.io/badge/DOI-Link-blue.svg])](https://arxiv.org/abs/2411.18944)
 
 ## **Description**
 This repository contains the implementation and experiments related to our paper: **"Your Paper Title Here"**. The paper explores novel techniques in [briefly describe the core topic of your research, e.g., vision transformers, quantization, model compression, etc.].
