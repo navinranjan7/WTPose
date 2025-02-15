@@ -59,7 +59,7 @@ Using detection results from a detector that obtains 56 mAP on person. The confi
 
 # Installation and Setup
 
-To use this code, clone the repository and refer to [installation.md](https://mmpose.readthedocs.io/en/latest/installation.html) for more detailed installation and dataset preparation. Alternatively, you can use [environment.yaml](https://github.com/navinranjan7/WTPose/blob/main/environment.yaml) to create an environment.
+To use this code, clone the repository and refer to [installation.md](https://mmpose.readthedocs.io/en/latest/installation.html) for more detailed installation and dataset preparation. Alternatively, you can use [environment.yaml](https://github.com/navinranjan7/WTPose/blob/main/enviroment.yaml) to create an environment.
 
 ## **Usage**
 Run the following command to start training or evaluation:
