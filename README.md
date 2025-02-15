@@ -7,10 +7,19 @@ This repository contains the implementation and experiments related to our paper
   <img src="https://github.com/navinranjan7/WTPose/blob/main/resources/WTPose.png" title="Waterfall Transformer Framework for Multi-persion Pose Estimation.">
   Figure 1: Waterfall transformer framework for multi-person pose estimation. The input color image is fed through the modified Swin
 Transformer backbone and WTM module to obtain 128 feature channels at reduced resolution by a factor of 4. The decoder module
-generates K heatmaps, one per joint
+generates K heatmaps, one per joint.
 </p><br />
 
-The WTM processes multi-scale feature maps through its waterfall branches and utilizes a **dilated attention mechanism** to increase the Field-of-View (FOV), capturing both local and global context more effectively. This leads to significant improvements over baseline models. 
+The WTM processes feature maps from multiple levels of the backbone through its waterfall branches. It applies filtering operations based on a **dilated attention mechanism** to expand the Field-of-View (FOV) and effectively capture both local and global context. These innovations lead to significant improvements over baseline models.
+
+<p align="center">
+  <img src="https://github.com/navinranjan7/WTPose/blob/main/resources/WTPose.png" title="Waterfall Transformer Module">
+  Figure 2: The proposed waterfall transformer module. The inputs are multi-scale feature maps from all four stages of the Swin backbone
+and low-level features from the ResNet bottleneck. The waterfall module creates a waterfall flow, initially processing the input and then
+creating a new branch. The feature dimensions (spatial and channel dimensions) output by various blocks are shown in parentheses.
+</p><br />
+
+Pose estimation examples using WTPose are demonstrated in our paper, showcasing the effectiveness of our approach.
 
 
 ## **Paper Link**
