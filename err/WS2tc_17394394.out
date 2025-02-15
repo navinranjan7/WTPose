@@ -1,0 +1,483 @@
+09/23 00:34:57 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.17 (default, Jul  5 2023, 21:04:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 906938072
+    GPU 0,1: Tesla P4
+    CUDA_HOME: None
+    GCC: n/a
+    PyTorch: 1.11.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.5.2 (Git Hash a9302535553c73243c632ad3c4c80beec3d19a1e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.12.0
+    OpenCV: 4.8.0
+    MMEngine: 0.8.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 906938072
+    Distributed launcher: pytorch
+    Distributed training: True
+    GPU number: 2
+------------------------------------------------------------
+
+09/23 00:34:57 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=256)
+backend_args = dict(backend='local')
+codec = dict(
+    heatmap_size=(
+        64,
+        64,
+    ),
+    input_size=(
+        256,
+        256,
+    ),
+    sigma=2,
+    type='MSRAHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+data_mode = 'topdown'
+data_root = 'data/coco/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=10,
+        rule='greater',
+        save_best='coco/AP',
+        type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'pytorch'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        arch='tiny',
+        drop_path_rate=0.5,
+        init_cfg=dict(
+            checkpoint=
+            '/home/nr4325/Desktop/Pose4/mmpose/ImageNet_pretrained_model/resnet152_swinv2_t.pth',
+            type='Pretrained'),
+        type='wtSwinV2',
+        wtm_dilations=[
+            2,
+            1,
+            4,
+            1,
+            6,
+            1,
+            8,
+            1,
+        ],
+        wtm_dim=96,
+        wtm_in_dim=1440,
+        wtm_kernel_size=7,
+        wtm_low_level_dim=256,
+        wtm_num_heads=[
+            8,
+            8,
+            8,
+            8,
+        ],
+        wtm_out_dim=96,
+        wtm_reduction=32,
+        wtm_size=(
+            64,
+            64,
+        )),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        conv_out_channels=False,
+        decoder=dict(
+            heatmap_size=(
+                64,
+                64,
+            ),
+            input_size=(
+                256,
+                256,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        deconv_out_channels=False,
+        in_channels=96,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=17,
+        type='HeatmapHeadWTPose'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=True),
+    type='TopdownPoseEstimator')
+norm_cfg = dict(requires_grad=True, type='SyncBN')
+optim_wrapper = dict(optimizer=dict(lr=0.0005, type='Adam'))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=210,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=4,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                256,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+train_cfg = dict(by_epoch=True, max_epochs=210, val_interval=10)
+train_dataloader = dict(
+    batch_size=4,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_train2017.json',
+        data_mode='topdown',
+        data_prefix=dict(img='train2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                256,
+                256,
+            ), type='TopdownAffine'),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        64,
+                        64,
+                    ),
+                    input_size=(
+                        256,
+                        256,
+                    ),
+                    sigma=2,
+                    type='MSRAHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        256,
+        256,
+    ), type='TopdownAffine'),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                64,
+                64,
+            ),
+            input_size=(
+                256,
+                256,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=4,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                256,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        256,
+        256,
+    ), type='TopdownAffine'),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/aa152_WTPose_SwinV2_t_w8_coco_256x256_1k'
+
+09/23 00:36:15 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+loading annotations into memory...
+Done (t=7.40s)
+creating index...
+Done (t=8.21s)
+creating index...
+index created!
+index created!
+loading annotations into memory...
+Done (t=0.23s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.19s)
+creating index...
+index created!
+09/23 00:37:16 - mmengine - INFO - load model from: /home/nr4325/Desktop/Pose4/mmpose/ImageNet_pretrained_model/resnet152_swinv2_t.pth
+09/23 00:37:16 - mmengine - INFO - Loads checkpoint by local backend from path: /home/nr4325/Desktop/Pose4/mmpose/ImageNet_pretrained_model/resnet152_swinv2_t.pth
+09/23 00:37:17 - mmengine - INFO - Delete `relative_position_index` and `relative_coords_table` since we always re-init these params according to the `window_size`, which might cause unwanted but unworried warnings when loading checkpoint.
+09/23 00:37:17 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: patch_embed.projection.weight, patch_embed.projection.bias, patch_embed.norm.weight, patch_embed.norm.bias, head.fc.weight, head.fc.bias
+
+missing keys in source state_dict: stages.0.blocks.0.attn.w_msa.relative_coords_table, stages.0.blocks.0.attn.w_msa.relative_position_index, stages.0.blocks.1.attn.w_msa.relative_coords_table, stages.0.blocks.1.attn.w_msa.relative_position_index, stages.1.blocks.0.attn.w_msa.relative_coords_table, stages.1.blocks.0.attn.w_msa.relative_position_index, stages.1.blocks.1.attn.w_msa.relative_coords_table, stages.1.blocks.1.attn.w_msa.relative_position_index, stages.2.blocks.0.attn.w_msa.relative_coords_table, stages.2.blocks.0.attn.w_msa.relative_position_index, stages.2.blocks.1.attn.w_msa.relative_coords_table, stages.2.blocks.1.attn.w_msa.relative_position_index, stages.2.blocks.2.attn.w_msa.relative_coords_table, stages.2.blocks.2.attn.w_msa.relative_position_index, stages.2.blocks.3.attn.w_msa.relative_coords_table, stages.2.blocks.3.attn.w_msa.relative_position_index, stages.2.blocks.4.attn.w_msa.relative_coords_table, stages.2.blocks.4.attn.w_msa.relative_position_index, stages.2.blocks.5.attn.w_msa.relative_coords_table, stages.2.blocks.5.attn.w_msa.relative_position_index, stages.3.blocks.0.attn.w_msa.relative_coords_table, stages.3.blocks.0.attn.w_msa.relative_position_index, stages.3.blocks.1.attn.w_msa.relative_coords_table, stages.3.blocks.1.attn.w_msa.relative_position_index, norm0.weight, norm0.bias, norm1.weight, norm1.bias, norm2.weight, norm2.bias, resnet.stem.0.conv.weight, resnet.stem.0.bn.weight, resnet.stem.0.bn.bias, resnet.stem.0.bn.running_mean, resnet.stem.0.bn.running_var, resnet.stem.1.conv.weight, resnet.stem.1.bn.weight, resnet.stem.1.bn.bias, resnet.stem.1.bn.running_mean, resnet.stem.1.bn.running_var, wtm.wtm1_0.gamma1, wtm.wtm1_0.gamma2, wtm.wtm1_0.norm1.weight, wtm.wtm1_0.norm1.bias, wtm.wtm1_0.attn.rpb, wtm.wtm1_0.attn.qkv.weight, wtm.wtm1_0.attn.qkv.bias, wtm.wtm1_0.attn.proj.weight, wtm.wtm1_0.attn.proj.bias, wtm.wtm1_0.norm2.weight, wtm.wtm1_0.norm2.bias, wtm.wtm1_0.mlp.fc1.weight, wtm.wtm1_0.mlp.fc1.bias, wtm.wtm1_0.mlp.fc2.weight, wtm.wtm1_0.mlp.fc2.bias, wtm.wtm1_1.gamma1, wtm.wtm1_1.gamma2, wtm.wtm1_1.norm1.weight, wtm.wtm1_1.norm1.bias, wtm.wtm1_1.attn.rpb, wtm.wtm1_1.attn.qkv.weight, wtm.wtm1_1.attn.qkv.bias, wtm.wtm1_1.attn.proj.weight, wtm.wtm1_1.attn.proj.bias, wtm.wtm1_1.norm2.weight, wtm.wtm1_1.norm2.bias, wtm.wtm1_1.mlp.fc1.weight, wtm.wtm1_1.mlp.fc1.bias, wtm.wtm1_1.mlp.fc2.weight, wtm.wtm1_1.mlp.fc2.bias, wtm.wtm2_0.gamma1, wtm.wtm2_0.gamma2, wtm.wtm2_0.norm1.weight, wtm.wtm2_0.norm1.bias, wtm.wtm2_0.attn.rpb, wtm.wtm2_0.attn.qkv.weight, wtm.wtm2_0.attn.qkv.bias, wtm.wtm2_0.attn.proj.weight, wtm.wtm2_0.attn.proj.bias, wtm.wtm2_0.norm2.weight, wtm.wtm2_0.norm2.bias, wtm.wtm2_0.mlp.fc1.weight, wtm.wtm2_0.mlp.fc1.bias, wtm.wtm2_0.mlp.fc2.weight, wtm.wtm2_0.mlp.fc2.bias, wtm.wtm2_1.gamma1, wtm.wtm2_1.gamma2, wtm.wtm2_1.norm1.weight, wtm.wtm2_1.norm1.bias, wtm.wtm2_1.attn.rpb, wtm.wtm2_1.attn.qkv.weight, wtm.wtm2_1.attn.qkv.bias, wtm.wtm2_1.attn.proj.weight, wtm.wtm2_1.attn.proj.bias, wtm.wtm2_1.norm2.weight, wtm.wtm2_1.norm2.bias, wtm.wtm2_1.mlp.fc1.weight, wtm.wtm2_1.mlp.fc1.bias, wtm.wtm2_1.mlp.fc2.weight, wtm.wtm2_1.mlp.fc2.bias, wtm.wtm3_0.gamma1, wtm.wtm3_0.gamma2, wtm.wtm3_0.norm1.weight, wtm.wtm3_0.norm1.bias, wtm.wtm3_0.attn.rpb, wtm.wtm3_0.attn.qkv.weight, wtm.wtm3_0.attn.qkv.bias, wtm.wtm3_0.attn.proj.weight, wtm.wtm3_0.attn.proj.bias, wtm.wtm3_0.norm2.weight, wtm.wtm3_0.norm2.bias, wtm.wtm3_0.mlp.fc1.weight, wtm.wtm3_0.mlp.fc1.bias, wtm.wtm3_0.mlp.fc2.weight, wtm.wtm3_0.mlp.fc2.bias, wtm.wtm3_1.gamma1, wtm.wtm3_1.gamma2, wtm.wtm3_1.norm1.weight, wtm.wtm3_1.norm1.bias, wtm.wtm3_1.attn.rpb, wtm.wtm3_1.attn.qkv.weight, wtm.wtm3_1.attn.qkv.bias, wtm.wtm3_1.attn.proj.weight, wtm.wtm3_1.attn.proj.bias, wtm.wtm3_1.norm2.weight, wtm.wtm3_1.norm2.bias, wtm.wtm3_1.mlp.fc1.weight, wtm.wtm3_1.mlp.fc1.bias, wtm.wtm3_1.mlp.fc2.weight, wtm.wtm3_1.mlp.fc2.bias, wtm.wtm4_0.gamma1, wtm.wtm4_0.gamma2, wtm.wtm4_0.norm1.weight, wtm.wtm4_0.norm1.bias, wtm.wtm4_0.attn.rpb, wtm.wtm4_0.attn.qkv.weight, wtm.wtm4_0.attn.qkv.bias, wtm.wtm4_0.attn.proj.weight, wtm.wtm4_0.attn.proj.bias, wtm.wtm4_0.norm2.weight, wtm.wtm4_0.norm2.bias, wtm.wtm4_0.mlp.fc1.weight, wtm.wtm4_0.mlp.fc1.bias, wtm.wtm4_0.mlp.fc2.weight, wtm.wtm4_0.mlp.fc2.bias, wtm.wtm4_1.gamma1, wtm.wtm4_1.gamma2, wtm.wtm4_1.norm1.weight, wtm.wtm4_1.norm1.bias, wtm.wtm4_1.attn.rpb, wtm.wtm4_1.attn.qkv.weight, wtm.wtm4_1.attn.qkv.bias, wtm.wtm4_1.attn.proj.weight, wtm.wtm4_1.attn.proj.bias, wtm.wtm4_1.norm2.weight, wtm.wtm4_1.norm2.bias, wtm.wtm4_1.mlp.fc1.weight, wtm.wtm4_1.mlp.fc1.bias, wtm.wtm4_1.mlp.fc2.weight, wtm.wtm4_1.mlp.fc2.bias, wtm.global_avg_pool.1.weight, wtm.global_avg_pool.2.weight, wtm.global_avg_pool.2.bias, wtm.global_avg_pool.2.running_mean, wtm.global_avg_pool.2.running_var, wtm.conv1.weight, wtm.bn1.weight, wtm.bn1.bias, wtm.bn1.running_mean, wtm.bn1.running_var, wtm.conv2.weight, wtm.bn2.weight, wtm.bn2.bias, wtm.bn2.running_mean, wtm.bn2.running_var, wtm.low.weight, wtm.bn_low.weight, wtm.bn_low.bias, wtm.bn_low.running_mean, wtm.bn_low.running_var, wtm.last_conv.0.weight, wtm.last_conv.1.weight, wtm.last_conv.1.bias, wtm.last_conv.1.running_mean, wtm.last_conv.1.running_var, wtm.last_conv.3.weight, wtm.last_conv.4.weight, wtm.last_conv.4.bias, wtm.last_conv.4.running_mean, wtm.last_conv.4.running_var, conv3.weight, bn3.weight, bn3.bias, bn3.running_mean, bn3.running_var
+
+09/23 00:37:17 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+09/23 00:37:17 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+09/23 00:37:17 - mmengine - INFO - Checkpoints will be saved to /home/nr4325/Desktop/Pose4/mmpose/work_dirs/aa152_WTPose_SwinV2_t_w8_coco_256x256_1k.
+09/23 00:37:48 - mmengine - INFO - Epoch(train)   [1][   50/18727]  lr: 4.954910e-05  eta: 28 days, 16:37:06  time: 0.630375  data_time: 0.078848  memory: 2850  loss: 0.001670  loss_kpt: 0.001670  acc_pose: 0.014706
+09/23 00:38:22 - mmengine - INFO - Epoch(train)   [1][  100/18727]  lr: 9.959920e-05  eta: 29 days, 18:18:52  time: 0.677438  data_time: 0.096528  memory: 2849  loss: 0.001726  loss_kpt: 0.001726  acc_pose: 0.058824
+09/23 00:38:50 - mmengine - INFO - Epoch(train)   [1][  150/18727]  lr: 1.496493e-04  eta: 28 days, 9:23:35  time: 0.563518  data_time: 0.059985  memory: 2849  loss: 0.001682  loss_kpt: 0.001682  acc_pose: 0.049020
+09/23 00:39:17 - mmengine - INFO - Epoch(train)   [1][  200/18727]  lr: 1.996994e-04  eta: 27 days, 5:37:40  time: 0.522137  data_time: 0.041744  memory: 2849  loss: 0.001633  loss_kpt: 0.001633  acc_pose: 0.000000
+09/23 00:39:44 - mmengine - INFO - Epoch(train)   [1][  250/18727]  lr: 2.497495e-04  eta: 26 days, 18:28:37  time: 0.547363  data_time: 0.028843  memory: 2849  loss: 0.001724  loss_kpt: 0.001724  acc_pose: 0.029412
+09/23 00:40:11 - mmengine - INFO - Epoch(train)   [1][  300/18727]  lr: 2.997996e-04  eta: 26 days, 9:03:04  time: 0.536436  data_time: 0.044140  memory: 2849  loss: 0.001612  loss_kpt: 0.001612  acc_pose: 0.235294
+09/23 00:40:36 - mmengine - INFO - Epoch(train)   [1][  350/18727]  lr: 3.498497e-04  eta: 25 days, 22:36:28  time: 0.512672  data_time: 0.022641  memory: 2849  loss: 0.001591  loss_kpt: 0.001591  acc_pose: 0.151961
+09/23 00:41:03 - mmengine - INFO - Epoch(train)   [1][  400/18727]  lr: 3.998998e-04  eta: 25 days, 18:29:26  time: 0.539893  data_time: 0.039009  memory: 2849  loss: 0.001599  loss_kpt: 0.001599  acc_pose: 0.111111
+09/23 00:41:30 - mmengine - INFO - Epoch(train)   [1][  450/18727]  lr: 4.499499e-04  eta: 25 days, 15:08:52  time: 0.538751  data_time: 0.061918  memory: 2849  loss: 0.001574  loss_kpt: 0.001574  acc_pose: 0.250000
+09/23 00:41:57 - mmengine - INFO - Epoch(train)   [1][  500/18727]  lr: 5.000000e-04  eta: 25 days, 11:07:15  time: 0.526380  data_time: 0.045999  memory: 2849  loss: 0.001587  loss_kpt: 0.001587  acc_pose: 0.061111
+09/23 00:42:24 - mmengine - INFO - Epoch(train)   [1][  550/18727]  lr: 5.000000e-04  eta: 25 days, 9:15:44  time: 0.540859  data_time: 0.056422  memory: 2849  loss: 0.001637  loss_kpt: 0.001637  acc_pose: 0.225490
+09/23 00:42:49 - mmengine - INFO - Epoch(train)   [1][  600/18727]  lr: 5.000000e-04  eta: 25 days, 5:20:59  time: 0.514900  data_time: 0.027551  memory: 2849  loss: 0.001594  loss_kpt: 0.001594  acc_pose: 0.215686
+09/23 00:43:16 - mmengine - INFO - Epoch(train)   [1][  650/18727]  lr: 5.000000e-04  eta: 25 days, 2:50:54  time: 0.524547  data_time: 0.008610  memory: 2849  loss: 0.001548  loss_kpt: 0.001548  acc_pose: 0.176471
+09/23 00:43:44 - mmengine - INFO - Epoch(train)   [1][  700/18727]  lr: 5.000000e-04  eta: 25 days, 4:28:18  time: 0.572848  data_time: 0.042409  memory: 2849  loss: 0.001645  loss_kpt: 0.001645  acc_pose: 0.250000
+09/23 00:44:12 - mmengine - INFO - Epoch(train)   [1][  750/18727]  lr: 5.000000e-04  eta: 25 days, 4:15:17  time: 0.550565  data_time: 0.036875  memory: 2849  loss: 0.001530  loss_kpt: 0.001530  acc_pose: 0.066667
+09/23 00:44:39 - mmengine - INFO - Epoch(train)   [1][  800/18727]  lr: 5.000000e-04  eta: 25 days, 3:47:38  time: 0.546605  data_time: 0.032743  memory: 2849  loss: 0.001587  loss_kpt: 0.001587  acc_pose: 0.172222
+09/23 00:45:05 - mmengine - INFO - Epoch(train)   [1][  850/18727]  lr: 5.000000e-04  eta: 25 days, 1:37:56  time: 0.519306  data_time: 0.021363  memory: 2849  loss: 0.001547  loss_kpt: 0.001547  acc_pose: 0.036458
+09/23 00:45:33 - mmengine - INFO - Epoch(train)   [1][  900/18727]  lr: 5.000000e-04  eta: 25 days, 1:43:27  time: 0.552499  data_time: 0.035857  memory: 2849  loss: 0.001627  loss_kpt: 0.001627  acc_pose: 0.352941
+09/23 00:45:59 - mmengine - INFO - Epoch(train)   [1][  950/18727]  lr: 5.000000e-04  eta: 25 days, 0:02:36  time: 0.521840  data_time: 0.019956  memory: 2849  loss: 0.001591  loss_kpt: 0.001591  acc_pose: 0.397059
+09/23 00:46:24 - mmengine - INFO - Exp name: aa152_WTPose_SwinV2_t_w8_coco_256x256_1k_20230923_003129
+09/23 00:46:25 - mmengine - INFO - Epoch(train)   [1][ 1000/18727]  lr: 5.000000e-04  eta: 24 days, 22:02:31  time: 0.512910  data_time: 0.010257  memory: 2849  loss: 0.001558  loss_kpt: 0.001558  acc_pose: 0.098039
+09/23 00:46:52 - mmengine - INFO - Epoch(train)   [1][ 1050/18727]  lr: 5.000000e-04  eta: 24 days, 22:12:53  time: 0.551059  data_time: 0.034249  memory: 2849  loss: 0.001482  loss_kpt: 0.001482  acc_pose: 0.318627
+09/23 00:47:19 - mmengine - INFO - Epoch(train)   [1][ 1100/18727]  lr: 5.000000e-04  eta: 24 days, 21:17:51  time: 0.529434  data_time: 0.012931  memory: 2849  loss: 0.001573  loss_kpt: 0.001573  acc_pose: 0.094444
+09/23 00:47:46 - mmengine - INFO - Epoch(train)   [1][ 1150/18727]  lr: 5.000000e-04  eta: 24 days, 21:10:28  time: 0.544492  data_time: 0.018061  memory: 2849  loss: 0.001526  loss_kpt: 0.001526  acc_pose: 0.210784
+09/23 00:48:12 - mmengine - INFO - Epoch(train)   [1][ 1200/18727]  lr: 5.000000e-04  eta: 24 days, 19:50:42  time: 0.517770  data_time: 0.024501  memory: 2849  loss: 0.001562  loss_kpt: 0.001562  acc_pose: 0.112745
+09/23 00:48:38 - mmengine - INFO - Epoch(train)   [1][ 1250/18727]  lr: 5.000000e-04  eta: 24 days, 18:42:06  time: 0.519605  data_time: 0.010988  memory: 2849  loss: 0.001566  loss_kpt: 0.001566  acc_pose: 0.196078
+09/23 00:49:03 - mmengine - INFO - Epoch(train)   [1][ 1300/18727]  lr: 5.000000e-04  eta: 24 days, 17:33:47  time: 0.517642  data_time: 0.013332  memory: 2849  loss: 0.001584  loss_kpt: 0.001584  acc_pose: 0.171875
+09/23 00:49:30 - mmengine - INFO - Epoch(train)   [1][ 1350/18727]  lr: 5.000000e-04  eta: 24 days, 16:39:12  time: 0.521230  data_time: 0.019903  memory: 2849  loss: 0.001583  loss_kpt: 0.001583  acc_pose: 0.317708
+09/23 00:49:56 - mmengine - INFO - Epoch(train)   [1][ 1400/18727]  lr: 5.000000e-04  eta: 24 days, 15:56:50  time: 0.524795  data_time: 0.008543  memory: 2849  loss: 0.001581  loss_kpt: 0.001581  acc_pose: 0.117647
+09/23 00:50:21 - mmengine - INFO - Epoch(train)   [1][ 1450/18727]  lr: 5.000000e-04  eta: 24 days, 14:34:29  time: 0.505815  data_time: 0.009007  memory: 2849  loss: 0.001529  loss_kpt: 0.001529  acc_pose: 0.441176
+09/23 00:50:47 - mmengine - INFO - Epoch(train)   [1][ 1500/18727]  lr: 5.000000e-04  eta: 24 days, 13:32:48  time: 0.512780  data_time: 0.015467  memory: 2849  loss: 0.001556  loss_kpt: 0.001556  acc_pose: 0.250000
+09/23 00:51:12 - mmengine - INFO - Epoch(train)   [1][ 1550/18727]  lr: 5.000000e-04  eta: 24 days, 12:35:44  time: 0.513097  data_time: 0.012009  memory: 2849  loss: 0.001540  loss_kpt: 0.001540  acc_pose: 0.240196
+09/23 00:51:38 - mmengine - INFO - Epoch(train)   [1][ 1600/18727]  lr: 5.000000e-04  eta: 24 days, 11:38:14  time: 0.511148  data_time: 0.008642  memory: 2849  loss: 0.001522  loss_kpt: 0.001522  acc_pose: 0.291667
+09/23 00:52:04 - mmengine - INFO - Epoch(train)   [1][ 1650/18727]  lr: 5.000000e-04  eta: 24 days, 11:14:15  time: 0.526297  data_time: 0.023273  memory: 2849  loss: 0.001574  loss_kpt: 0.001574  acc_pose: 0.166667
+09/23 00:52:31 - mmengine - INFO - Epoch(train)   [1][ 1700/18727]  lr: 5.000000e-04  eta: 24 days, 10:53:54  time: 0.527458  data_time: 0.016435  memory: 2849  loss: 0.001585  loss_kpt: 0.001585  acc_pose: 0.544118
+09/23 00:52:56 - mmengine - INFO - Epoch(train)   [1][ 1750/18727]  lr: 5.000000e-04  eta: 24 days, 9:49:19  time: 0.503221  data_time: 0.010510  memory: 2849  loss: 0.001532  loss_kpt: 0.001532  acc_pose: 0.485294
+09/23 00:53:22 - mmengine - INFO - Epoch(train)   [1][ 1800/18727]  lr: 5.000000e-04  eta: 24 days, 9:42:35  time: 0.533049  data_time: 0.021094  memory: 2849  loss: 0.001520  loss_kpt: 0.001520  acc_pose: 0.348039
+09/23 00:53:48 - mmengine - INFO - Epoch(train)   [1][ 1850/18727]  lr: 5.000000e-04  eta: 24 days, 8:53:58  time: 0.509204  data_time: 0.011296  memory: 2849  loss: 0.001604  loss_kpt: 0.001604  acc_pose: 0.240196
+09/23 00:54:14 - mmengine - INFO - Epoch(train)   [1][ 1900/18727]  lr: 5.000000e-04  eta: 24 days, 8:23:00  time: 0.517971  data_time: 0.010925  memory: 2849  loss: 0.001513  loss_kpt: 0.001513  acc_pose: 0.239583
+09/23 00:54:41 - mmengine - INFO - Epoch(train)   [1][ 1950/18727]  lr: 5.000000e-04  eta: 24 days, 8:24:55  time: 0.536618  data_time: 0.019922  memory: 2849  loss: 0.001534  loss_kpt: 0.001534  acc_pose: 0.343137
+09/23 00:55:06 - mmengine - INFO - Exp name: aa152_WTPose_SwinV2_t_w8_coco_256x256_1k_20230923_003129
+09/23 00:55:06 - mmengine - INFO - Epoch(train)   [1][ 2000/18727]  lr: 5.000000e-04  eta: 24 days, 7:41:45  time: 0.509165  data_time: 0.013204  memory: 2849  loss: 0.001572  loss_kpt: 0.001572  acc_pose: 0.145833
+09/23 00:55:33 - mmengine - INFO - Epoch(train)   [1][ 2050/18727]  lr: 5.000000e-04  eta: 24 days, 7:39:43  time: 0.533594  data_time: 0.009501  memory: 2849  loss: 0.001464  loss_kpt: 0.001464  acc_pose: 0.000000
+09/23 00:55:59 - mmengine - INFO - Epoch(train)   [1][ 2100/18727]  lr: 5.000000e-04  eta: 24 days, 7:22:06  time: 0.523563  data_time: 0.026303  memory: 2849  loss: 0.001444  loss_kpt: 0.001444  acc_pose: 0.049020
+09/23 00:56:24 - mmengine - INFO - Epoch(train)   [1][ 2150/18727]  lr: 5.000000e-04  eta: 24 days, 6:45:28  time: 0.510548  data_time: 0.011868  memory: 2849  loss: 0.001518  loss_kpt: 0.001518  acc_pose: 0.352941
+09/23 00:56:50 - mmengine - INFO - Epoch(train)   [1][ 2200/18727]  lr: 5.000000e-04  eta: 24 days, 6:21:17  time: 0.517812  data_time: 0.014208  memory: 2849  loss: 0.001449  loss_kpt: 0.001449  acc_pose: 0.387255
+09/23 00:57:16 - mmengine - INFO - Epoch(train)   [1][ 2250/18727]  lr: 5.000000e-04  eta: 24 days, 5:55:44  time: 0.516145  data_time: 0.014406  memory: 2849  loss: 0.001511  loss_kpt: 0.001511  acc_pose: 0.233333
+09/23 00:57:41 - mmengine - INFO - Epoch(train)   [1][ 2300/18727]  lr: 5.000000e-04  eta: 24 days, 5:06:37  time: 0.498825  data_time: 0.009857  memory: 2849  loss: 0.001520  loss_kpt: 0.001520  acc_pose: 0.187500
+09/23 00:58:06 - mmengine - INFO - Epoch(train)   [1][ 2350/18727]  lr: 5.000000e-04  eta: 24 days, 4:29:17  time: 0.505796  data_time: 0.009958  memory: 2849  loss: 0.001516  loss_kpt: 0.001516  acc_pose: 0.000000
+09/23 00:58:32 - mmengine - INFO - Epoch(train)   [1][ 2400/18727]  lr: 5.000000e-04  eta: 24 days, 4:06:27  time: 0.515297  data_time: 0.010477  memory: 2849  loss: 0.001553  loss_kpt: 0.001553  acc_pose: 0.302083
+09/23 00:58:58 - mmengine - INFO - Epoch(train)   [1][ 2450/18727]  lr: 5.000000e-04  eta: 24 days, 3:59:19  time: 0.526352  data_time: 0.025411  memory: 2849  loss: 0.001519  loss_kpt: 0.001519  acc_pose: 0.480392
+09/23 00:59:25 - mmengine - INFO - Epoch(train)   [1][ 2500/18727]  lr: 5.000000e-04  eta: 24 days, 3:57:30  time: 0.530206  data_time: 0.017515  memory: 2849  loss: 0.001464  loss_kpt: 0.001464  acc_pose: 0.186275
+09/23 00:59:52 - mmengine - INFO - Epoch(train)   [1][ 2550/18727]  lr: 5.000000e-04  eta: 24 days, 3:56:24  time: 0.530729  data_time: 0.017142  memory: 2849  loss: 0.001481  loss_kpt: 0.001481  acc_pose: 0.200980
+09/23 01:00:18 - mmengine - INFO - Epoch(train)   [1][ 2600/18727]  lr: 5.000000e-04  eta: 24 days, 3:42:03  time: 0.520180  data_time: 0.015379  memory: 2849  loss: 0.001531  loss_kpt: 0.001531  acc_pose: 0.205882
+09/23 01:00:45 - mmengine - INFO - Epoch(train)   [1][ 2650/18727]  lr: 5.000000e-04  eta: 24 days, 4:04:27  time: 0.549505  data_time: 0.025097  memory: 2849  loss: 0.001432  loss_kpt: 0.001432  acc_pose: 0.161765
+09/23 01:01:11 - mmengine - INFO - Epoch(train)   [1][ 2700/18727]  lr: 5.000000e-04  eta: 24 days, 3:46:39  time: 0.517053  data_time: 0.019097  memory: 2849  loss: 0.001548  loss_kpt: 0.001548  acc_pose: 0.302083
+09/23 01:01:36 - mmengine - INFO - Epoch(train)   [1][ 2750/18727]  lr: 5.000000e-04  eta: 24 days, 3:20:05  time: 0.509160  data_time: 0.010129  memory: 2849  loss: 0.001410  loss_kpt: 0.001410  acc_pose: 0.328431

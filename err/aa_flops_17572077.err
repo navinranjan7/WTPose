@@ -1,0 +1,7 @@
+usage: get_flops.py [-h] [--device DEVICE]
+                    [--cfg-options CFG_OPTIONS [CFG_OPTIONS ...]]
+                    [--input-shape INPUT_SHAPE [INPUT_SHAPE ...]]
+                    [--batch-size BATCH_SIZE] [--show-arch-info]
+                    config
+get_flops.py: error: the following arguments are required: config
+/var/spool/slurmd/job17572077/slurm_script: line 26: configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtpose_swin-b-p4-w7_8xb32-210e_coco-256x192_wtm3.py: Permission denied

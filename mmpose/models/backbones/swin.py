@@ -735,5 +735,6 @@ class SwinTransformer(BaseBackbone):
                                self.num_features[i]).permute(0, 3, 1,
                                                              2).contiguous()
                 outs.append(out)
+                print(out.size())
 
         return tuple(outs)

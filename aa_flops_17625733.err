@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "tools/analysis_tools/get_flops.py", line 142, in <module>
+    main()
+  File "tools/analysis_tools/get_flops.py", line 126, in main
+    outputs = inference(args, input_shape, logger)
+  File "tools/analysis_tools/get_flops.py", line 69, in inference
+    model = init_model(
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/apis/inference.py", line 129, in init_model
+    model.eval()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1751, in eval
+    return self.train(False)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1732, in train
+    module.train(mode)
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py", line 1344, in train
+    super(wtposeSwinV1WTM3, self).train(mode)
+NameError: name 'wtposeSwinV1WTM3' is not defined

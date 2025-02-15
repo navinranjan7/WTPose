@@ -1,0 +1,6 @@
+import: unable to open X server `' @ error/import.c/ImportImageCommand/346.
+/var/spool/slurmd/job19522042/slurm_script: line 27: image_path: command not found
+/var/spool/slurmd/job19522042/slurm_script: line 28: out_img_root: command not found
+/var/spool/slurmd/job19522042/slurm_script: line 29: command_string: command not found
+/var/spool/slurmd/job19522042/slurm_script: line 36: syntax error near unexpected token `command_string'
+/var/spool/slurmd/job19522042/slurm_script: line 36: `os.system(command_string)'

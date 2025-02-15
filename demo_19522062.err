@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "demo/image_demo.py", line 105, in <module>
+    main()
+  File "demo/image_demo.py", line 85, in main
+    batch_results = inference_topdown(model, args.img)
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/apis/inference.py", line 162, in inference_topdown
+    w, h = Image.open(img).size
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/PIL/Image.py", line 3227, in open
+    fp = builtins.open(filename, "rb")
+IsADirectoryError: [Errno 21] Is a directory: '/home/nr4325/Desktop/Pose4/mmpose/data/coco/val2017/'

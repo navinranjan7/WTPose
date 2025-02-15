@@ -1,0 +1,455 @@
+12/13 07:17:06 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.17 (default, Jul  5 2023, 21:04:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 1729206453
+    GPU 0,1: NVIDIA A100-PCIE-40GB
+    CUDA_HOME: None
+    GCC: n/a
+    PyTorch: 1.11.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.5.2 (Git Hash a9302535553c73243c632ad3c4c80beec3d19a1e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.12.0
+    OpenCV: 4.8.0
+    MMEngine: 0.8.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1729206453
+    Distributed launcher: pytorch
+    Distributed training: True
+    GPU number: 2
+------------------------------------------------------------
+
+12/13 07:17:06 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=512)
+backend_args = dict(backend='local')
+codec = dict(
+    heatmap_size=(
+        48,
+        64,
+    ),
+    input_size=(
+        192,
+        256,
+    ),
+    sigma=2,
+    type='UDPHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+custom_imports = dict(
+    allow_failed_imports=False,
+    imports=[
+        'mmpose.engine.optim_wrappers.layer_decay_optim_wrapper',
+    ])
+data_mode = 'topdown'
+data_root = 'data/coco/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=10,
+        max_keep_ckpts=1,
+        rule='greater',
+        save_best='coco/AP',
+        type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'pytorch'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        arch=dict(
+            embed_dims=384,
+            feedforward_channels=1536,
+            num_heads=12,
+            num_layers=12),
+        drop_path_rate=0.1,
+        img_size=(
+            256,
+            192,
+        ),
+        init_cfg=dict(
+            checkpoint=
+            'https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small.pth',
+            type='Pretrained'),
+        out_type='featmap',
+        patch_cfg=dict(padding=2),
+        patch_size=16,
+        qkv_bias=True,
+        type='VisionTransformer',
+        with_cls_token=True),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        decoder=dict(
+            heatmap_size=(
+                48,
+                64,
+            ),
+            input_size=(
+                192,
+                256,
+            ),
+            sigma=2,
+            type='UDPHeatmap'),
+        deconv_kernel_sizes=(
+            4,
+            4,
+        ),
+        deconv_out_channels=(
+            256,
+            256,
+        ),
+        in_channels=384,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=17,
+        type='HeatmapHead'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=False),
+    type='TopdownPoseEstimator')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=1.0, norm_type=2),
+    constructor='LayerDecayOptimWrapperConstructor',
+    optimizer=dict(
+        betas=(
+            0.9,
+            0.999,
+        ), lr=0.0005, type='AdamW', weight_decay=0.1),
+    paramwise_cfg=dict(
+        custom_keys=dict(
+            bias=dict(decay_multi=0.0),
+            norm=dict(decay_mult=0.0),
+            pos_embed=dict(decay_mult=0.0),
+            relative_position_bias_table=dict(decay_mult=0.0)),
+        layer_decay_rate=0.8,
+        num_layers=12))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=210,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                192,
+                256,
+            ), type='TopdownAffine', use_udp=True),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+train_cfg = dict(by_epoch=True, max_epochs=210, val_interval=10)
+train_dataloader = dict(
+    batch_size=64,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_train2017.json',
+        data_mode='topdown',
+        data_prefix=dict(img='train2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                192,
+                256,
+            ), type='TopdownAffine', use_udp=True),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        48,
+                        64,
+                    ),
+                    input_size=(
+                        192,
+                        256,
+                    ),
+                    sigma=2,
+                    type='UDPHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        192,
+        256,
+    ), type='TopdownAffine', use_udp=True),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                48,
+                64,
+            ),
+            input_size=(
+                192,
+                256,
+            ),
+            sigma=2,
+            type='UDPHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                192,
+                256,
+            ), type='TopdownAffine', use_udp=True),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        192,
+        256,
+    ), type='TopdownAffine', use_udp=True),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/aa_ViTPose_small_8xb64-210e_coco-256x192'
+
+12/13 07:17:20 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+loading annotations into memory...
+Done (t=7.09s)
+creating index...
+Done (t=7.84s)
+creating index...
+index created!
+index created!
+{'num_layers': 12, 'layer_decay_rate': 0.8, 'custom_keys': {'bias': {'decay_multi': 0.0}, 'pos_embed': {'decay_mult': 0.0}, 'relative_position_bias_table': {'decay_mult': 0.0}, 'norm': {'decay_mult': 0.0}}}
+loading annotations into memory...
+Done (t=0.27s)
+creating index...
+index created!
+{'num_layers': 12, 'layer_decay_rate': 0.8, 'custom_keys': {'bias': {'decay_multi': 0.0}, 'pos_embed': {'decay_mult': 0.0}, 'relative_position_bias_table': {'decay_mult': 0.0}, 'norm': {'decay_mult': 0.0}}}
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+12/13 07:18:17 - mmengine - INFO - load model from: https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small.pth
+12/13 07:18:17 - mmengine - INFO - Loads checkpoint by http backend from path: https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_small.pth
+loading annotations into memory...
+Done (t=0.19s)
+creating index...
+index created!
+12/13 07:18:21 - mmengine - INFO - Resize the pos_embed shape from torch.Size([1, 197, 384]) to torch.Size([1, 193, 384]).
+12/13 07:18:21 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: mask_token
+
+12/13 07:18:21 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+12/13 07:18:21 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+12/13 07:18:21 - mmengine - INFO - Checkpoints will be saved to /home/nr4325/Desktop/Pose4/mmpose/work_dirs/aa_ViTPose_small_8xb64-210e_coco-256x192.
+12/13 07:19:28 - mmengine - INFO - Epoch(train)   [1][  50/1171]  base_lr: 4.954910e-05 lr: 2.723990e-06  eta: 3 days, 19:41:51  time: 1.342682  data_time: 0.979266  memory: 6213  grad_norm: 0.005788  loss: 0.002155  loss_kpt: 0.002155  acc_pose: 0.254253
+12/13 07:20:21 - mmengine - INFO - Epoch(train)   [1][ 100/1171]  base_lr: 9.959920e-05 lr: 5.475524e-06  eta: 3 days, 9:59:31  time: 1.058944  data_time: 0.803755  memory: 6213  grad_norm: 0.004886  loss: 0.001835  loss_kpt: 0.001835  acc_pose: 0.297972
+12/13 07:21:19 - mmengine - INFO - Epoch(train)   [1][ 150/1171]  base_lr: 1.496493e-04 lr: 8.227057e-06  eta: 3 days, 8:51:47  time: 1.151935  data_time: 0.893462  memory: 6213  grad_norm: 0.005641  loss: 0.001693  loss_kpt: 0.001693  acc_pose: 0.434740
+12/13 07:22:17 - mmengine - INFO - Epoch(train)   [1][ 200/1171]  base_lr: 1.996994e-04 lr: 1.097859e-05  eta: 3 days, 8:40:17  time: 1.174249  data_time: 0.922214  memory: 6213  grad_norm: 0.005632  loss: 0.001611  loss_kpt: 0.001611  acc_pose: 0.499466
+12/13 07:23:08 - mmengine - INFO - Epoch(train)   [1][ 250/1171]  base_lr: 2.497495e-04 lr: 1.373012e-05  eta: 3 days, 6:21:06  time: 1.013184  data_time: 0.695708  memory: 6213  grad_norm: 0.005042  loss: 0.001539  loss_kpt: 0.001539  acc_pose: 0.486906
+12/13 07:24:16 - mmengine - INFO - Epoch(train)   [1][ 300/1171]  base_lr: 2.997996e-04 lr: 1.648166e-05  eta: 3 days, 8:51:12  time: 1.369599  data_time: 0.152402  memory: 6213  grad_norm: 0.005286  loss: 0.001511  loss_kpt: 0.001511  acc_pose: 0.469264
+12/13 07:25:22 - mmengine - INFO - Epoch(train)   [1][ 350/1171]  base_lr: 3.498497e-04 lr: 1.923319e-05  eta: 3 days, 10:06:50  time: 1.316174  data_time: 0.189172  memory: 6213  grad_norm: 0.005251  loss: 0.001466  loss_kpt: 0.001466  acc_pose: 0.514851
+12/13 07:26:16 - mmengine - INFO - Epoch(train)   [1][ 400/1171]  base_lr: 3.998998e-04 lr: 2.198472e-05  eta: 3 days, 8:56:29  time: 1.068222  data_time: 0.303725  memory: 6213  grad_norm: 0.004952  loss: 0.001426  loss_kpt: 0.001426  acc_pose: 0.474583
+12/13 07:27:05 - mmengine - INFO - Epoch(train)   [1][ 450/1171]  base_lr: 4.499499e-04 lr: 2.473626e-05  eta: 3 days, 7:27:32  time: 0.993353  data_time: 0.377037  memory: 6213  grad_norm: 0.005039  loss: 0.001414  loss_kpt: 0.001414  acc_pose: 0.462201
+12/13 07:27:59 - mmengine - INFO - Epoch(train)   [1][ 500/1171]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3 days, 6:45:31  time: 1.065036  data_time: 0.380814  memory: 6213  grad_norm: 0.005238  loss: 0.001426  loss_kpt: 0.001426  acc_pose: 0.459742
+12/13 07:28:53 - mmengine - INFO - Epoch(train)   [1][ 550/1171]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3 days, 6:19:25  time: 1.087700  data_time: 0.283404  memory: 6213  grad_norm: 0.004851  loss: 0.001383  loss_kpt: 0.001383  acc_pose: 0.567999
+12/13 07:29:51 - mmengine - INFO - Epoch(train)   [1][ 600/1171]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3 days, 6:23:36  time: 1.164284  data_time: 0.247730  memory: 6213  grad_norm: 0.004773  loss: 0.001347  loss_kpt: 0.001347  acc_pose: 0.528715
+12/13 07:30:45 - mmengine - INFO - Epoch(train)   [1][ 650/1171]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3 days, 6:02:22  time: 1.085970  data_time: 0.233168  memory: 6213  grad_norm: 0.005030  loss: 0.001348  loss_kpt: 0.001348  acc_pose: 0.537237
+12/13 07:31:39 - mmengine - INFO - Epoch(train)   [1][ 700/1171]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3 days, 5:40:04  time: 1.072404  data_time: 0.294607  memory: 6213  grad_norm: 0.004715  loss: 0.001323  loss_kpt: 0.001323  acc_pose: 0.562682
+12/13 07:32:32 - mmengine - INFO - Epoch(train)   [1][ 750/1171]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3 days, 5:19:02  time: 1.066543  data_time: 0.703285  memory: 6213  grad_norm: 0.004825  loss: 0.001328  loss_kpt: 0.001328  acc_pose: 0.505782
+12/13 07:33:23 - mmengine - INFO - Epoch(train)   [1][ 800/1171]  base_lr: 5.000000e-04 lr: 2.748779e-05  eta: 3 days, 4:44:39  time: 1.004342  data_time: 0.652949  memory: 6213  grad_norm: 0.004566  loss: 0.001313  loss_kpt: 0.001313  acc_pose: 0.541970

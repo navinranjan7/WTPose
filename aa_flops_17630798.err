@@ -1,0 +1,68 @@
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py:955: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  x = x.view(B, H // window_size, window_size, W // window_size,
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py:766: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  C // self.num_heads).permute(2, 0, 3, 1, 4)
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py:941: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  x = windows.view(B, H // window_size, W // window_size, window_size,
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py:784: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  attn = attn.view(B // nW, nW, self.num_heads, N,
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/utils/transformer.py:358: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  out_h = (H + 2 * self.sampler.padding[0] - self.sampler.dilation[0] *
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/utils/transformer.py:361: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  out_w = (W + 2 * self.sampler.padding[1] - self.sampler.dilation[1] *
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py:592: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  w1 = torch.reshape(inputs[0], (-1, inputs[0].shape[1]//self.dim, inputs[0].shape[2], inputs[0].shape[3], self.dim))
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py:593: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  w2 = torch.reshape(inputs[1], (-1, inputs[1].shape[1]//self.dim, inputs[1].shape[2], inputs[1].shape[3], self.dim))
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py:594: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  w3 = torch.reshape(inputs[2], (-1, inputs[2].shape[1]//self.dim, inputs[2].shape[2], inputs[2].shape[3], self.dim))
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py:595: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  w4 = torch.reshape(inputs[3], (-1, inputs[3].shape[1]//self.dim, inputs[3].shape[2], inputs[3].shape[3], self.dim))
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/utils/patch3d.py:79: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  dim_out = (dim_in + 2 * dim_padding - dim_dilation * (dim_kernel_size - 1) - 1) // dim_stride + 1
+/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py:420: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  qkv = self.qkv(x).reshape(B_, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
+Traceback (most recent call last):
+  File "tools/analysis_tools/get_flops.py", line 142, in <module>
+    main()
+  File "tools/analysis_tools/get_flops.py", line 126, in main
+    outputs = inference(args, input_shape, logger)
+  File "tools/analysis_tools/get_flops.py", line 102, in inference
+    outputs = get_model_complexity_info(
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/analysis/print_helper.py", line 748, in get_model_complexity_info
+    flops = flop_handler.total()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/analysis/jit_analysis.py", line 268, in total
+    stats = self._analyze()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/analysis/jit_analysis.py", line 570, in _analyze
+    graph = _get_scoped_trace_graph(self._model, self._inputs,
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/analysis/jit_analysis.py", line 194, in _get_scoped_trace_graph
+    graph, _ = _get_trace_graph(module, inputs)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/jit/_trace.py", line 1166, in _get_trace_graph
+    outs = ONNXTracedModule(f, strict, _force_outplace, return_inputs, _return_inputs_states)(*args, **kwargs)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/jit/_trace.py", line 127, in forward
+    graph, out = torch._C._create_graph_by_tracing(
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/jit/_trace.py", line 118, in wrapper
+    outs.append(self.inner(*trace_inputs))
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1128, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1098, in _slow_forward
+    result = self.forward(*input, **kwargs)
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/pose_estimators/base.py", line 172, in _forward
+    x = self.extract_feat(inputs)
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/pose_estimators/base.py", line 188, in extract_feat
+    x = self.backbone(inputs)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1128, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1098, in _slow_forward
+    result = self.forward(*input, **kwargs)
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py", line 1461, in forward
+    x = self.wtm3d(outs, resnet_out)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1128, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1098, in _slow_forward
+    result = self.forward(*input, **kwargs)
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3L.py", line 626, in forward
+    w3 = torch.cat([w4, w3], dim=1)
+RuntimeError: Sizes of tensors must match except in dimension 1. Expected size 4 but got size 16 for tensor number 1 in the list.

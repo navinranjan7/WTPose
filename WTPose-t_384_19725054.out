@@ -1,0 +1,452 @@
+02/01 07:32:30 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.17 (default, Jul  5 2023, 21:04:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 301385931
+    GPU 0: NVIDIA A100-PCIE-40GB
+    CUDA_HOME: None
+    GCC: n/a
+    PyTorch: 1.11.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.5.2 (Git Hash a9302535553c73243c632ad3c4c80beec3d19a1e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.12.0
+    OpenCV: 4.8.0
+    MMEngine: 0.8.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 301385931
+    Distributed launcher: pytorch
+    Distributed training: True
+    GPU number: 1
+------------------------------------------------------------
+
+02/01 07:32:30 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=256)
+backend_args = dict(backend='local')
+codec = dict(
+    heatmap_size=(
+        72,
+        96,
+    ),
+    input_size=(
+        288,
+        384,
+    ),
+    sigma=2,
+    type='MSRAHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+data_mode = 'topdown'
+data_root = 'data/coco/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=10,
+        rule='greater',
+        save_best='coco/AP',
+        type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'pytorch'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        attn_drop_rate=0.0,
+        convert_weights=False,
+        depths=[
+            2,
+            2,
+            6,
+            2,
+        ],
+        drop_path_rate=0.2,
+        drop_rate=0.0,
+        embed_dims=96,
+        init_cfg=dict(
+            checkpoint=
+            '/home/nr4325/Desktop/Pose4/mmpose/nav/pretrain/resnet101_swin_tiny_b16x64_330e_1k.pth',
+            type='Pretrained'),
+        mlp_ratio=4,
+        num_heads=[
+            3,
+            6,
+            12,
+            24,
+        ],
+        out_indices=(
+            0,
+            1,
+            2,
+            3,
+        ),
+        patch_norm=True,
+        qk_scale=None,
+        qkv_bias=True,
+        type='WTPose_MLv3',
+        window_size=7,
+        with_cp=False,
+        wtm_dilations=[
+            2,
+            1,
+            4,
+            1,
+            6,
+            1,
+            8,
+            1,
+        ],
+        wtm_dim=96,
+        wtm_in_dim=1920,
+        wtm_kernel_size=7,
+        wtm_low_level_dim=256,
+        wtm_num_heads=[
+            4,
+            8,
+            16,
+            32,
+        ],
+        wtm_out_dim=128,
+        wtm_reduction=32,
+        wtm_size=(
+            96,
+            72,
+        )),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        conv_out_channels=False,
+        decoder=dict(
+            heatmap_size=(
+                72,
+                96,
+            ),
+            input_size=(
+                288,
+                384,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        deconv_out_channels=False,
+        in_channels=128,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=17,
+        type='HeatmapHeadWTPose'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=True),
+    type='TopdownPoseEstimator')
+norm_cfg = dict(requires_grad=True, type='SyncBN')
+optim_wrapper = dict(optimizer=dict(lr=0.0005, type='Adam'))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=210,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=24,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                288,
+                384,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+train_cfg = dict(by_epoch=True, max_epochs=210, val_interval=10)
+train_dataloader = dict(
+    batch_size=24,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_train2017.json',
+        data_mode='topdown',
+        data_prefix=dict(img='train2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                288,
+                384,
+            ), type='TopdownAffine'),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        72,
+                        96,
+                    ),
+                    input_size=(
+                        288,
+                        384,
+                    ),
+                    sigma=2,
+                    type='MSRAHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        288,
+        384,
+    ), type='TopdownAffine'),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                72,
+                96,
+            ),
+            input_size=(
+                288,
+                384,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=24,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                288,
+                384,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        288,
+        384,
+    ), type='TopdownAffine'),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/wtm_mlv3_resnet101_swin_t_w7_coco_384x288'
+
+02/01 07:32:35 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+Done (t=7.09s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.19s)
+creating index...
+index created!
+02/01 07:33:33 - mmengine - INFO - Loads checkpoint by local backend from path: /home/nr4325/Desktop/Pose4/mmpose/nav/pretrain/resnet101_swin_tiny_b16x64_330e_1k.pth
+02/01 07:33:33 - mmpose - WARNING - The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: patch_embed.projection.weight, patch_embed.projection.bias, patch_embed.norm.weight, patch_embed.norm.bias, norm.weight, norm.bias, head.fc.weight, head.fc.bias, stages.0.blocks.1.attn.attn_mask, stages.1.blocks.1.attn.attn_mask, stages.2.blocks.1.attn.attn_mask, stages.2.blocks.3.attn.attn_mask, stages.2.blocks.5.attn.attn_mask
+
+missing keys in source state_dict: norm0.weight, norm0.bias, norm1.weight, norm1.bias, norm2.weight, norm2.bias, norm3.weight, norm3.bias, resnet.stem.0.conv.weight, resnet.stem.0.bn.weight, resnet.stem.0.bn.bias, resnet.stem.0.bn.running_mean, resnet.stem.0.bn.running_var, resnet.stem.1.conv.weight, resnet.stem.1.bn.weight, resnet.stem.1.bn.bias, resnet.stem.1.bn.running_mean, resnet.stem.1.bn.running_var, wtm.wtm3_0.gamma1, wtm.wtm3_0.gamma2, wtm.wtm3_0.norm1.weight, wtm.wtm3_0.norm1.bias, wtm.wtm3_0.attn.rpb, wtm.wtm3_0.attn.qkv.weight, wtm.wtm3_0.attn.qkv.bias, wtm.wtm3_0.attn.proj.weight, wtm.wtm3_0.attn.proj.bias, wtm.wtm3_0.norm2.weight, wtm.wtm3_0.norm2.bias, wtm.wtm3_0.mlp.fc1.weight, wtm.wtm3_0.mlp.fc1.bias, wtm.wtm3_0.mlp.fc2.weight, wtm.wtm3_0.mlp.fc2.bias, wtm.wtm3_1.gamma1, wtm.wtm3_1.gamma2, wtm.wtm3_1.norm1.weight, wtm.wtm3_1.norm1.bias, wtm.wtm3_1.attn.rpb, wtm.wtm3_1.attn.qkv.weight, wtm.wtm3_1.attn.qkv.bias, wtm.wtm3_1.attn.proj.weight, wtm.wtm3_1.attn.proj.bias, wtm.wtm3_1.norm2.weight, wtm.wtm3_1.norm2.bias, wtm.wtm3_1.mlp.fc1.weight, wtm.wtm3_1.mlp.fc1.bias, wtm.wtm3_1.mlp.fc2.weight, wtm.wtm3_1.mlp.fc2.bias, wtm.wtm2_0.gamma1, wtm.wtm2_0.gamma2, wtm.wtm2_0.norm1.weight, wtm.wtm2_0.norm1.bias, wtm.wtm2_0.attn.rpb, wtm.wtm2_0.attn.qkv.weight, wtm.wtm2_0.attn.qkv.bias, wtm.wtm2_0.attn.proj.weight, wtm.wtm2_0.attn.proj.bias, wtm.wtm2_0.norm2.weight, wtm.wtm2_0.norm2.bias, wtm.wtm2_0.mlp.fc1.weight, wtm.wtm2_0.mlp.fc1.bias, wtm.wtm2_0.mlp.fc2.weight, wtm.wtm2_0.mlp.fc2.bias, wtm.wtm2_1.gamma1, wtm.wtm2_1.gamma2, wtm.wtm2_1.norm1.weight, wtm.wtm2_1.norm1.bias, wtm.wtm2_1.attn.rpb, wtm.wtm2_1.attn.qkv.weight, wtm.wtm2_1.attn.qkv.bias, wtm.wtm2_1.attn.proj.weight, wtm.wtm2_1.attn.proj.bias, wtm.wtm2_1.norm2.weight, wtm.wtm2_1.norm2.bias, wtm.wtm2_1.mlp.fc1.weight, wtm.wtm2_1.mlp.fc1.bias, wtm.wtm2_1.mlp.fc2.weight, wtm.wtm2_1.mlp.fc2.bias, wtm.wtm1_0.gamma1, wtm.wtm1_0.gamma2, wtm.wtm1_0.norm1.weight, wtm.wtm1_0.norm1.bias, wtm.wtm1_0.attn.rpb, wtm.wtm1_0.attn.qkv.weight, wtm.wtm1_0.attn.qkv.bias, wtm.wtm1_0.attn.proj.weight, wtm.wtm1_0.attn.proj.bias, wtm.wtm1_0.norm2.weight, wtm.wtm1_0.norm2.bias, wtm.wtm1_0.mlp.fc1.weight, wtm.wtm1_0.mlp.fc1.bias, wtm.wtm1_0.mlp.fc2.weight, wtm.wtm1_0.mlp.fc2.bias, wtm.wtm1_1.gamma1, wtm.wtm1_1.gamma2, wtm.wtm1_1.norm1.weight, wtm.wtm1_1.norm1.bias, wtm.wtm1_1.attn.rpb, wtm.wtm1_1.attn.qkv.weight, wtm.wtm1_1.attn.qkv.bias, wtm.wtm1_1.attn.proj.weight, wtm.wtm1_1.attn.proj.bias, wtm.wtm1_1.norm2.weight, wtm.wtm1_1.norm2.bias, wtm.wtm1_1.mlp.fc1.weight, wtm.wtm1_1.mlp.fc1.bias, wtm.wtm1_1.mlp.fc2.weight, wtm.wtm1_1.mlp.fc2.bias, wtm.wtm0_0.gamma1, wtm.wtm0_0.gamma2, wtm.wtm0_0.norm1.weight, wtm.wtm0_0.norm1.bias, wtm.wtm0_0.attn.rpb, wtm.wtm0_0.attn.qkv.weight, wtm.wtm0_0.attn.qkv.bias, wtm.wtm0_0.attn.proj.weight, wtm.wtm0_0.attn.proj.bias, wtm.wtm0_0.norm2.weight, wtm.wtm0_0.norm2.bias, wtm.wtm0_0.mlp.fc1.weight, wtm.wtm0_0.mlp.fc1.bias, wtm.wtm0_0.mlp.fc2.weight, wtm.wtm0_0.mlp.fc2.bias, wtm.wtm0_1.gamma1, wtm.wtm0_1.gamma2, wtm.wtm0_1.norm1.weight, wtm.wtm0_1.norm1.bias, wtm.wtm0_1.attn.rpb, wtm.wtm0_1.attn.qkv.weight, wtm.wtm0_1.attn.qkv.bias, wtm.wtm0_1.attn.proj.weight, wtm.wtm0_1.attn.proj.bias, wtm.wtm0_1.norm2.weight, wtm.wtm0_1.norm2.bias, wtm.wtm0_1.mlp.fc1.weight, wtm.wtm0_1.mlp.fc1.bias, wtm.wtm0_1.mlp.fc2.weight, wtm.wtm0_1.mlp.fc2.bias, wtm.wtm_1.gamma1, wtm.wtm_1.gamma2, wtm.wtm_1.norm1.weight, wtm.wtm_1.norm1.bias, wtm.wtm_1.attn.rpb, wtm.wtm_1.attn.qkv.weight, wtm.wtm_1.attn.qkv.bias, wtm.wtm_1.attn.proj.weight, wtm.wtm_1.attn.proj.bias, wtm.wtm_1.norm2.weight, wtm.wtm_1.norm2.bias, wtm.wtm_1.mlp.fc1.weight, wtm.wtm_1.mlp.fc1.bias, wtm.wtm_1.mlp.fc2.weight, wtm.wtm_1.mlp.fc2.bias, wtm.wtm_2.gamma1, wtm.wtm_2.gamma2, wtm.wtm_2.norm1.weight, wtm.wtm_2.norm1.bias, wtm.wtm_2.attn.rpb, wtm.wtm_2.attn.qkv.weight, wtm.wtm_2.attn.qkv.bias, wtm.wtm_2.attn.proj.weight, wtm.wtm_2.attn.proj.bias, wtm.wtm_2.norm2.weight, wtm.wtm_2.norm2.bias, wtm.wtm_2.mlp.fc1.weight, wtm.wtm_2.mlp.fc1.bias, wtm.wtm_2.mlp.fc2.weight, wtm.wtm_2.mlp.fc2.bias, wtm.wtm_3.gamma1, wtm.wtm_3.gamma2, wtm.wtm_3.norm1.weight, wtm.wtm_3.norm1.bias, wtm.wtm_3.attn.rpb, wtm.wtm_3.attn.qkv.weight, wtm.wtm_3.attn.qkv.bias, wtm.wtm_3.attn.proj.weight, wtm.wtm_3.attn.proj.bias, wtm.wtm_3.norm2.weight, wtm.wtm_3.norm2.bias, wtm.wtm_3.mlp.fc1.weight, wtm.wtm_3.mlp.fc1.bias, wtm.wtm_3.mlp.fc2.weight, wtm.wtm_3.mlp.fc2.bias, wtm.wtm_4.gamma1, wtm.wtm_4.gamma2, wtm.wtm_4.norm1.weight, wtm.wtm_4.norm1.bias, wtm.wtm_4.attn.rpb, wtm.wtm_4.attn.qkv.weight, wtm.wtm_4.attn.qkv.bias, wtm.wtm_4.attn.proj.weight, wtm.wtm_4.attn.proj.bias, wtm.wtm_4.norm2.weight, wtm.wtm_4.norm2.bias, wtm.wtm_4.mlp.fc1.weight, wtm.wtm_4.mlp.fc1.bias, wtm.wtm_4.mlp.fc2.weight, wtm.wtm_4.mlp.fc2.bias, wtm.wtm_5.gamma1, wtm.wtm_5.gamma2, wtm.wtm_5.norm1.weight, wtm.wtm_5.norm1.bias, wtm.wtm_5.attn.rpb, wtm.wtm_5.attn.qkv.weight, wtm.wtm_5.attn.qkv.bias, wtm.wtm_5.attn.proj.weight, wtm.wtm_5.attn.proj.bias, wtm.wtm_5.norm2.weight, wtm.wtm_5.norm2.bias, wtm.wtm_5.mlp.fc1.weight, wtm.wtm_5.mlp.fc1.bias, wtm.wtm_5.mlp.fc2.weight, wtm.wtm_5.mlp.fc2.bias, wtm.wtm_6.gamma1, wtm.wtm_6.gamma2, wtm.wtm_6.norm1.weight, wtm.wtm_6.norm1.bias, wtm.wtm_6.attn.rpb, wtm.wtm_6.attn.qkv.weight, wtm.wtm_6.attn.qkv.bias, wtm.wtm_6.attn.proj.weight, wtm.wtm_6.attn.proj.bias, wtm.wtm_6.norm2.weight, wtm.wtm_6.norm2.bias, wtm.wtm_6.mlp.fc1.weight, wtm.wtm_6.mlp.fc1.bias, wtm.wtm_6.mlp.fc2.weight, wtm.wtm_6.mlp.fc2.bias, wtm.wtm_7.gamma1, wtm.wtm_7.gamma2, wtm.wtm_7.norm1.weight, wtm.wtm_7.norm1.bias, wtm.wtm_7.attn.rpb, wtm.wtm_7.attn.qkv.weight, wtm.wtm_7.attn.qkv.bias, wtm.wtm_7.attn.proj.weight, wtm.wtm_7.attn.proj.bias, wtm.wtm_7.norm2.weight, wtm.wtm_7.norm2.bias, wtm.wtm_7.mlp.fc1.weight, wtm.wtm_7.mlp.fc1.bias, wtm.wtm_7.mlp.fc2.weight, wtm.wtm_7.mlp.fc2.bias, wtm.wtm_8.gamma1, wtm.wtm_8.gamma2, wtm.wtm_8.norm1.weight, wtm.wtm_8.norm1.bias, wtm.wtm_8.attn.rpb, wtm.wtm_8.attn.qkv.weight, wtm.wtm_8.attn.qkv.bias, wtm.wtm_8.attn.proj.weight, wtm.wtm_8.attn.proj.bias, wtm.wtm_8.norm2.weight, wtm.wtm_8.norm2.bias, wtm.wtm_8.mlp.fc1.weight, wtm.wtm_8.mlp.fc1.bias, wtm.wtm_8.mlp.fc2.weight, wtm.wtm_8.mlp.fc2.bias, wtm.global_avg_pool.1.weight, wtm.global_avg_pool.2.weight, wtm.global_avg_pool.2.bias, wtm.global_avg_pool.2.running_mean, wtm.global_avg_pool.2.running_var, wtm.conv_3_1x1.0.weight, wtm.conv_3_1x1.0.bias, wtm.conv_3_1x1.1.weight, wtm.conv_3_1x1.1.bias, wtm.conv_3_1x1.1.running_mean, wtm.conv_3_1x1.1.running_var, wtm.conv_3_up.0.weight, wtm.conv_3_up.0.bias, wtm.conv_3_up.1.weight, wtm.conv_3_up.1.bias, wtm.conv_3_up.1.running_mean, wtm.conv_3_up.1.running_var, wtm.conv_2_1x1.0.weight, wtm.conv_2_1x1.0.bias, wtm.conv_2_1x1.1.weight, wtm.conv_2_1x1.1.bias, wtm.conv_2_1x1.1.running_mean, wtm.conv_2_1x1.1.running_var, wtm.conv_2_up.0.weight, wtm.conv_2_up.0.bias, wtm.conv_2_up.1.weight, wtm.conv_2_up.1.bias, wtm.conv_2_up.1.running_mean, wtm.conv_2_up.1.running_var, wtm.conv_1_1x1.0.weight, wtm.conv_1_1x1.0.bias, wtm.conv_1_1x1.1.weight, wtm.conv_1_1x1.1.bias, wtm.conv_1_1x1.1.running_mean, wtm.conv_1_1x1.1.running_var, wtm.conv_1_up.0.weight, wtm.conv_1_up.0.bias, wtm.conv_1_up.1.weight, wtm.conv_1_up.1.bias, wtm.conv_1_up.1.running_mean, wtm.conv_1_up.1.running_var, wtm.conv0_1x1.0.weight, wtm.conv0_1x1.0.bias, wtm.conv0_1x1.1.weight, wtm.conv0_1x1.1.bias, wtm.conv0_1x1.1.running_mean, wtm.conv0_1x1.1.running_var, wtm.conv1.weight, wtm.bn1.weight, wtm.bn1.bias, wtm.bn1.running_mean, wtm.bn1.running_var, wtm.conv2.weight, wtm.bn2.weight, wtm.bn2.bias, wtm.bn2.running_mean, wtm.bn2.running_var, wtm.low.weight, wtm.bn_low.weight, wtm.bn_low.bias, wtm.bn_low.running_mean, wtm.bn_low.running_var, wtm.last_conv.0.weight, wtm.last_conv.1.weight, wtm.last_conv.1.bias, wtm.last_conv.1.running_mean, wtm.last_conv.1.running_var, wtm.last_conv.3.weight, wtm.last_conv.4.weight, wtm.last_conv.4.bias, wtm.last_conv.4.running_mean, wtm.last_conv.4.running_var, conv3.weight, bn3.weight, bn3.bias, bn3.running_mean, bn3.running_var
+
+02/01 07:33:33 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+02/01 07:33:33 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+02/01 07:33:33 - mmengine - INFO - Checkpoints will be saved to /home/nr4325/Desktop/Pose4/mmpose/work_dirs/wtm_mlv3_resnet101_swin_t_w7_coco_384x288.
+02/01 07:34:14 - mmengine - INFO - Epoch(train)   [1][  50/6243]  lr: 4.954910e-05  eta: 12 days, 12:36:04  time: 0.825462  data_time: 0.097423  memory: 31965  loss: 0.001023  loss_kpt: 0.001023  acc_pose: 0.024357
+02/01 07:34:53 - mmengine - INFO - Epoch(train)   [1][ 100/6243]  lr: 9.959920e-05  eta: 12 days, 1:45:27  time: 0.765969  data_time: 0.070029  memory: 31965  loss: 0.000992  loss_kpt: 0.000992  acc_pose: 0.069255
+02/01 07:35:39 - mmengine - INFO - Epoch(train)   [1][ 150/6243]  lr: 1.496493e-04  eta: 12 days, 16:58:04  time: 0.921120  data_time: 0.222744  memory: 31965  loss: 0.000995  loss_kpt: 0.000995  acc_pose: 0.147436
+02/01 07:36:23 - mmengine - INFO - Epoch(train)   [1][ 200/6243]  lr: 1.996994e-04  eta: 12 days, 21:52:34  time: 0.891564  data_time: 0.193762  memory: 31965  loss: 0.000978  loss_kpt: 0.000978  acc_pose: 0.192351
+02/01 07:37:01 - mmengine - INFO - Epoch(train)   [1][ 250/6243]  lr: 2.497495e-04  eta: 12 days, 15:23:11  time: 0.762072  data_time: 0.068130  memory: 31965  loss: 0.000949  loss_kpt: 0.000949  acc_pose: 0.208474
+02/01 07:37:43 - mmengine - INFO - Epoch(train)   [1][ 300/6243]  lr: 2.997996e-04  eta: 12 days, 15:14:55  time: 0.831162  data_time: 0.137936  memory: 31965  loss: 0.000952  loss_kpt: 0.000952  acc_pose: 0.199284
+02/01 07:38:21 - mmengine - INFO - Epoch(train)   [1][ 350/6243]  lr: 3.498497e-04  eta: 12 days, 11:54:42  time: 0.768952  data_time: 0.073774  memory: 31965  loss: 0.000939  loss_kpt: 0.000939  acc_pose: 0.095591
+02/01 07:39:00 - mmengine - INFO - Epoch(train)   [1][ 400/6243]  lr: 3.998998e-04  eta: 12 days, 9:22:28  time: 0.768254  data_time: 0.071285  memory: 31965  loss: 0.000947  loss_kpt: 0.000947  acc_pose: 0.230875
+02/01 07:39:38 - mmengine - INFO - Epoch(train)   [1][ 450/6243]  lr: 4.499499e-04  eta: 12 days, 7:25:25  time: 0.768877  data_time: 0.076824  memory: 31965  loss: 0.000895  loss_kpt: 0.000895  acc_pose: 0.228580
+02/01 07:40:20 - mmengine - INFO - Epoch(train)   [1][ 500/6243]  lr: 5.000000e-04  eta: 12 days, 7:54:34  time: 0.825149  data_time: 0.129510  memory: 31965  loss: 0.000897  loss_kpt: 0.000897  acc_pose: 0.257633
+02/01 07:40:58 - mmengine - INFO - Epoch(train)   [1][ 550/6243]  lr: 5.000000e-04  eta: 12 days, 6:25:10  time: 0.768174  data_time: 0.073856  memory: 31965  loss: 0.000897  loss_kpt: 0.000897  acc_pose: 0.283701
+02/01 07:41:36 - mmengine - INFO - Epoch(train)   [1][ 600/6243]  lr: 5.000000e-04  eta: 12 days, 5:09:50  time: 0.767774  data_time: 0.073442  memory: 31965  loss: 0.000885  loss_kpt: 0.000885  acc_pose: 0.288607
+02/01 07:42:16 - mmengine - INFO - Epoch(train)   [1][ 650/6243]  lr: 5.000000e-04  eta: 12 days, 4:43:05  time: 0.789851  data_time: 0.077438  memory: 31965  loss: 0.000911  loss_kpt: 0.000911  acc_pose: 0.273699

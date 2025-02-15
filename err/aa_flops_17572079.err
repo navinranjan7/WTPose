@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "tools/analysis_tools/get_flops.py", line 142, in <module>
+    main()
+  File "tools/analysis_tools/get_flops.py", line 126, in main
+    outputs = inference(args, input_shape, logger)
+  File "tools/analysis_tools/get_flops.py", line 69, in inference
+    model = init_model(
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/apis/inference.py", line 103, in init_model
+    model = build_pose_estimator(config.model)
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/builder.py", line 35, in build_pose_estimator
+    return POSE_ESTIMATORS.build(cfg)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/registry/registry.py", line 570, in build
+    return self.build_func(cfg, *args, **kwargs, registry=self)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/registry/build_functions.py", line 232, in build_model_from_cfg
+    return build_from_cfg(cfg, registry, default_args)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/registry/build_functions.py", line 121, in build_from_cfg
+    obj = obj_cls(**args)  # type: ignore
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/pose_estimators/topdown.py", line 55, in __init__
+    super().__init__(
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/pose_estimators/base.py", line 47, in __init__
+    self.backbone = MODELS.build(backbone)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/registry/registry.py", line 570, in build
+    return self.build_func(cfg, *args, **kwargs, registry=self)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/registry/build_functions.py", line 232, in build_model_from_cfg
+    return build_from_cfg(cfg, registry, default_args)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/registry/build_functions.py", line 121, in build_from_cfg
+    obj = obj_cls(**args)  # type: ignore
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wt_swinv2.py", line 814, in __init__
+    self.wtm = WTM_A(**_wtm_cfg)
+NameError: name 'WTM_A' is not defined

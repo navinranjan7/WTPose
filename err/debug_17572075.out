@@ -1,0 +1,536 @@
+12/22 03:00:53 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.17 (default, Jul  5 2023, 21:04:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 1176471376
+    GPU 0,1: NVIDIA A100-PCIE-40GB
+    CUDA_HOME: None
+    GCC: n/a
+    PyTorch: 1.11.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.5.2 (Git Hash a9302535553c73243c632ad3c4c80beec3d19a1e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.12.0
+    OpenCV: 4.8.0
+    MMEngine: 0.8.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1176471376
+    Distributed launcher: pytorch
+    Distributed training: True
+    GPU number: 2
+------------------------------------------------------------
+
+12/22 03:00:54 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=256)
+backend_args = dict(backend='local')
+codec = dict(
+    heatmap_size=(
+        48,
+        64,
+    ),
+    input_size=(
+        192,
+        256,
+    ),
+    sigma=2,
+    type='MSRAHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+data_mode = 'topdown'
+data_root = 'data/coco/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=10,
+        rule='greater',
+        save_best='coco/AP',
+        type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'pytorch'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        attn_drop_rate=0.0,
+        convert_weights=True,
+        depths=[
+            2,
+            2,
+            18,
+            2,
+        ],
+        drop_path_rate=0.3,
+        drop_rate=0.0,
+        embed_dims=128,
+        init_cfg=dict(
+            checkpoint=
+            'https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window7_224_22k.pth',
+            type='Pretrained'),
+        mlp_ratio=4,
+        num_heads=[
+            4,
+            8,
+            16,
+            32,
+        ],
+        out_indices=(
+            0,
+            1,
+            2,
+            3,
+        ),
+        patch_norm=True,
+        qk_scale=None,
+        qkv_bias=True,
+        type='wtposeSwinV1WTM3',
+        window_size=7,
+        with_cp=False,
+        wtm3_dilations=[
+            (
+                2,
+                2,
+                2,
+            ),
+            (
+                1,
+                1,
+                1,
+            ),
+            (
+                4,
+                4,
+                4,
+            ),
+            (
+                1,
+                1,
+                1,
+            ),
+            (
+                6,
+                6,
+                6,
+            ),
+            (
+                1,
+                1,
+                1,
+            ),
+            (
+                8,
+                8,
+                8,
+            ),
+            (
+                1,
+                1,
+                1,
+            ),
+        ],
+        wtm3_dim=128,
+        wtm3_in_dim=1920,
+        wtm3_low_level_dim=256,
+        wtm3_num_heads=[
+            8,
+            8,
+            8,
+            8,
+        ],
+        wtm3_out_dim=128,
+        wtm3_reduction=32,
+        wtm3_size=(
+            64,
+            48,
+        ),
+        wtm3_stride=(
+            1,
+            7,
+            7,
+        ),
+        wtm3_window_size=[
+            1,
+            7,
+            7,
+        ]),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        conv_out_channels=False,
+        decoder=dict(
+            heatmap_size=(
+                48,
+                64,
+            ),
+            input_size=(
+                192,
+                256,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        deconv_out_channels=False,
+        in_channels=128,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=17,
+        type='HeatmapHeadWTPose'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=True),
+    type='TopdownPoseEstimator')
+norm_cfg = dict(requires_grad=True, type='SyncBN')
+optim_wrapper = dict(optimizer=dict(lr=0.0005, type='Adam'))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=210,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                192,
+                256,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+train_cfg = dict(by_epoch=True, max_epochs=210, val_interval=10)
+train_dataloader = dict(
+    batch_size=2,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_train2017.json',
+        data_mode='topdown',
+        data_prefix=dict(img='train2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                192,
+                256,
+            ), type='TopdownAffine'),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        48,
+                        64,
+                    ),
+                    input_size=(
+                        192,
+                        256,
+                    ),
+                    sigma=2,
+                    type='MSRAHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        192,
+        256,
+    ), type='TopdownAffine'),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                48,
+                64,
+            ),
+            input_size=(
+                192,
+                256,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                192,
+                256,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        192,
+        256,
+    ), type='TopdownAffine'),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/aa_wtpose_swin-b-p4-w7_8xb32-210e_coco-256x192_wtm3'
+
+12/22 03:00:55 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+loading annotations into memory...
+Done (t=6.44s)
+creating index...
+Done (t=7.19s)
+creating index...
+index created!
+index created!
+loading annotations into memory...
+Done (t=0.17s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.17s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.17s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.17s)
+creating index...
+index created!
+12/22 03:01:56 - mmengine - INFO - Loads checkpoint by http backend from path: https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window7_224_22k.pth
+12/22 03:01:56 - mmpose - WARNING - The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: backbone.model
+
+missing keys in source state_dict: stages.0.blocks.0.norm1.weight, stages.0.blocks.0.norm1.bias, stages.0.blocks.0.attn.w_msa.relative_position_bias_table, stages.0.blocks.0.attn.w_msa.relative_position_index, stages.0.blocks.0.attn.w_msa.qkv.weight, stages.0.blocks.0.attn.w_msa.qkv.bias, stages.0.blocks.0.attn.w_msa.proj.weight, stages.0.blocks.0.attn.w_msa.proj.bias, stages.0.blocks.0.norm2.weight, stages.0.blocks.0.norm2.bias, stages.0.blocks.0.ffn.layers.0.0.weight, stages.0.blocks.0.ffn.layers.0.0.bias, stages.0.blocks.0.ffn.layers.1.weight, stages.0.blocks.0.ffn.layers.1.bias, stages.0.blocks.1.norm1.weight, stages.0.blocks.1.norm1.bias, stages.0.blocks.1.attn.w_msa.relative_position_bias_table, stages.0.blocks.1.attn.w_msa.relative_position_index, stages.0.blocks.1.attn.w_msa.qkv.weight, stages.0.blocks.1.attn.w_msa.qkv.bias, stages.0.blocks.1.attn.w_msa.proj.weight, stages.0.blocks.1.attn.w_msa.proj.bias, stages.0.blocks.1.norm2.weight, stages.0.blocks.1.norm2.bias, stages.0.blocks.1.ffn.layers.0.0.weight, stages.0.blocks.1.ffn.layers.0.0.bias, stages.0.blocks.1.ffn.layers.1.weight, stages.0.blocks.1.ffn.layers.1.bias, stages.0.downsample.norm.weight, stages.0.downsample.norm.bias, stages.0.downsample.reduction.weight, stages.1.blocks.0.norm1.weight, stages.1.blocks.0.norm1.bias, stages.1.blocks.0.attn.w_msa.relative_position_bias_table, stages.1.blocks.0.attn.w_msa.relative_position_index, stages.1.blocks.0.attn.w_msa.qkv.weight, stages.1.blocks.0.attn.w_msa.qkv.bias, stages.1.blocks.0.attn.w_msa.proj.weight, stages.1.blocks.0.attn.w_msa.proj.bias, stages.1.blocks.0.norm2.weight, stages.1.blocks.0.norm2.bias, stages.1.blocks.0.ffn.layers.0.0.weight, stages.1.blocks.0.ffn.layers.0.0.bias, stages.1.blocks.0.ffn.layers.1.weight, stages.1.blocks.0.ffn.layers.1.bias, stages.1.blocks.1.norm1.weight, stages.1.blocks.1.norm1.bias, stages.1.blocks.1.attn.w_msa.relative_position_bias_table, stages.1.blocks.1.attn.w_msa.relative_position_index, stages.1.blocks.1.attn.w_msa.qkv.weight, stages.1.blocks.1.attn.w_msa.qkv.bias, stages.1.blocks.1.attn.w_msa.proj.weight, stages.1.blocks.1.attn.w_msa.proj.bias, stages.1.blocks.1.norm2.weight, stages.1.blocks.1.norm2.bias, stages.1.blocks.1.ffn.layers.0.0.weight, stages.1.blocks.1.ffn.layers.0.0.bias, stages.1.blocks.1.ffn.layers.1.weight, stages.1.blocks.1.ffn.layers.1.bias, stages.1.downsample.norm.weight, stages.1.downsample.norm.bias, stages.1.downsample.reduction.weight, stages.2.blocks.0.norm1.weight, stages.2.blocks.0.norm1.bias, stages.2.blocks.0.attn.w_msa.relative_position_bias_table, stages.2.blocks.0.attn.w_msa.relative_position_index, stages.2.blocks.0.attn.w_msa.qkv.weight, stages.2.blocks.0.attn.w_msa.qkv.bias, stages.2.blocks.0.attn.w_msa.proj.weight, stages.2.blocks.0.attn.w_msa.proj.bias, stages.2.blocks.0.norm2.weight, stages.2.blocks.0.norm2.bias, stages.2.blocks.0.ffn.layers.0.0.weight, stages.2.blocks.0.ffn.layers.0.0.bias, stages.2.blocks.0.ffn.layers.1.weight, stages.2.blocks.0.ffn.layers.1.bias, stages.2.blocks.1.norm1.weight, stages.2.blocks.1.norm1.bias, stages.2.blocks.1.attn.w_msa.relative_position_bias_table, stages.2.blocks.1.attn.w_msa.relative_position_index, stages.2.blocks.1.attn.w_msa.qkv.weight, stages.2.blocks.1.attn.w_msa.qkv.bias, stages.2.blocks.1.attn.w_msa.proj.weight, stages.2.blocks.1.attn.w_msa.proj.bias, stages.2.blocks.1.norm2.weight, stages.2.blocks.1.norm2.bias, stages.2.blocks.1.ffn.layers.0.0.weight, stages.2.blocks.1.ffn.layers.0.0.bias, stages.2.blocks.1.ffn.layers.1.weight, stages.2.blocks.1.ffn.layers.1.bias, stages.2.blocks.2.norm1.weight, stages.2.blocks.2.norm1.bias, stages.2.blocks.2.attn.w_msa.relative_position_bias_table, stages.2.blocks.2.attn.w_msa.relative_position_index, stages.2.blocks.2.attn.w_msa.qkv.weight, stages.2.blocks.2.attn.w_msa.qkv.bias, stages.2.blocks.2.attn.w_msa.proj.weight, stages.2.blocks.2.attn.w_msa.proj.bias, stages.2.blocks.2.norm2.weight, stages.2.blocks.2.norm2.bias, stages.2.blocks.2.ffn.layers.0.0.weight, stages.2.blocks.2.ffn.layers.0.0.bias, stages.2.blocks.2.ffn.layers.1.weight, stages.2.blocks.2.ffn.layers.1.bias, stages.2.blocks.3.norm1.weight, stages.2.blocks.3.norm1.bias, stages.2.blocks.3.attn.w_msa.relative_position_bias_table, stages.2.blocks.3.attn.w_msa.relative_position_index, stages.2.blocks.3.attn.w_msa.qkv.weight, stages.2.blocks.3.attn.w_msa.qkv.bias, stages.2.blocks.3.attn.w_msa.proj.weight, stages.2.blocks.3.attn.w_msa.proj.bias, stages.2.blocks.3.norm2.weight, stages.2.blocks.3.norm2.bias, stages.2.blocks.3.ffn.layers.0.0.weight, stages.2.blocks.3.ffn.layers.0.0.bias, stages.2.blocks.3.ffn.layers.1.weight, stages.2.blocks.3.ffn.layers.1.bias, stages.2.blocks.4.norm1.weight, stages.2.blocks.4.norm1.bias, stages.2.blocks.4.attn.w_msa.relative_position_bias_table, stages.2.blocks.4.attn.w_msa.relative_position_index, stages.2.blocks.4.attn.w_msa.qkv.weight, stages.2.blocks.4.attn.w_msa.qkv.bias, stages.2.blocks.4.attn.w_msa.proj.weight, stages.2.blocks.4.attn.w_msa.proj.bias, stages.2.blocks.4.norm2.weight, stages.2.blocks.4.norm2.bias, stages.2.blocks.4.ffn.layers.0.0.weight, stages.2.blocks.4.ffn.layers.0.0.bias, stages.2.blocks.4.ffn.layers.1.weight, stages.2.blocks.4.ffn.layers.1.bias, stages.2.blocks.5.norm1.weight, stages.2.blocks.5.norm1.bias, stages.2.blocks.5.attn.w_msa.relative_position_bias_table, stages.2.blocks.5.attn.w_msa.relative_position_index, stages.2.blocks.5.attn.w_msa.qkv.weight, stages.2.blocks.5.attn.w_msa.qkv.bias, stages.2.blocks.5.attn.w_msa.proj.weight, stages.2.blocks.5.attn.w_msa.proj.bias, stages.2.blocks.5.norm2.weight, stages.2.blocks.5.norm2.bias, stages.2.blocks.5.ffn.layers.0.0.weight, stages.2.blocks.5.ffn.layers.0.0.bias, stages.2.blocks.5.ffn.layers.1.weight, stages.2.blocks.5.ffn.layers.1.bias, stages.2.blocks.6.norm1.weight, stages.2.blocks.6.norm1.bias, stages.2.blocks.6.attn.w_msa.relative_position_bias_table, stages.2.blocks.6.attn.w_msa.relative_position_index, stages.2.blocks.6.attn.w_msa.qkv.weight, stages.2.blocks.6.attn.w_msa.qkv.bias, stages.2.blocks.6.attn.w_msa.proj.weight, stages.2.blocks.6.attn.w_msa.proj.bias, stages.2.blocks.6.norm2.weight, stages.2.blocks.6.norm2.bias, stages.2.blocks.6.ffn.layers.0.0.weight, stages.2.blocks.6.ffn.layers.0.0.bias, stages.2.blocks.6.ffn.layers.1.weight, stages.2.blocks.6.ffn.layers.1.bias, stages.2.blocks.7.norm1.weight, stages.2.blocks.7.norm1.bias, stages.2.blocks.7.attn.w_msa.relative_position_bias_table, stages.2.blocks.7.attn.w_msa.relative_position_index, stages.2.blocks.7.attn.w_msa.qkv.weight, stages.2.blocks.7.attn.w_msa.qkv.bias, stages.2.blocks.7.attn.w_msa.proj.weight, stages.2.blocks.7.attn.w_msa.proj.bias, stages.2.blocks.7.norm2.weight, stages.2.blocks.7.norm2.bias, stages.2.blocks.7.ffn.layers.0.0.weight, stages.2.blocks.7.ffn.layers.0.0.bias, stages.2.blocks.7.ffn.layers.1.weight, stages.2.blocks.7.ffn.layers.1.bias, stages.2.blocks.8.norm1.weight, stages.2.blocks.8.norm1.bias, stages.2.blocks.8.attn.w_msa.relative_position_bias_table, stages.2.blocks.8.attn.w_msa.relative_position_index, stages.2.blocks.8.attn.w_msa.qkv.weight, stages.2.blocks.8.attn.w_msa.qkv.bias, stages.2.blocks.8.attn.w_msa.proj.weight, stages.2.blocks.8.attn.w_msa.proj.bias, stages.2.blocks.8.norm2.weight, stages.2.blocks.8.norm2.bias, stages.2.blocks.8.ffn.layers.0.0.weight, stages.2.blocks.8.ffn.layers.0.0.bias, stages.2.blocks.8.ffn.layers.1.weight, stages.2.blocks.8.ffn.layers.1.bias, stages.2.blocks.9.norm1.weight, stages.2.blocks.9.norm1.bias, stages.2.blocks.9.attn.w_msa.relative_position_bias_table, stages.2.blocks.9.attn.w_msa.relative_position_index, stages.2.blocks.9.attn.w_msa.qkv.weight, stages.2.blocks.9.attn.w_msa.qkv.bias, stages.2.blocks.9.attn.w_msa.proj.weight, stages.2.blocks.9.attn.w_msa.proj.bias, stages.2.blocks.9.norm2.weight, stages.2.blocks.9.norm2.bias, stages.2.blocks.9.ffn.layers.0.0.weight, stages.2.blocks.9.ffn.layers.0.0.bias, stages.2.blocks.9.ffn.layers.1.weight, stages.2.blocks.9.ffn.layers.1.bias, stages.2.blocks.10.norm1.weight, stages.2.blocks.10.norm1.bias, stages.2.blocks.10.attn.w_msa.relative_position_bias_table, stages.2.blocks.10.attn.w_msa.relative_position_index, stages.2.blocks.10.attn.w_msa.qkv.weight, stages.2.blocks.10.attn.w_msa.qkv.bias, stages.2.blocks.10.attn.w_msa.proj.weight, stages.2.blocks.10.attn.w_msa.proj.bias, stages.2.blocks.10.norm2.weight, stages.2.blocks.10.norm2.bias, stages.2.blocks.10.ffn.layers.0.0.weight, stages.2.blocks.10.ffn.layers.0.0.bias, stages.2.blocks.10.ffn.layers.1.weight, stages.2.blocks.10.ffn.layers.1.bias, stages.2.blocks.11.norm1.weight, stages.2.blocks.11.norm1.bias, stages.2.blocks.11.attn.w_msa.relative_position_bias_table, stages.2.blocks.11.attn.w_msa.relative_position_index, stages.2.blocks.11.attn.w_msa.qkv.weight, stages.2.blocks.11.attn.w_msa.qkv.bias, stages.2.blocks.11.attn.w_msa.proj.weight, stages.2.blocks.11.attn.w_msa.proj.bias, stages.2.blocks.11.norm2.weight, stages.2.blocks.11.norm2.bias, stages.2.blocks.11.ffn.layers.0.0.weight, stages.2.blocks.11.ffn.layers.0.0.bias, stages.2.blocks.11.ffn.layers.1.weight, stages.2.blocks.11.ffn.layers.1.bias, stages.2.blocks.12.norm1.weight, stages.2.blocks.12.norm1.bias, stages.2.blocks.12.attn.w_msa.relative_position_bias_table, stages.2.blocks.12.attn.w_msa.relative_position_index, stages.2.blocks.12.attn.w_msa.qkv.weight, stages.2.blocks.12.attn.w_msa.qkv.bias, stages.2.blocks.12.attn.w_msa.proj.weight, stages.2.blocks.12.attn.w_msa.proj.bias, stages.2.blocks.12.norm2.weight, stages.2.blocks.12.norm2.bias, stages.2.blocks.12.ffn.layers.0.0.weight, stages.2.blocks.12.ffn.layers.0.0.bias, stages.2.blocks.12.ffn.layers.1.weight, stages.2.blocks.12.ffn.layers.1.bias, stages.2.blocks.13.norm1.weight, stages.2.blocks.13.norm1.bias, stages.2.blocks.13.attn.w_msa.relative_position_bias_table, stages.2.blocks.13.attn.w_msa.relative_position_index, stages.2.blocks.13.attn.w_msa.qkv.weight, stages.2.blocks.13.attn.w_msa.qkv.bias, stages.2.blocks.13.attn.w_msa.proj.weight, stages.2.blocks.13.attn.w_msa.proj.bias, stages.2.blocks.13.norm2.weight, stages.2.blocks.13.norm2.bias, stages.2.blocks.13.ffn.layers.0.0.weight, stages.2.blocks.13.ffn.layers.0.0.bias, stages.2.blocks.13.ffn.layers.1.weight, stages.2.blocks.13.ffn.layers.1.bias, stages.2.blocks.14.norm1.weight, stages.2.blocks.14.norm1.bias, stages.2.blocks.14.attn.w_msa.relative_position_bias_table, stages.2.blocks.14.attn.w_msa.relative_position_index, stages.2.blocks.14.attn.w_msa.qkv.weight, stages.2.blocks.14.attn.w_msa.qkv.bias, stages.2.blocks.14.attn.w_msa.proj.weight, stages.2.blocks.14.attn.w_msa.proj.bias, stages.2.blocks.14.norm2.weight, stages.2.blocks.14.norm2.bias, stages.2.blocks.14.ffn.layers.0.0.weight, stages.2.blocks.14.ffn.layers.0.0.bias, stages.2.blocks.14.ffn.layers.1.weight, stages.2.blocks.14.ffn.layers.1.bias, stages.2.blocks.15.norm1.weight, stages.2.blocks.15.norm1.bias, stages.2.blocks.15.attn.w_msa.relative_position_bias_table, stages.2.blocks.15.attn.w_msa.relative_position_index, stages.2.blocks.15.attn.w_msa.qkv.weight, stages.2.blocks.15.attn.w_msa.qkv.bias, stages.2.blocks.15.attn.w_msa.proj.weight, stages.2.blocks.15.attn.w_msa.proj.bias, stages.2.blocks.15.norm2.weight, stages.2.blocks.15.norm2.bias, stages.2.blocks.15.ffn.layers.0.0.weight, stages.2.blocks.15.ffn.layers.0.0.bias, stages.2.blocks.15.ffn.layers.1.weight, stages.2.blocks.15.ffn.layers.1.bias, stages.2.blocks.16.norm1.weight, stages.2.blocks.16.norm1.bias, stages.2.blocks.16.attn.w_msa.relative_position_bias_table, stages.2.blocks.16.attn.w_msa.relative_position_index, stages.2.blocks.16.attn.w_msa.qkv.weight, stages.2.blocks.16.attn.w_msa.qkv.bias, stages.2.blocks.16.attn.w_msa.proj.weight, stages.2.blocks.16.attn.w_msa.proj.bias, stages.2.blocks.16.norm2.weight, stages.2.blocks.16.norm2.bias, stages.2.blocks.16.ffn.layers.0.0.weight, stages.2.blocks.16.ffn.layers.0.0.bias, stages.2.blocks.16.ffn.layers.1.weight, stages.2.blocks.16.ffn.layers.1.bias, stages.2.blocks.17.norm1.weight, stages.2.blocks.17.norm1.bias, stages.2.blocks.17.attn.w_msa.relative_position_bias_table, stages.2.blocks.17.attn.w_msa.relative_position_index, stages.2.blocks.17.attn.w_msa.qkv.weight, stages.2.blocks.17.attn.w_msa.qkv.bias, stages.2.blocks.17.attn.w_msa.proj.weight, stages.2.blocks.17.attn.w_msa.proj.bias, stages.2.blocks.17.norm2.weight, stages.2.blocks.17.norm2.bias, stages.2.blocks.17.ffn.layers.0.0.weight, stages.2.blocks.17.ffn.layers.0.0.bias, stages.2.blocks.17.ffn.layers.1.weight, stages.2.blocks.17.ffn.layers.1.bias, stages.2.downsample.norm.weight, stages.2.downsample.norm.bias, stages.2.downsample.reduction.weight, stages.3.blocks.0.norm1.weight, stages.3.blocks.0.norm1.bias, stages.3.blocks.0.attn.w_msa.relative_position_bias_table, stages.3.blocks.0.attn.w_msa.relative_position_index, stages.3.blocks.0.attn.w_msa.qkv.weight, stages.3.blocks.0.attn.w_msa.qkv.bias, stages.3.blocks.0.attn.w_msa.proj.weight, stages.3.blocks.0.attn.w_msa.proj.bias, stages.3.blocks.0.norm2.weight, stages.3.blocks.0.norm2.bias, stages.3.blocks.0.ffn.layers.0.0.weight, stages.3.blocks.0.ffn.layers.0.0.bias, stages.3.blocks.0.ffn.layers.1.weight, stages.3.blocks.0.ffn.layers.1.bias, stages.3.blocks.1.norm1.weight, stages.3.blocks.1.norm1.bias, stages.3.blocks.1.attn.w_msa.relative_position_bias_table, stages.3.blocks.1.attn.w_msa.relative_position_index, stages.3.blocks.1.attn.w_msa.qkv.weight, stages.3.blocks.1.attn.w_msa.qkv.bias, stages.3.blocks.1.attn.w_msa.proj.weight, stages.3.blocks.1.attn.w_msa.proj.bias, stages.3.blocks.1.norm2.weight, stages.3.blocks.1.norm2.bias, stages.3.blocks.1.ffn.layers.0.0.weight, stages.3.blocks.1.ffn.layers.0.0.bias, stages.3.blocks.1.ffn.layers.1.weight, stages.3.blocks.1.ffn.layers.1.bias, norm0.weight, norm0.bias, norm1.weight, norm1.bias, norm2.weight, norm2.bias, norm3.weight, norm3.bias, resnet.stem.0.conv.weight, resnet.stem.0.bn.weight, resnet.stem.0.bn.bias, resnet.stem.0.bn.running_mean, resnet.stem.0.bn.running_var, resnet.stem.1.conv.weight, resnet.stem.1.bn.weight, resnet.stem.1.bn.bias, resnet.stem.1.bn.running_mean, resnet.stem.1.bn.running_var, resnet.layer1.0.conv1.weight, resnet.layer1.0.bn1.weight, resnet.layer1.0.bn1.bias, resnet.layer1.0.bn1.running_mean, resnet.layer1.0.bn1.running_var, resnet.layer1.0.conv2.weight, resnet.layer1.0.bn2.weight, resnet.layer1.0.bn2.bias, resnet.layer1.0.bn2.running_mean, resnet.layer1.0.bn2.running_var, resnet.layer1.0.conv3.weight, resnet.layer1.0.bn3.weight, resnet.layer1.0.bn3.bias, resnet.layer1.0.bn3.running_mean, resnet.layer1.0.bn3.running_var, resnet.layer1.0.downsample.0.weight, resnet.layer1.0.downsample.1.weight, resnet.layer1.0.downsample.1.bias, resnet.layer1.0.downsample.1.running_mean, resnet.layer1.0.downsample.1.running_var, resnet.layer1.1.conv1.weight, resnet.layer1.1.bn1.weight, resnet.layer1.1.bn1.bias, resnet.layer1.1.bn1.running_mean, resnet.layer1.1.bn1.running_var, resnet.layer1.1.conv2.weight, resnet.layer1.1.bn2.weight, resnet.layer1.1.bn2.bias, resnet.layer1.1.bn2.running_mean, resnet.layer1.1.bn2.running_var, resnet.layer1.1.conv3.weight, resnet.layer1.1.bn3.weight, resnet.layer1.1.bn3.bias, resnet.layer1.1.bn3.running_mean, resnet.layer1.1.bn3.running_var, resnet.layer1.2.conv1.weight, resnet.layer1.2.bn1.weight, resnet.layer1.2.bn1.bias, resnet.layer1.2.bn1.running_mean, resnet.layer1.2.bn1.running_var, resnet.layer1.2.conv2.weight, resnet.layer1.2.bn2.weight, resnet.layer1.2.bn2.bias, resnet.layer1.2.bn2.running_mean, resnet.layer1.2.bn2.running_var, resnet.layer1.2.conv3.weight, resnet.layer1.2.bn3.weight, resnet.layer1.2.bn3.bias, resnet.layer1.2.bn3.running_mean, resnet.layer1.2.bn3.running_var, wtm3d.wtb1_0.norm1.weight, wtm3d.wtb1_0.norm1.bias, wtm3d.wtb1_0.attn.qkv.weight, wtm3d.wtb1_0.attn.qkv.bias, wtm3d.wtb1_0.attn.proj.weight, wtm3d.wtb1_0.attn.proj.bias, wtm3d.wtb1_0.norm2.weight, wtm3d.wtb1_0.norm2.bias, wtm3d.wtb1_0.mlp.fc1.weight, wtm3d.wtb1_0.mlp.fc1.bias, wtm3d.wtb1_0.mlp.fc2.weight, wtm3d.wtb1_0.mlp.fc2.bias, wtm3d.wtb1_1.norm1.weight, wtm3d.wtb1_1.norm1.bias, wtm3d.wtb1_1.attn.qkv.weight, wtm3d.wtb1_1.attn.qkv.bias, wtm3d.wtb1_1.attn.proj.weight, wtm3d.wtb1_1.attn.proj.bias, wtm3d.wtb1_1.norm2.weight, wtm3d.wtb1_1.norm2.bias, wtm3d.wtb1_1.mlp.fc1.weight, wtm3d.wtb1_1.mlp.fc1.bias, wtm3d.wtb1_1.mlp.fc2.weight, wtm3d.wtb1_1.mlp.fc2.bias, wtm3d.wtb2_0.norm1.weight, wtm3d.wtb2_0.norm1.bias, wtm3d.wtb2_0.attn.qkv.weight, wtm3d.wtb2_0.attn.qkv.bias, wtm3d.wtb2_0.attn.proj.weight, wtm3d.wtb2_0.attn.proj.bias, wtm3d.wtb2_0.norm2.weight, wtm3d.wtb2_0.norm2.bias, wtm3d.wtb2_0.mlp.fc1.weight, wtm3d.wtb2_0.mlp.fc1.bias, wtm3d.wtb2_0.mlp.fc2.weight, wtm3d.wtb2_0.mlp.fc2.bias, wtm3d.wtb2_1.norm1.weight, wtm3d.wtb2_1.norm1.bias, wtm3d.wtb2_1.attn.qkv.weight, wtm3d.wtb2_1.attn.qkv.bias, wtm3d.wtb2_1.attn.proj.weight, wtm3d.wtb2_1.attn.proj.bias, wtm3d.wtb2_1.norm2.weight, wtm3d.wtb2_1.norm2.bias, wtm3d.wtb2_1.mlp.fc1.weight, wtm3d.wtb2_1.mlp.fc1.bias, wtm3d.wtb2_1.mlp.fc2.weight, wtm3d.wtb2_1.mlp.fc2.bias, wtm3d.wtb3_0.norm1.weight, wtm3d.wtb3_0.norm1.bias, wtm3d.wtb3_0.attn.qkv.weight, wtm3d.wtb3_0.attn.qkv.bias, wtm3d.wtb3_0.attn.proj.weight, wtm3d.wtb3_0.attn.proj.bias, wtm3d.wtb3_0.norm2.weight, wtm3d.wtb3_0.norm2.bias, wtm3d.wtb3_0.mlp.fc1.weight, wtm3d.wtb3_0.mlp.fc1.bias, wtm3d.wtb3_0.mlp.fc2.weight, wtm3d.wtb3_0.mlp.fc2.bias, wtm3d.wtb3_1.norm1.weight, wtm3d.wtb3_1.norm1.bias, wtm3d.wtb3_1.attn.qkv.weight, wtm3d.wtb3_1.attn.qkv.bias, wtm3d.wtb3_1.attn.proj.weight, wtm3d.wtb3_1.attn.proj.bias, wtm3d.wtb3_1.norm2.weight, wtm3d.wtb3_1.norm2.bias, wtm3d.wtb3_1.mlp.fc1.weight, wtm3d.wtb3_1.mlp.fc1.bias, wtm3d.wtb3_1.mlp.fc2.weight, wtm3d.wtb3_1.mlp.fc2.bias, wtm3d.wtb4_0.norm1.weight, wtm3d.wtb4_0.norm1.bias, wtm3d.wtb4_0.attn.qkv.weight, wtm3d.wtb4_0.attn.qkv.bias, wtm3d.wtb4_0.attn.proj.weight, wtm3d.wtb4_0.attn.proj.bias, wtm3d.wtb4_0.norm2.weight, wtm3d.wtb4_0.norm2.bias, wtm3d.wtb4_0.mlp.fc1.weight, wtm3d.wtb4_0.mlp.fc1.bias, wtm3d.wtb4_0.mlp.fc2.weight, wtm3d.wtb4_0.mlp.fc2.bias, wtm3d.wtb4_1.norm1.weight, wtm3d.wtb4_1.norm1.bias, wtm3d.wtb4_1.attn.qkv.weight, wtm3d.wtb4_1.attn.qkv.bias, wtm3d.wtb4_1.attn.proj.weight, wtm3d.wtb4_1.attn.proj.bias, wtm3d.wtb4_1.norm2.weight, wtm3d.wtb4_1.norm2.bias, wtm3d.wtb4_1.mlp.fc1.weight, wtm3d.wtb4_1.mlp.fc1.bias, wtm3d.wtb4_1.mlp.fc2.weight, wtm3d.wtb4_1.mlp.fc2.bias, wtm3d.global_avg_pool.1.weight, wtm3d.global_avg_pool.2.weight, wtm3d.global_avg_pool.2.bias, wtm3d.global_avg_pool.2.running_mean, wtm3d.global_avg_pool.2.running_var, wtm3d.conv2.weight, wtm3d.bn2.weight, wtm3d.bn2.bias, wtm3d.bn2.running_mean, wtm3d.bn2.running_var, wtm3d.low.weight, wtm3d.bn_low.weight, wtm3d.bn_low.bias, wtm3d.bn_low.running_mean, wtm3d.bn_low.running_var, wtm3d.last_conv.0.weight, wtm3d.last_conv.1.weight, wtm3d.last_conv.1.bias, wtm3d.last_conv.1.running_mean, wtm3d.last_conv.1.running_var, wtm3d.last_conv.3.weight, wtm3d.last_conv.4.weight, wtm3d.last_conv.4.bias, wtm3d.last_conv.4.running_mean, wtm3d.last_conv.4.running_var, conv3.weight, bn3.weight, bn3.bias, bn3.running_mean, bn3.running_var
+
+12/22 03:01:56 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+12/22 03:01:56 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+12/22 03:01:56 - mmengine - INFO - Checkpoints will be saved to /home/nr4325/Desktop/Pose4/mmpose/work_dirs/aa_wtpose_swin-b-p4-w7_8xb32-210e_coco-256x192_wtm3.
+12/22 03:02:14 - mmengine - INFO - Epoch(train)   [1][   50/37454]  lr: 4.954910e-05  eta: 31 days, 15:17:05  time: 0.347530  data_time: 0.022305  memory: 9770  loss: 0.002323  loss_kpt: 0.002323  acc_pose: 0.000000
+12/22 03:02:28 - mmengine - INFO - Epoch(train)   [1][  100/37454]  lr: 9.959920e-05  eta: 29 days, 8:54:22  time: 0.297755  data_time: 0.005180  memory: 9769  loss: 0.002261  loss_kpt: 0.002261  acc_pose: 0.000000
+12/22 03:02:44 - mmengine - INFO - Epoch(train)   [1][  150/37454]  lr: 1.496493e-04  eta: 28 days, 19:44:35  time: 0.304574  data_time: 0.004137  memory: 9769  loss: 0.002200  loss_kpt: 0.002200  acc_pose: 0.000000
+12/22 03:02:58 - mmengine - INFO - Epoch(train)   [1][  200/37454]  lr: 1.996994e-04  eta: 28 days, 8:46:05  time: 0.296534  data_time: 0.005014  memory: 9769  loss: 0.002129  loss_kpt: 0.002129  acc_pose: 0.100000
+12/22 03:03:13 - mmengine - INFO - Epoch(train)   [1][  250/37454]  lr: 2.497495e-04  eta: 28 days, 3:05:44  time: 0.298626  data_time: 0.005373  memory: 9769  loss: 0.002327  loss_kpt: 0.002327  acc_pose: 0.000000
+12/22 03:03:29 - mmengine - INFO - Epoch(train)   [1][  300/37454]  lr: 2.997996e-04  eta: 28 days, 1:29:43  time: 0.304621  data_time: 0.005642  memory: 9769  loss: 0.002167  loss_kpt: 0.002167  acc_pose: 0.250000
+12/22 03:03:44 - mmengine - INFO - Epoch(train)   [1][  350/37454]  lr: 3.498497e-04  eta: 27 days, 23:07:45  time: 0.300706  data_time: 0.005094  memory: 9769  loss: 0.002126  loss_kpt: 0.002126  acc_pose: 0.033333
+12/22 03:03:59 - mmengine - INFO - Epoch(train)   [1][  400/37454]  lr: 3.998998e-04  eta: 27 days, 21:45:58  time: 0.302217  data_time: 0.005250  memory: 9769  loss: 0.002360  loss_kpt: 0.002360  acc_pose: 0.058824
+12/22 03:04:14 - mmengine - INFO - Epoch(train)   [1][  450/37454]  lr: 4.499499e-04  eta: 27 days, 19:42:55  time: 0.298139  data_time: 0.005270  memory: 9769  loss: 0.002216  loss_kpt: 0.002216  acc_pose: 0.187500
+12/22 03:04:29 - mmengine - INFO - Epoch(train)   [1][  500/37454]  lr: 5.000000e-04  eta: 27 days, 19:55:53  time: 0.306642  data_time: 0.004534  memory: 9769  loss: 0.002179  loss_kpt: 0.002179  acc_pose: 0.264706
+12/22 03:04:44 - mmengine - INFO - Epoch(train)   [1][  550/37454]  lr: 5.000000e-04  eta: 27 days, 20:09:05  time: 0.306864  data_time: 0.004948  memory: 9769  loss: 0.002165  loss_kpt: 0.002165  acc_pose: 0.090909
+12/22 03:05:00 - mmengine - INFO - Epoch(train)   [1][  600/37454]  lr: 5.000000e-04  eta: 27 days, 20:20:32  time: 0.306909  data_time: 0.005364  memory: 9769  loss: 0.002107  loss_kpt: 0.002107  acc_pose: 0.071429
+12/22 03:05:15 - mmengine - INFO - Epoch(train)   [1][  650/37454]  lr: 5.000000e-04  eta: 27 days, 20:13:14  time: 0.305227  data_time: 0.005409  memory: 9769  loss: 0.001909  loss_kpt: 0.001909  acc_pose: 0.000000
+12/22 03:05:30 - mmengine - INFO - Epoch(train)   [1][  700/37454]  lr: 5.000000e-04  eta: 27 days, 19:36:26  time: 0.301969  data_time: 0.005161  memory: 9769  loss: 0.002052  loss_kpt: 0.002052  acc_pose: 0.125000
+12/22 03:05:45 - mmengine - INFO - Epoch(train)   [1][  750/37454]  lr: 5.000000e-04  eta: 27 days, 19:38:50  time: 0.305898  data_time: 0.005115  memory: 9769  loss: 0.002135  loss_kpt: 0.002135  acc_pose: 0.294118
+12/22 03:06:00 - mmengine - INFO - Epoch(train)   [1][  800/37454]  lr: 5.000000e-04  eta: 27 days, 19:03:38  time: 0.301349  data_time: 0.005096  memory: 9769  loss: 0.002214  loss_kpt: 0.002214  acc_pose: 0.058824
+12/22 03:06:16 - mmengine - INFO - Epoch(train)   [1][  850/37454]  lr: 5.000000e-04  eta: 27 days, 19:46:10  time: 0.310897  data_time: 0.005494  memory: 9769  loss: 0.001927  loss_kpt: 0.001927  acc_pose: 0.045455
+12/22 03:06:31 - mmengine - INFO - Epoch(train)   [1][  900/37454]  lr: 5.000000e-04  eta: 27 days, 19:18:55  time: 0.301967  data_time: 0.005176  memory: 9769  loss: 0.002173  loss_kpt: 0.002173  acc_pose: 0.208333
+12/22 03:06:47 - mmengine - INFO - Epoch(train)   [1][  950/37454]  lr: 5.000000e-04  eta: 27 days, 19:50:07  time: 0.310027  data_time: 0.005254  memory: 9769  loss: 0.002192  loss_kpt: 0.002192  acc_pose: 0.411765
+12/22 03:07:02 - mmengine - INFO - Exp name: aa_wtpose_swin-b-p4-w7_8xb32-210e_coco-256x192_wtm3_20231222_030048
+12/22 03:07:02 - mmengine - INFO - Epoch(train)   [1][ 1000/37454]  lr: 5.000000e-04  eta: 27 days, 19:42:08  time: 0.304529  data_time: 0.005665  memory: 9769  loss: 0.002050  loss_kpt: 0.002050  acc_pose: 0.088235
+12/22 03:07:17 - mmengine - INFO - Epoch(train)   [1][ 1050/37454]  lr: 5.000000e-04  eta: 27 days, 19:45:32  time: 0.306236  data_time: 0.005238  memory: 9769  loss: 0.002156  loss_kpt: 0.002156  acc_pose: 0.066667
+12/22 03:07:32 - mmengine - INFO - Epoch(train)   [1][ 1100/37454]  lr: 5.000000e-04  eta: 27 days, 19:21:33  time: 0.301694  data_time: 0.005345  memory: 9769  loss: 0.002133  loss_kpt: 0.002133  acc_pose: 0.107143
+12/22 03:07:47 - mmengine - INFO - Epoch(train)   [1][ 1150/37454]  lr: 5.000000e-04  eta: 27 days, 19:12:51  time: 0.304013  data_time: 0.004645  memory: 9769  loss: 0.002195  loss_kpt: 0.002195  acc_pose: 0.066667
+12/22 03:08:03 - mmengine - INFO - Epoch(train)   [1][ 1200/37454]  lr: 5.000000e-04  eta: 27 days, 18:59:50  time: 0.303097  data_time: 0.005418  memory: 9769  loss: 0.002084  loss_kpt: 0.002084  acc_pose: 0.000000
+12/22 03:08:18 - mmengine - INFO - Epoch(train)   [1][ 1250/37454]  lr: 5.000000e-04  eta: 27 days, 19:03:42  time: 0.306119  data_time: 0.005554  memory: 9769  loss: 0.002230  loss_kpt: 0.002230  acc_pose: 0.187500
+12/22 03:08:33 - mmengine - INFO - Epoch(train)   [1][ 1300/37454]  lr: 5.000000e-04  eta: 27 days, 18:59:35  time: 0.304600  data_time: 0.004945  memory: 9769  loss: 0.002183  loss_kpt: 0.002183  acc_pose: 0.000000
+12/22 03:08:48 - mmengine - INFO - Epoch(train)   [1][ 1350/37454]  lr: 5.000000e-04  eta: 27 days, 18:49:40  time: 0.303345  data_time: 0.005355  memory: 9769  loss: 0.001999  loss_kpt: 0.001999  acc_pose: 0.000000
+12/22 03:09:03 - mmengine - INFO - Epoch(train)   [1][ 1400/37454]  lr: 5.000000e-04  eta: 27 days, 18:39:20  time: 0.303108  data_time: 0.005916  memory: 9769  loss: 0.002024  loss_kpt: 0.002024  acc_pose: 0.147059
+12/22 03:09:19 - mmengine - INFO - Epoch(train)   [1][ 1450/37454]  lr: 5.000000e-04  eta: 27 days, 18:37:36  time: 0.304859  data_time: 0.005946  memory: 9769  loss: 0.002149  loss_kpt: 0.002149  acc_pose: 0.000000
+12/22 03:09:34 - mmengine - INFO - Epoch(train)   [1][ 1500/37454]  lr: 5.000000e-04  eta: 27 days, 18:32:56  time: 0.304166  data_time: 0.005016  memory: 9769  loss: 0.002046  loss_kpt: 0.002046  acc_pose: 0.156250
+12/22 03:09:49 - mmengine - INFO - Epoch(train)   [1][ 1550/37454]  lr: 5.000000e-04  eta: 27 days, 18:44:00  time: 0.307815  data_time: 0.005608  memory: 9769  loss: 0.002215  loss_kpt: 0.002215  acc_pose: 0.000000
+12/22 03:10:05 - mmengine - INFO - Epoch(train)   [1][ 1600/37454]  lr: 5.000000e-04  eta: 27 days, 19:03:17  time: 0.309997  data_time: 0.005547  memory: 9769  loss: 0.002172  loss_kpt: 0.002172  acc_pose: 0.000000
+12/22 03:10:20 - mmengine - INFO - Epoch(train)   [1][ 1650/37454]  lr: 5.000000e-04  eta: 27 days, 19:03:43  time: 0.305550  data_time: 0.005506  memory: 9769  loss: 0.002095  loss_kpt: 0.002095  acc_pose: 0.062500
+12/22 03:10:35 - mmengine - INFO - Epoch(train)   [1][ 1700/37454]  lr: 5.000000e-04  eta: 27 days, 19:10:28  time: 0.307200  data_time: 0.005960  memory: 9769  loss: 0.001944  loss_kpt: 0.001944  acc_pose: 0.000000
+12/22 03:10:51 - mmengine - INFO - Epoch(train)   [1][ 1750/37454]  lr: 5.000000e-04  eta: 27 days, 19:01:20  time: 0.303063  data_time: 0.006219  memory: 9769  loss: 0.002088  loss_kpt: 0.002088  acc_pose: 0.000000
+12/22 03:11:06 - mmengine - INFO - Epoch(train)   [1][ 1800/37454]  lr: 5.000000e-04  eta: 27 days, 19:29:51  time: 0.313268  data_time: 0.005491  memory: 9769  loss: 0.002116  loss_kpt: 0.002116  acc_pose: 0.000000
+12/22 03:11:21 - mmengine - INFO - Epoch(train)   [1][ 1850/37454]  lr: 5.000000e-04  eta: 27 days, 19:08:36  time: 0.299662  data_time: 0.006534  memory: 9769  loss: 0.001991  loss_kpt: 0.001991  acc_pose: 0.300000
+12/22 03:11:37 - mmengine - INFO - Epoch(train)   [1][ 1900/37454]  lr: 5.000000e-04  eta: 27 days, 19:11:27  time: 0.306327  data_time: 0.006687  memory: 9769  loss: 0.002081  loss_kpt: 0.002081  acc_pose: 0.117647
+12/22 03:11:52 - mmengine - INFO - Epoch(train)   [1][ 1950/37454]  lr: 5.000000e-04  eta: 27 days, 18:56:48  time: 0.301164  data_time: 0.006526  memory: 9769  loss: 0.002065  loss_kpt: 0.002065  acc_pose: 0.100000
+12/22 03:12:07 - mmengine - INFO - Exp name: aa_wtpose_swin-b-p4-w7_8xb32-210e_coco-256x192_wtm3_20231222_030048
+12/22 03:12:07 - mmengine - INFO - Epoch(train)   [1][ 2000/37454]  lr: 5.000000e-04  eta: 27 days, 18:59:33  time: 0.306260  data_time: 0.005837  memory: 9769  loss: 0.002054  loss_kpt: 0.002054  acc_pose: 0.156250
+12/22 03:12:22 - mmengine - INFO - Epoch(train)   [1][ 2050/37454]  lr: 5.000000e-04  eta: 27 days, 18:48:22  time: 0.301941  data_time: 0.005852  memory: 9769  loss: 0.002051  loss_kpt: 0.002051  acc_pose: 0.323529
+12/22 03:12:38 - mmengine - INFO - Epoch(train)   [1][ 2100/37454]  lr: 5.000000e-04  eta: 27 days, 19:04:51  time: 0.310644  data_time: 0.006423  memory: 9769  loss: 0.002174  loss_kpt: 0.002174  acc_pose: 0.291667

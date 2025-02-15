@@ -1,0 +1,76 @@
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::add_ encountered 3 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::mul encountered 154 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::rsub encountered 48 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::div encountered 194 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::add encountered 160 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::softmax encountered 32 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::gelu encountered 32 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::fill_ encountered 108 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::sub encountered 72 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::ne encountered 12 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::im2col encountered 19 time(s)
+12/22 14:41:44 - mmengine - WARNING - Unsupported operator aten::col2im encountered 16 time(s)
+12/22 14:41:44 - mmengine - WARNING - The following submodules of the model were never called during the trace of the graph. They may be unused, or they were accessed by direct calls to .forward() or via other python methods. In the latter case they will have zeros for statistics, though their statistics will still contribute to their parent calling module.
+backbone.resnet.maxpool, backbone.stages.0.blocks.0.attn.drop, backbone.stages.0.blocks.0.ffn.dropout_layer, backbone.stages.0.blocks.1.attn.drop, backbone.stages.0.blocks.1.ffn.dropout_layer, backbone.stages.0.downsample.adap_padding, backbone.stages.1.blocks.0.attn.drop, backbone.stages.1.blocks.0.ffn.dropout_layer, backbone.stages.1.blocks.1.attn.drop, backbone.stages.1.blocks.1.ffn.dropout_layer, backbone.stages.1.downsample.adap_padding, backbone.stages.2.blocks.0.attn.drop, backbone.stages.2.blocks.0.ffn.dropout_layer, backbone.stages.2.blocks.1.attn.drop, backbone.stages.2.blocks.1.ffn.dropout_layer, backbone.stages.2.blocks.10.attn.drop, backbone.stages.2.blocks.10.ffn.dropout_layer, backbone.stages.2.blocks.11.attn.drop, backbone.stages.2.blocks.11.ffn.dropout_layer, backbone.stages.2.blocks.12.attn.drop, backbone.stages.2.blocks.12.ffn.dropout_layer, backbone.stages.2.blocks.13.attn.drop, backbone.stages.2.blocks.13.ffn.dropout_layer, backbone.stages.2.blocks.14.attn.drop, backbone.stages.2.blocks.14.ffn.dropout_layer, backbone.stages.2.blocks.15.attn.drop, backbone.stages.2.blocks.15.ffn.dropout_layer, backbone.stages.2.blocks.16.attn.drop, backbone.stages.2.blocks.16.ffn.dropout_layer, backbone.stages.2.blocks.17.attn.drop, backbone.stages.2.blocks.17.ffn.dropout_layer, backbone.stages.2.blocks.2.attn.drop, backbone.stages.2.blocks.2.ffn.dropout_layer, backbone.stages.2.blocks.3.attn.drop, backbone.stages.2.blocks.3.ffn.dropout_layer, backbone.stages.2.blocks.4.attn.drop, backbone.stages.2.blocks.4.ffn.dropout_layer, backbone.stages.2.blocks.5.attn.drop, backbone.stages.2.blocks.5.ffn.dropout_layer, backbone.stages.2.blocks.6.attn.drop, backbone.stages.2.blocks.6.ffn.dropout_layer, backbone.stages.2.blocks.7.attn.drop, backbone.stages.2.blocks.7.ffn.dropout_layer, backbone.stages.2.blocks.8.attn.drop, backbone.stages.2.blocks.8.ffn.dropout_layer, backbone.stages.2.blocks.9.attn.drop, backbone.stages.2.blocks.9.ffn.dropout_layer, backbone.stages.2.downsample.adap_padding, backbone.stages.3.blocks.0.attn.drop, backbone.stages.3.blocks.0.ffn.dropout_layer, backbone.stages.3.blocks.1.attn.drop, backbone.stages.3.blocks.1.ffn.dropout_layer, backbone.wtm3d.bn1, backbone.wtm3d.conv1, backbone.wtm3d.global_avg_pool, backbone.wtm3d.global_avg_pool.0, backbone.wtm3d.global_avg_pool.1, backbone.wtm3d.global_avg_pool.2, backbone.wtm3d.global_avg_pool.3, data_preprocessor, head.loss_module
+12/22 14:41:47 - mmengine - WARNING - Unsupported operator aten::batch_norm encountered 17 time(s)
+12/22 14:41:47 - mmengine - WARNING - Unsupported operator aten::layer_norm encountered 71 time(s)
+12/22 14:41:47 - mmengine - WARNING - Unsupported operator aten::upsample_bilinear2d encountered 3 time(s)
+==============================
+Input shape: (1, 3, 256, 192)
+Flops: 97.645G
+Params: 90.676M
+==============================
+
++---------------------------+----------------------+------------+--------------+
+| module                    | #parameters or shape | #flops     | #activations |
++---------------------------+----------------------+------------+--------------+
+| model                     | 90.676M              | 97.645G    | 0.531G       |
+|  backbone                 |  90.674M             |  97.638G   |  0.531G      |
+|   backbone.stages         |   86.735M            |   17.755G  |   43.601M    |
+|    backbone.stages.0      |    0.53M             |    1.451G  |    9.864M    |
+|    backbone.stages.1      |    2.109M            |    1.474G  |    5.342M    |
+|    backbone.stages.2      |    58.893M           |    13.181G |    26.593M   |
+|    backbone.stages.3.blo… |    25.203M           |    1.648G  |    1.802M    |
+|   backbone.norm0          |   0.256K             |   1.966M   |   0          |
+|    backbone.norm0.weight  |    (128,)            |            |              |
+|    backbone.norm0.bias    |    (128,)            |            |              |
+|   backbone.norm1          |   0.512K             |   0.983M   |   0          |
+|    backbone.norm1.weight  |    (256,)            |            |              |
+|    backbone.norm1.bias    |    (256,)            |            |              |
+|   backbone.norm2          |   1.024K             |   0.492M   |   0          |
+|    backbone.norm2.weight  |    (512,)            |            |              |
+|    backbone.norm2.bias    |    (512,)            |            |              |
+|   backbone.norm3          |   2.048K             |   0.246M   |   0          |
+|    backbone.norm3.weight  |    (1024,)           |            |              |
+|    backbone.norm3.bias    |    (1024,)           |            |              |
+|   backbone.resnet         |   0.255M             |   0.799G   |   5.308M     |
+|    backbone.resnet.stem   |    38.848K           |    0.136G  |    0.983M    |
+|    backbone.resnet.layer1 |    0.216M            |    0.663G  |    4.325M    |
+|   backbone.wtm3d          |   3.648M             |   78.979G  |   0.482G     |
+|    backbone.wtm3d.wtb1_0  |    0.198M            |    9.654G  |    62.844M   |
+|    backbone.wtm3d.wtb1_1  |    0.198M            |    9.068G  |    57.348M   |
+|    backbone.wtm3d.wtb2_0  |    0.198M            |    9.654G  |    62.844M   |
+|    backbone.wtm3d.wtb2_1  |    0.198M            |    9.068G  |    57.348M   |
+|    backbone.wtm3d.wtb3_0  |    0.198M            |    9.654G  |    62.844M   |
+|    backbone.wtm3d.wtb3_1  |    0.198M            |    9.068G  |    57.348M   |
+|    backbone.wtm3d.wtb4_0  |    0.198M            |    9.654G  |    62.844M   |
+|    backbone.wtm3d.wtb4_1  |    0.198M            |    9.068G  |    57.348M   |
+|    backbone.wtm3d.global… |    0.246M            |            |              |
+|    backbone.wtm3d.conv1   |    0.492M            |            |              |
+|    backbone.wtm3d.bn1     |    0.512K            |            |              |
+|    backbone.wtm3d.conv2   |    0.983M            |    3.02G   |    0.393M    |
+|    backbone.wtm3d.bn2     |    0.256K            |    0.786M  |    0         |
+|    backbone.wtm3d.low     |    8.192K            |    25.166M |    98.304K   |
+|    backbone.wtm3d.bn_low  |    64                |    0.197M  |    0         |
+|    backbone.wtm3d.last_c… |    0.332M            |    1.021G  |    0.786M    |
+|   backbone.conv3          |   32.768K            |   0.101G   |   0.393M     |
+|    backbone.conv3.weight  |    (128, 256, 1, 1)  |            |              |
+|   backbone.bn3            |   0.256K             |   0.786M   |   0          |
+|    backbone.bn3.weight    |    (128,)            |            |              |
+|    backbone.bn3.bias      |    (128,)            |            |              |
+|  head.final_layer         |  2.193K              |  6.685M    |  52.224K     |
+|   head.final_layer.weight |   (17, 128, 1, 1)    |            |              |
+|   head.final_layer.bias   |   (17,)              |            |              |
++---------------------------+----------------------+------------+--------------+
+
+!!!Please be cautious if you use the results in papers. You may need to check if all ops are supported and verify that the flops computation is correct.

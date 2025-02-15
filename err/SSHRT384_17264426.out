@@ -1,0 +1,424 @@
+08/24 09:47:19 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.17 (default, Jul  5 2023, 21:04:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 716351108
+    GPU 0,1: NVIDIA A100-PCIE-40GB
+    CUDA_HOME: None
+    GCC: n/a
+    PyTorch: 1.11.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.5.2 (Git Hash a9302535553c73243c632ad3c4c80beec3d19a1e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.12.0
+    OpenCV: 4.8.0
+    MMEngine: 0.8.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 716351108
+    Distributed launcher: pytorch
+    Distributed training: True
+    GPU number: 2
+------------------------------------------------------------
+
+08/24 09:47:20 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=256)
+backend_args = dict(backend='local')
+codec = dict(
+    heatmap_size=(
+        64,
+        64,
+    ),
+    input_size=(
+        256,
+        256,
+    ),
+    sigma=2,
+    type='MSRAHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+data_mode = 'topdown'
+data_root = 'data/coco/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=10,
+        rule='greater',
+        save_best='coco/AP',
+        type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'pytorch'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        arch='base',
+        drop_path_rate=0.5,
+        init_cfg=dict(
+            checkpoint=
+            'https://download.openmmlab.com/mmclassification/v0/swin-v2/swinv2-small-w8_3rdparty_in1k-256px_20220803-b01a4332.pth',
+            type='Pretrained'),
+        type='SwinV2'),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        decoder=dict(
+            heatmap_size=(
+                64,
+                64,
+            ),
+            input_size=(
+                256,
+                256,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        in_channels=1024,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=17,
+        type='HeatmapHead'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=True),
+    type='TopdownPoseEstimator')
+norm_cfg = dict(requires_grad=True, type='SyncBN')
+optim_wrapper = dict(optimizer=dict(lr=0.0005, type='Adam'))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=210,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                256,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+train_cfg = dict(by_epoch=True, max_epochs=210, val_interval=10)
+train_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_train2017.json',
+        data_mode='topdown',
+        data_prefix=dict(img='train2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                256,
+                256,
+            ), type='TopdownAffine'),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        64,
+                        64,
+                    ),
+                    input_size=(
+                        256,
+                        256,
+                    ),
+                    sigma=2,
+                    type='MSRAHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        256,
+        256,
+    ), type='TopdownAffine'),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                64,
+                64,
+            ),
+            input_size=(
+                256,
+                256,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                256,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        256,
+        256,
+    ), type='TopdownAffine'),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/WTPose_SwinV2_b_p4_coco_256x192_1k'
+
+08/24 09:47:31 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+loading annotations into memory...
+Done (t=7.88s)
+creating index...
+Done (t=8.10s)
+creating index...
+index created!
+index created!
+loading annotations into memory...
+Done (t=0.30s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+08/24 09:48:31 - mmengine - INFO - load model from: https://download.openmmlab.com/mmclassification/v0/swin-v2/swinv2-small-w8_3rdparty_in1k-256px_20220803-b01a4332.pth
+08/24 09:48:31 - mmengine - INFO - Loads checkpoint by http backend from path: https://download.openmmlab.com/mmclassification/v0/swin-v2/swinv2-small-w8_3rdparty_in1k-256px_20220803-b01a4332.pth
+08/24 09:48:32 - mmengine - INFO - Delete `relative_position_index` and `relative_coords_table` since we always re-init these params according to the `window_size`, which might cause unwanted but unworried warnings when loading checkpoint.
+08/24 09:48:32 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: backbone.patch_embed.projection.weight, backbone.patch_embed.projection.bias, backbone.patch_embed.norm.weight, backbone.patch_embed.norm.bias, backbone.stages.0.blocks.0.attn.w_msa.logit_scale, backbone.stages.0.blocks.0.attn.w_msa.q_bias, backbone.stages.0.blocks.0.attn.w_msa.v_bias, backbone.stages.0.blocks.0.attn.w_msa.cpb_mlp.0.weight, backbone.stages.0.blocks.0.attn.w_msa.cpb_mlp.0.bias, backbone.stages.0.blocks.0.attn.w_msa.cpb_mlp.2.weight, backbone.stages.0.blocks.0.attn.w_msa.qkv.weight, backbone.stages.0.blocks.0.attn.w_msa.proj.weight, backbone.stages.0.blocks.0.attn.w_msa.proj.bias, backbone.stages.0.blocks.0.norm1.weight, backbone.stages.0.blocks.0.norm1.bias, backbone.stages.0.blocks.0.ffn.layers.0.0.weight, backbone.stages.0.blocks.0.ffn.layers.0.0.bias, backbone.stages.0.blocks.0.ffn.layers.1.weight, backbone.stages.0.blocks.0.ffn.layers.1.bias, backbone.stages.0.blocks.0.norm2.weight, backbone.stages.0.blocks.0.norm2.bias, backbone.stages.0.blocks.1.attn.w_msa.logit_scale, backbone.stages.0.blocks.1.attn.w_msa.q_bias, backbone.stages.0.blocks.1.attn.w_msa.v_bias, backbone.stages.0.blocks.1.attn.w_msa.cpb_mlp.0.weight, backbone.stages.0.blocks.1.attn.w_msa.cpb_mlp.0.bias, backbone.stages.0.blocks.1.attn.w_msa.cpb_mlp.2.weight, backbone.stages.0.blocks.1.attn.w_msa.qkv.weight, backbone.stages.0.blocks.1.attn.w_msa.proj.weight, backbone.stages.0.blocks.1.attn.w_msa.proj.bias, backbone.stages.0.blocks.1.norm1.weight, backbone.stages.0.blocks.1.norm1.bias, backbone.stages.0.blocks.1.ffn.layers.0.0.weight, backbone.stages.0.blocks.1.ffn.layers.0.0.bias, backbone.stages.0.blocks.1.ffn.layers.1.weight, backbone.stages.0.blocks.1.ffn.layers.1.bias, backbone.stages.0.blocks.1.norm2.weight, backbone.stages.0.blocks.1.norm2.bias, backbone.stages.1.downsample.reduction.weight, backbone.stages.1.downsample.norm.weight, backbone.stages.1.downsample.norm.bias, backbone.stages.1.blocks.0.attn.w_msa.logit_scale, backbone.stages.1.blocks.0.attn.w_msa.q_bias, backbone.stages.1.blocks.0.attn.w_msa.v_bias, backbone.stages.1.blocks.0.attn.w_msa.cpb_mlp.0.weight, backbone.stages.1.blocks.0.attn.w_msa.cpb_mlp.0.bias, backbone.stages.1.blocks.0.attn.w_msa.cpb_mlp.2.weight, backbone.stages.1.blocks.0.attn.w_msa.qkv.weight, backbone.stages.1.blocks.0.attn.w_msa.proj.weight, backbone.stages.1.blocks.0.attn.w_msa.proj.bias, backbone.stages.1.blocks.0.norm1.weight, backbone.stages.1.blocks.0.norm1.bias, backbone.stages.1.blocks.0.ffn.layers.0.0.weight, backbone.stages.1.blocks.0.ffn.layers.0.0.bias, backbone.stages.1.blocks.0.ffn.layers.1.weight, backbone.stages.1.blocks.0.ffn.layers.1.bias, backbone.stages.1.blocks.0.norm2.weight, backbone.stages.1.blocks.0.norm2.bias, backbone.stages.1.blocks.1.attn.w_msa.logit_scale, backbone.stages.1.blocks.1.attn.w_msa.q_bias, backbone.stages.1.blocks.1.attn.w_msa.v_bias, backbone.stages.1.blocks.1.attn.w_msa.cpb_mlp.0.weight, backbone.stages.1.blocks.1.attn.w_msa.cpb_mlp.0.bias, backbone.stages.1.blocks.1.attn.w_msa.cpb_mlp.2.weight, backbone.stages.1.blocks.1.attn.w_msa.qkv.weight, backbone.stages.1.blocks.1.attn.w_msa.proj.weight, backbone.stages.1.blocks.1.attn.w_msa.proj.bias, backbone.stages.1.blocks.1.norm1.weight, backbone.stages.1.blocks.1.norm1.bias, backbone.stages.1.blocks.1.ffn.layers.0.0.weight, backbone.stages.1.blocks.1.ffn.layers.0.0.bias, backbone.stages.1.blocks.1.ffn.layers.1.weight, backbone.stages.1.blocks.1.ffn.layers.1.bias, backbone.stages.1.blocks.1.norm2.weight, backbone.stages.1.blocks.1.norm2.bias, backbone.stages.2.downsample.reduction.weight, backbone.stages.2.downsample.norm.weight, backbone.stages.2.downsample.norm.bias, backbone.stages.2.blocks.0.attn.w_msa.logit_scale, backbone.stages.2.blocks.0.attn.w_msa.q_bias, backbone.stages.2.blocks.0.attn.w_msa.v_bias, backbone.stages.2.blocks.0.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.0.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.0.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.0.attn.w_msa.qkv.weight, backbone.stages.2.blocks.0.attn.w_msa.proj.weight, backbone.stages.2.blocks.0.attn.w_msa.proj.bias, backbone.stages.2.blocks.0.norm1.weight, backbone.stages.2.blocks.0.norm1.bias, backbone.stages.2.blocks.0.ffn.layers.0.0.weight, backbone.stages.2.blocks.0.ffn.layers.0.0.bias, backbone.stages.2.blocks.0.ffn.layers.1.weight, backbone.stages.2.blocks.0.ffn.layers.1.bias, backbone.stages.2.blocks.0.norm2.weight, backbone.stages.2.blocks.0.norm2.bias, backbone.stages.2.blocks.1.attn.w_msa.logit_scale, backbone.stages.2.blocks.1.attn.w_msa.q_bias, backbone.stages.2.blocks.1.attn.w_msa.v_bias, backbone.stages.2.blocks.1.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.1.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.1.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.1.attn.w_msa.qkv.weight, backbone.stages.2.blocks.1.attn.w_msa.proj.weight, backbone.stages.2.blocks.1.attn.w_msa.proj.bias, backbone.stages.2.blocks.1.norm1.weight, backbone.stages.2.blocks.1.norm1.bias, backbone.stages.2.blocks.1.ffn.layers.0.0.weight, backbone.stages.2.blocks.1.ffn.layers.0.0.bias, backbone.stages.2.blocks.1.ffn.layers.1.weight, backbone.stages.2.blocks.1.ffn.layers.1.bias, backbone.stages.2.blocks.1.norm2.weight, backbone.stages.2.blocks.1.norm2.bias, backbone.stages.2.blocks.2.attn.w_msa.logit_scale, backbone.stages.2.blocks.2.attn.w_msa.q_bias, backbone.stages.2.blocks.2.attn.w_msa.v_bias, backbone.stages.2.blocks.2.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.2.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.2.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.2.attn.w_msa.qkv.weight, backbone.stages.2.blocks.2.attn.w_msa.proj.weight, backbone.stages.2.blocks.2.attn.w_msa.proj.bias, backbone.stages.2.blocks.2.norm1.weight, backbone.stages.2.blocks.2.norm1.bias, backbone.stages.2.blocks.2.ffn.layers.0.0.weight, backbone.stages.2.blocks.2.ffn.layers.0.0.bias, backbone.stages.2.blocks.2.ffn.layers.1.weight, backbone.stages.2.blocks.2.ffn.layers.1.bias, backbone.stages.2.blocks.2.norm2.weight, backbone.stages.2.blocks.2.norm2.bias, backbone.stages.2.blocks.3.attn.w_msa.logit_scale, backbone.stages.2.blocks.3.attn.w_msa.q_bias, backbone.stages.2.blocks.3.attn.w_msa.v_bias, backbone.stages.2.blocks.3.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.3.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.3.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.3.attn.w_msa.qkv.weight, backbone.stages.2.blocks.3.attn.w_msa.proj.weight, backbone.stages.2.blocks.3.attn.w_msa.proj.bias, backbone.stages.2.blocks.3.norm1.weight, backbone.stages.2.blocks.3.norm1.bias, backbone.stages.2.blocks.3.ffn.layers.0.0.weight, backbone.stages.2.blocks.3.ffn.layers.0.0.bias, backbone.stages.2.blocks.3.ffn.layers.1.weight, backbone.stages.2.blocks.3.ffn.layers.1.bias, backbone.stages.2.blocks.3.norm2.weight, backbone.stages.2.blocks.3.norm2.bias, backbone.stages.2.blocks.4.attn.w_msa.logit_scale, backbone.stages.2.blocks.4.attn.w_msa.q_bias, backbone.stages.2.blocks.4.attn.w_msa.v_bias, backbone.stages.2.blocks.4.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.4.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.4.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.4.attn.w_msa.qkv.weight, backbone.stages.2.blocks.4.attn.w_msa.proj.weight, backbone.stages.2.blocks.4.attn.w_msa.proj.bias, backbone.stages.2.blocks.4.norm1.weight, backbone.stages.2.blocks.4.norm1.bias, backbone.stages.2.blocks.4.ffn.layers.0.0.weight, backbone.stages.2.blocks.4.ffn.layers.0.0.bias, backbone.stages.2.blocks.4.ffn.layers.1.weight, backbone.stages.2.blocks.4.ffn.layers.1.bias, backbone.stages.2.blocks.4.norm2.weight, backbone.stages.2.blocks.4.norm2.bias, backbone.stages.2.blocks.5.attn.w_msa.logit_scale, backbone.stages.2.blocks.5.attn.w_msa.q_bias, backbone.stages.2.blocks.5.attn.w_msa.v_bias, backbone.stages.2.blocks.5.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.5.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.5.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.5.attn.w_msa.qkv.weight, backbone.stages.2.blocks.5.attn.w_msa.proj.weight, backbone.stages.2.blocks.5.attn.w_msa.proj.bias, backbone.stages.2.blocks.5.norm1.weight, backbone.stages.2.blocks.5.norm1.bias, backbone.stages.2.blocks.5.ffn.layers.0.0.weight, backbone.stages.2.blocks.5.ffn.layers.0.0.bias, backbone.stages.2.blocks.5.ffn.layers.1.weight, backbone.stages.2.blocks.5.ffn.layers.1.bias, backbone.stages.2.blocks.5.norm2.weight, backbone.stages.2.blocks.5.norm2.bias, backbone.stages.2.blocks.6.attn.w_msa.logit_scale, backbone.stages.2.blocks.6.attn.w_msa.q_bias, backbone.stages.2.blocks.6.attn.w_msa.v_bias, backbone.stages.2.blocks.6.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.6.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.6.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.6.attn.w_msa.qkv.weight, backbone.stages.2.blocks.6.attn.w_msa.proj.weight, backbone.stages.2.blocks.6.attn.w_msa.proj.bias, backbone.stages.2.blocks.6.norm1.weight, backbone.stages.2.blocks.6.norm1.bias, backbone.stages.2.blocks.6.ffn.layers.0.0.weight, backbone.stages.2.blocks.6.ffn.layers.0.0.bias, backbone.stages.2.blocks.6.ffn.layers.1.weight, backbone.stages.2.blocks.6.ffn.layers.1.bias, backbone.stages.2.blocks.6.norm2.weight, backbone.stages.2.blocks.6.norm2.bias, backbone.stages.2.blocks.7.attn.w_msa.logit_scale, backbone.stages.2.blocks.7.attn.w_msa.q_bias, backbone.stages.2.blocks.7.attn.w_msa.v_bias, backbone.stages.2.blocks.7.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.7.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.7.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.7.attn.w_msa.qkv.weight, backbone.stages.2.blocks.7.attn.w_msa.proj.weight, backbone.stages.2.blocks.7.attn.w_msa.proj.bias, backbone.stages.2.blocks.7.norm1.weight, backbone.stages.2.blocks.7.norm1.bias, backbone.stages.2.blocks.7.ffn.layers.0.0.weight, backbone.stages.2.blocks.7.ffn.layers.0.0.bias, backbone.stages.2.blocks.7.ffn.layers.1.weight, backbone.stages.2.blocks.7.ffn.layers.1.bias, backbone.stages.2.blocks.7.norm2.weight, backbone.stages.2.blocks.7.norm2.bias, backbone.stages.2.blocks.8.attn.w_msa.logit_scale, backbone.stages.2.blocks.8.attn.w_msa.q_bias, backbone.stages.2.blocks.8.attn.w_msa.v_bias, backbone.stages.2.blocks.8.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.8.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.8.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.8.attn.w_msa.qkv.weight, backbone.stages.2.blocks.8.attn.w_msa.proj.weight, backbone.stages.2.blocks.8.attn.w_msa.proj.bias, backbone.stages.2.blocks.8.norm1.weight, backbone.stages.2.blocks.8.norm1.bias, backbone.stages.2.blocks.8.ffn.layers.0.0.weight, backbone.stages.2.blocks.8.ffn.layers.0.0.bias, backbone.stages.2.blocks.8.ffn.layers.1.weight, backbone.stages.2.blocks.8.ffn.layers.1.bias, backbone.stages.2.blocks.8.norm2.weight, backbone.stages.2.blocks.8.norm2.bias, backbone.stages.2.blocks.9.attn.w_msa.logit_scale, backbone.stages.2.blocks.9.attn.w_msa.q_bias, backbone.stages.2.blocks.9.attn.w_msa.v_bias, backbone.stages.2.blocks.9.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.9.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.9.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.9.attn.w_msa.qkv.weight, backbone.stages.2.blocks.9.attn.w_msa.proj.weight, backbone.stages.2.blocks.9.attn.w_msa.proj.bias, backbone.stages.2.blocks.9.norm1.weight, backbone.stages.2.blocks.9.norm1.bias, backbone.stages.2.blocks.9.ffn.layers.0.0.weight, backbone.stages.2.blocks.9.ffn.layers.0.0.bias, backbone.stages.2.blocks.9.ffn.layers.1.weight, backbone.stages.2.blocks.9.ffn.layers.1.bias, backbone.stages.2.blocks.9.norm2.weight, backbone.stages.2.blocks.9.norm2.bias, backbone.stages.2.blocks.10.attn.w_msa.logit_scale, backbone.stages.2.blocks.10.attn.w_msa.q_bias, backbone.stages.2.blocks.10.attn.w_msa.v_bias, backbone.stages.2.blocks.10.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.10.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.10.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.10.attn.w_msa.qkv.weight, backbone.stages.2.blocks.10.attn.w_msa.proj.weight, backbone.stages.2.blocks.10.attn.w_msa.proj.bias, backbone.stages.2.blocks.10.norm1.weight, backbone.stages.2.blocks.10.norm1.bias, backbone.stages.2.blocks.10.ffn.layers.0.0.weight, backbone.stages.2.blocks.10.ffn.layers.0.0.bias, backbone.stages.2.blocks.10.ffn.layers.1.weight, backbone.stages.2.blocks.10.ffn.layers.1.bias, backbone.stages.2.blocks.10.norm2.weight, backbone.stages.2.blocks.10.norm2.bias, backbone.stages.2.blocks.11.attn.w_msa.logit_scale, backbone.stages.2.blocks.11.attn.w_msa.q_bias, backbone.stages.2.blocks.11.attn.w_msa.v_bias, backbone.stages.2.blocks.11.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.11.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.11.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.11.attn.w_msa.qkv.weight, backbone.stages.2.blocks.11.attn.w_msa.proj.weight, backbone.stages.2.blocks.11.attn.w_msa.proj.bias, backbone.stages.2.blocks.11.norm1.weight, backbone.stages.2.blocks.11.norm1.bias, backbone.stages.2.blocks.11.ffn.layers.0.0.weight, backbone.stages.2.blocks.11.ffn.layers.0.0.bias, backbone.stages.2.blocks.11.ffn.layers.1.weight, backbone.stages.2.blocks.11.ffn.layers.1.bias, backbone.stages.2.blocks.11.norm2.weight, backbone.stages.2.blocks.11.norm2.bias, backbone.stages.2.blocks.12.attn.w_msa.logit_scale, backbone.stages.2.blocks.12.attn.w_msa.q_bias, backbone.stages.2.blocks.12.attn.w_msa.v_bias, backbone.stages.2.blocks.12.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.12.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.12.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.12.attn.w_msa.qkv.weight, backbone.stages.2.blocks.12.attn.w_msa.proj.weight, backbone.stages.2.blocks.12.attn.w_msa.proj.bias, backbone.stages.2.blocks.12.norm1.weight, backbone.stages.2.blocks.12.norm1.bias, backbone.stages.2.blocks.12.ffn.layers.0.0.weight, backbone.stages.2.blocks.12.ffn.layers.0.0.bias, backbone.stages.2.blocks.12.ffn.layers.1.weight, backbone.stages.2.blocks.12.ffn.layers.1.bias, backbone.stages.2.blocks.12.norm2.weight, backbone.stages.2.blocks.12.norm2.bias, backbone.stages.2.blocks.13.attn.w_msa.logit_scale, backbone.stages.2.blocks.13.attn.w_msa.q_bias, backbone.stages.2.blocks.13.attn.w_msa.v_bias, backbone.stages.2.blocks.13.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.13.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.13.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.13.attn.w_msa.qkv.weight, backbone.stages.2.blocks.13.attn.w_msa.proj.weight, backbone.stages.2.blocks.13.attn.w_msa.proj.bias, backbone.stages.2.blocks.13.norm1.weight, backbone.stages.2.blocks.13.norm1.bias, backbone.stages.2.blocks.13.ffn.layers.0.0.weight, backbone.stages.2.blocks.13.ffn.layers.0.0.bias, backbone.stages.2.blocks.13.ffn.layers.1.weight, backbone.stages.2.blocks.13.ffn.layers.1.bias, backbone.stages.2.blocks.13.norm2.weight, backbone.stages.2.blocks.13.norm2.bias, backbone.stages.2.blocks.14.attn.w_msa.logit_scale, backbone.stages.2.blocks.14.attn.w_msa.q_bias, backbone.stages.2.blocks.14.attn.w_msa.v_bias, backbone.stages.2.blocks.14.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.14.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.14.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.14.attn.w_msa.qkv.weight, backbone.stages.2.blocks.14.attn.w_msa.proj.weight, backbone.stages.2.blocks.14.attn.w_msa.proj.bias, backbone.stages.2.blocks.14.norm1.weight, backbone.stages.2.blocks.14.norm1.bias, backbone.stages.2.blocks.14.ffn.layers.0.0.weight, backbone.stages.2.blocks.14.ffn.layers.0.0.bias, backbone.stages.2.blocks.14.ffn.layers.1.weight, backbone.stages.2.blocks.14.ffn.layers.1.bias, backbone.stages.2.blocks.14.norm2.weight, backbone.stages.2.blocks.14.norm2.bias, backbone.stages.2.blocks.15.attn.w_msa.logit_scale, backbone.stages.2.blocks.15.attn.w_msa.q_bias, backbone.stages.2.blocks.15.attn.w_msa.v_bias, backbone.stages.2.blocks.15.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.15.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.15.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.15.attn.w_msa.qkv.weight, backbone.stages.2.blocks.15.attn.w_msa.proj.weight, backbone.stages.2.blocks.15.attn.w_msa.proj.bias, backbone.stages.2.blocks.15.norm1.weight, backbone.stages.2.blocks.15.norm1.bias, backbone.stages.2.blocks.15.ffn.layers.0.0.weight, backbone.stages.2.blocks.15.ffn.layers.0.0.bias, backbone.stages.2.blocks.15.ffn.layers.1.weight, backbone.stages.2.blocks.15.ffn.layers.1.bias, backbone.stages.2.blocks.15.norm2.weight, backbone.stages.2.blocks.15.norm2.bias, backbone.stages.2.blocks.16.attn.w_msa.logit_scale, backbone.stages.2.blocks.16.attn.w_msa.q_bias, backbone.stages.2.blocks.16.attn.w_msa.v_bias, backbone.stages.2.blocks.16.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.16.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.16.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.16.attn.w_msa.qkv.weight, backbone.stages.2.blocks.16.attn.w_msa.proj.weight, backbone.stages.2.blocks.16.attn.w_msa.proj.bias, backbone.stages.2.blocks.16.norm1.weight, backbone.stages.2.blocks.16.norm1.bias, backbone.stages.2.blocks.16.ffn.layers.0.0.weight, backbone.stages.2.blocks.16.ffn.layers.0.0.bias, backbone.stages.2.blocks.16.ffn.layers.1.weight, backbone.stages.2.blocks.16.ffn.layers.1.bias, backbone.stages.2.blocks.16.norm2.weight, backbone.stages.2.blocks.16.norm2.bias, backbone.stages.2.blocks.17.attn.w_msa.logit_scale, backbone.stages.2.blocks.17.attn.w_msa.q_bias, backbone.stages.2.blocks.17.attn.w_msa.v_bias, backbone.stages.2.blocks.17.attn.w_msa.cpb_mlp.0.weight, backbone.stages.2.blocks.17.attn.w_msa.cpb_mlp.0.bias, backbone.stages.2.blocks.17.attn.w_msa.cpb_mlp.2.weight, backbone.stages.2.blocks.17.attn.w_msa.qkv.weight, backbone.stages.2.blocks.17.attn.w_msa.proj.weight, backbone.stages.2.blocks.17.attn.w_msa.proj.bias, backbone.stages.2.blocks.17.norm1.weight, backbone.stages.2.blocks.17.norm1.bias, backbone.stages.2.blocks.17.ffn.layers.0.0.weight, backbone.stages.2.blocks.17.ffn.layers.0.0.bias, backbone.stages.2.blocks.17.ffn.layers.1.weight, backbone.stages.2.blocks.17.ffn.layers.1.bias, backbone.stages.2.blocks.17.norm2.weight, backbone.stages.2.blocks.17.norm2.bias, backbone.stages.3.downsample.reduction.weight, backbone.stages.3.downsample.norm.weight, backbone.stages.3.downsample.norm.bias, backbone.stages.3.blocks.0.attn.w_msa.logit_scale, backbone.stages.3.blocks.0.attn.w_msa.q_bias, backbone.stages.3.blocks.0.attn.w_msa.v_bias, backbone.stages.3.blocks.0.attn.w_msa.cpb_mlp.0.weight, backbone.stages.3.blocks.0.attn.w_msa.cpb_mlp.0.bias, backbone.stages.3.blocks.0.attn.w_msa.cpb_mlp.2.weight, backbone.stages.3.blocks.0.attn.w_msa.qkv.weight, backbone.stages.3.blocks.0.attn.w_msa.proj.weight, backbone.stages.3.blocks.0.attn.w_msa.proj.bias, backbone.stages.3.blocks.0.norm1.weight, backbone.stages.3.blocks.0.norm1.bias, backbone.stages.3.blocks.0.ffn.layers.0.0.weight, backbone.stages.3.blocks.0.ffn.layers.0.0.bias, backbone.stages.3.blocks.0.ffn.layers.1.weight, backbone.stages.3.blocks.0.ffn.layers.1.bias, backbone.stages.3.blocks.0.norm2.weight, backbone.stages.3.blocks.0.norm2.bias, backbone.stages.3.blocks.1.attn.w_msa.logit_scale, backbone.stages.3.blocks.1.attn.w_msa.q_bias, backbone.stages.3.blocks.1.attn.w_msa.v_bias, backbone.stages.3.blocks.1.attn.w_msa.cpb_mlp.0.weight, backbone.stages.3.blocks.1.attn.w_msa.cpb_mlp.0.bias, backbone.stages.3.blocks.1.attn.w_msa.cpb_mlp.2.weight, backbone.stages.3.blocks.1.attn.w_msa.qkv.weight, backbone.stages.3.blocks.1.attn.w_msa.proj.weight, backbone.stages.3.blocks.1.attn.w_msa.proj.bias, backbone.stages.3.blocks.1.norm1.weight, backbone.stages.3.blocks.1.norm1.bias, backbone.stages.3.blocks.1.ffn.layers.0.0.weight, backbone.stages.3.blocks.1.ffn.layers.0.0.bias, backbone.stages.3.blocks.1.ffn.layers.1.weight, backbone.stages.3.blocks.1.ffn.layers.1.bias, backbone.stages.3.blocks.1.norm2.weight, backbone.stages.3.blocks.1.norm2.bias, backbone.norm3.weight, backbone.norm3.bias, head.fc.weight, head.fc.bias
+
+missing keys in source state_dict: patch_embed.projection.weight, patch_embed.projection.bias, patch_embed.norm.weight, patch_embed.norm.bias, stages.0.blocks.0.attn.w_msa.logit_scale, stages.0.blocks.0.attn.w_msa.q_bias, stages.0.blocks.0.attn.w_msa.v_bias, stages.0.blocks.0.attn.w_msa.relative_coords_table, stages.0.blocks.0.attn.w_msa.relative_position_index, stages.0.blocks.0.attn.w_msa.cpb_mlp.0.weight, stages.0.blocks.0.attn.w_msa.cpb_mlp.0.bias, stages.0.blocks.0.attn.w_msa.cpb_mlp.2.weight, stages.0.blocks.0.attn.w_msa.qkv.weight, stages.0.blocks.0.attn.w_msa.proj.weight, stages.0.blocks.0.attn.w_msa.proj.bias, stages.0.blocks.0.norm1.weight, stages.0.blocks.0.norm1.bias, stages.0.blocks.0.ffn.layers.0.0.weight, stages.0.blocks.0.ffn.layers.0.0.bias, stages.0.blocks.0.ffn.layers.1.weight, stages.0.blocks.0.ffn.layers.1.bias, stages.0.blocks.0.norm2.weight, stages.0.blocks.0.norm2.bias, stages.0.blocks.1.attn.w_msa.logit_scale, stages.0.blocks.1.attn.w_msa.q_bias, stages.0.blocks.1.attn.w_msa.v_bias, stages.0.blocks.1.attn.w_msa.relative_coords_table, stages.0.blocks.1.attn.w_msa.relative_position_index, stages.0.blocks.1.attn.w_msa.cpb_mlp.0.weight, stages.0.blocks.1.attn.w_msa.cpb_mlp.0.bias, stages.0.blocks.1.attn.w_msa.cpb_mlp.2.weight, stages.0.blocks.1.attn.w_msa.qkv.weight, stages.0.blocks.1.attn.w_msa.proj.weight, stages.0.blocks.1.attn.w_msa.proj.bias, stages.0.blocks.1.norm1.weight, stages.0.blocks.1.norm1.bias, stages.0.blocks.1.ffn.layers.0.0.weight, stages.0.blocks.1.ffn.layers.0.0.bias, stages.0.blocks.1.ffn.layers.1.weight, stages.0.blocks.1.ffn.layers.1.bias, stages.0.blocks.1.norm2.weight, stages.0.blocks.1.norm2.bias, stages.1.downsample.reduction.weight, stages.1.downsample.norm.weight, stages.1.downsample.norm.bias, stages.1.blocks.0.attn.w_msa.logit_scale, stages.1.blocks.0.attn.w_msa.q_bias, stages.1.blocks.0.attn.w_msa.v_bias, stages.1.blocks.0.attn.w_msa.relative_coords_table, stages.1.blocks.0.attn.w_msa.relative_position_index, stages.1.blocks.0.attn.w_msa.cpb_mlp.0.weight, stages.1.blocks.0.attn.w_msa.cpb_mlp.0.bias, stages.1.blocks.0.attn.w_msa.cpb_mlp.2.weight, stages.1.blocks.0.attn.w_msa.qkv.weight, stages.1.blocks.0.attn.w_msa.proj.weight, stages.1.blocks.0.attn.w_msa.proj.bias, stages.1.blocks.0.norm1.weight, stages.1.blocks.0.norm1.bias, stages.1.blocks.0.ffn.layers.0.0.weight, stages.1.blocks.0.ffn.layers.0.0.bias, stages.1.blocks.0.ffn.layers.1.weight, stages.1.blocks.0.ffn.layers.1.bias, stages.1.blocks.0.norm2.weight, stages.1.blocks.0.norm2.bias, stages.1.blocks.1.attn.w_msa.logit_scale, stages.1.blocks.1.attn.w_msa.q_bias, stages.1.blocks.1.attn.w_msa.v_bias, stages.1.blocks.1.attn.w_msa.relative_coords_table, stages.1.blocks.1.attn.w_msa.relative_position_index, stages.1.blocks.1.attn.w_msa.cpb_mlp.0.weight, stages.1.blocks.1.attn.w_msa.cpb_mlp.0.bias, stages.1.blocks.1.attn.w_msa.cpb_mlp.2.weight, stages.1.blocks.1.attn.w_msa.qkv.weight, stages.1.blocks.1.attn.w_msa.proj.weight, stages.1.blocks.1.attn.w_msa.proj.bias, stages.1.blocks.1.norm1.weight, stages.1.blocks.1.norm1.bias, stages.1.blocks.1.ffn.layers.0.0.weight, stages.1.blocks.1.ffn.layers.0.0.bias, stages.1.blocks.1.ffn.layers.1.weight, stages.1.blocks.1.ffn.layers.1.bias, stages.1.blocks.1.norm2.weight, stages.1.blocks.1.norm2.bias, stages.2.downsample.reduction.weight, stages.2.downsample.norm.weight, stages.2.downsample.norm.bias, stages.2.blocks.0.attn.w_msa.logit_scale, stages.2.blocks.0.attn.w_msa.q_bias, stages.2.blocks.0.attn.w_msa.v_bias, stages.2.blocks.0.attn.w_msa.relative_coords_table, stages.2.blocks.0.attn.w_msa.relative_position_index, stages.2.blocks.0.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.0.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.0.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.0.attn.w_msa.qkv.weight, stages.2.blocks.0.attn.w_msa.proj.weight, stages.2.blocks.0.attn.w_msa.proj.bias, stages.2.blocks.0.norm1.weight, stages.2.blocks.0.norm1.bias, stages.2.blocks.0.ffn.layers.0.0.weight, stages.2.blocks.0.ffn.layers.0.0.bias, stages.2.blocks.0.ffn.layers.1.weight, stages.2.blocks.0.ffn.layers.1.bias, stages.2.blocks.0.norm2.weight, stages.2.blocks.0.norm2.bias, stages.2.blocks.1.attn.w_msa.logit_scale, stages.2.blocks.1.attn.w_msa.q_bias, stages.2.blocks.1.attn.w_msa.v_bias, stages.2.blocks.1.attn.w_msa.relative_coords_table, stages.2.blocks.1.attn.w_msa.relative_position_index, stages.2.blocks.1.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.1.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.1.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.1.attn.w_msa.qkv.weight, stages.2.blocks.1.attn.w_msa.proj.weight, stages.2.blocks.1.attn.w_msa.proj.bias, stages.2.blocks.1.norm1.weight, stages.2.blocks.1.norm1.bias, stages.2.blocks.1.ffn.layers.0.0.weight, stages.2.blocks.1.ffn.layers.0.0.bias, stages.2.blocks.1.ffn.layers.1.weight, stages.2.blocks.1.ffn.layers.1.bias, stages.2.blocks.1.norm2.weight, stages.2.blocks.1.norm2.bias, stages.2.blocks.2.attn.w_msa.logit_scale, stages.2.blocks.2.attn.w_msa.q_bias, stages.2.blocks.2.attn.w_msa.v_bias, stages.2.blocks.2.attn.w_msa.relative_coords_table, stages.2.blocks.2.attn.w_msa.relative_position_index, stages.2.blocks.2.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.2.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.2.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.2.attn.w_msa.qkv.weight, stages.2.blocks.2.attn.w_msa.proj.weight, stages.2.blocks.2.attn.w_msa.proj.bias, stages.2.blocks.2.norm1.weight, stages.2.blocks.2.norm1.bias, stages.2.blocks.2.ffn.layers.0.0.weight, stages.2.blocks.2.ffn.layers.0.0.bias, stages.2.blocks.2.ffn.layers.1.weight, stages.2.blocks.2.ffn.layers.1.bias, stages.2.blocks.2.norm2.weight, stages.2.blocks.2.norm2.bias, stages.2.blocks.3.attn.w_msa.logit_scale, stages.2.blocks.3.attn.w_msa.q_bias, stages.2.blocks.3.attn.w_msa.v_bias, stages.2.blocks.3.attn.w_msa.relative_coords_table, stages.2.blocks.3.attn.w_msa.relative_position_index, stages.2.blocks.3.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.3.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.3.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.3.attn.w_msa.qkv.weight, stages.2.blocks.3.attn.w_msa.proj.weight, stages.2.blocks.3.attn.w_msa.proj.bias, stages.2.blocks.3.norm1.weight, stages.2.blocks.3.norm1.bias, stages.2.blocks.3.ffn.layers.0.0.weight, stages.2.blocks.3.ffn.layers.0.0.bias, stages.2.blocks.3.ffn.layers.1.weight, stages.2.blocks.3.ffn.layers.1.bias, stages.2.blocks.3.norm2.weight, stages.2.blocks.3.norm2.bias, stages.2.blocks.4.attn.w_msa.logit_scale, stages.2.blocks.4.attn.w_msa.q_bias, stages.2.blocks.4.attn.w_msa.v_bias, stages.2.blocks.4.attn.w_msa.relative_coords_table, stages.2.blocks.4.attn.w_msa.relative_position_index, stages.2.blocks.4.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.4.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.4.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.4.attn.w_msa.qkv.weight, stages.2.blocks.4.attn.w_msa.proj.weight, stages.2.blocks.4.attn.w_msa.proj.bias, stages.2.blocks.4.norm1.weight, stages.2.blocks.4.norm1.bias, stages.2.blocks.4.ffn.layers.0.0.weight, stages.2.blocks.4.ffn.layers.0.0.bias, stages.2.blocks.4.ffn.layers.1.weight, stages.2.blocks.4.ffn.layers.1.bias, stages.2.blocks.4.norm2.weight, stages.2.blocks.4.norm2.bias, stages.2.blocks.5.attn.w_msa.logit_scale, stages.2.blocks.5.attn.w_msa.q_bias, stages.2.blocks.5.attn.w_msa.v_bias, stages.2.blocks.5.attn.w_msa.relative_coords_table, stages.2.blocks.5.attn.w_msa.relative_position_index, stages.2.blocks.5.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.5.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.5.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.5.attn.w_msa.qkv.weight, stages.2.blocks.5.attn.w_msa.proj.weight, stages.2.blocks.5.attn.w_msa.proj.bias, stages.2.blocks.5.norm1.weight, stages.2.blocks.5.norm1.bias, stages.2.blocks.5.ffn.layers.0.0.weight, stages.2.blocks.5.ffn.layers.0.0.bias, stages.2.blocks.5.ffn.layers.1.weight, stages.2.blocks.5.ffn.layers.1.bias, stages.2.blocks.5.norm2.weight, stages.2.blocks.5.norm2.bias, stages.2.blocks.6.attn.w_msa.logit_scale, stages.2.blocks.6.attn.w_msa.q_bias, stages.2.blocks.6.attn.w_msa.v_bias, stages.2.blocks.6.attn.w_msa.relative_coords_table, stages.2.blocks.6.attn.w_msa.relative_position_index, stages.2.blocks.6.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.6.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.6.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.6.attn.w_msa.qkv.weight, stages.2.blocks.6.attn.w_msa.proj.weight, stages.2.blocks.6.attn.w_msa.proj.bias, stages.2.blocks.6.norm1.weight, stages.2.blocks.6.norm1.bias, stages.2.blocks.6.ffn.layers.0.0.weight, stages.2.blocks.6.ffn.layers.0.0.bias, stages.2.blocks.6.ffn.layers.1.weight, stages.2.blocks.6.ffn.layers.1.bias, stages.2.blocks.6.norm2.weight, stages.2.blocks.6.norm2.bias, stages.2.blocks.7.attn.w_msa.logit_scale, stages.2.blocks.7.attn.w_msa.q_bias, stages.2.blocks.7.attn.w_msa.v_bias, stages.2.blocks.7.attn.w_msa.relative_coords_table, stages.2.blocks.7.attn.w_msa.relative_position_index, stages.2.blocks.7.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.7.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.7.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.7.attn.w_msa.qkv.weight, stages.2.blocks.7.attn.w_msa.proj.weight, stages.2.blocks.7.attn.w_msa.proj.bias, stages.2.blocks.7.norm1.weight, stages.2.blocks.7.norm1.bias, stages.2.blocks.7.ffn.layers.0.0.weight, stages.2.blocks.7.ffn.layers.0.0.bias, stages.2.blocks.7.ffn.layers.1.weight, stages.2.blocks.7.ffn.layers.1.bias, stages.2.blocks.7.norm2.weight, stages.2.blocks.7.norm2.bias, stages.2.blocks.8.attn.w_msa.logit_scale, stages.2.blocks.8.attn.w_msa.q_bias, stages.2.blocks.8.attn.w_msa.v_bias, stages.2.blocks.8.attn.w_msa.relative_coords_table, stages.2.blocks.8.attn.w_msa.relative_position_index, stages.2.blocks.8.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.8.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.8.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.8.attn.w_msa.qkv.weight, stages.2.blocks.8.attn.w_msa.proj.weight, stages.2.blocks.8.attn.w_msa.proj.bias, stages.2.blocks.8.norm1.weight, stages.2.blocks.8.norm1.bias, stages.2.blocks.8.ffn.layers.0.0.weight, stages.2.blocks.8.ffn.layers.0.0.bias, stages.2.blocks.8.ffn.layers.1.weight, stages.2.blocks.8.ffn.layers.1.bias, stages.2.blocks.8.norm2.weight, stages.2.blocks.8.norm2.bias, stages.2.blocks.9.attn.w_msa.logit_scale, stages.2.blocks.9.attn.w_msa.q_bias, stages.2.blocks.9.attn.w_msa.v_bias, stages.2.blocks.9.attn.w_msa.relative_coords_table, stages.2.blocks.9.attn.w_msa.relative_position_index, stages.2.blocks.9.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.9.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.9.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.9.attn.w_msa.qkv.weight, stages.2.blocks.9.attn.w_msa.proj.weight, stages.2.blocks.9.attn.w_msa.proj.bias, stages.2.blocks.9.norm1.weight, stages.2.blocks.9.norm1.bias, stages.2.blocks.9.ffn.layers.0.0.weight, stages.2.blocks.9.ffn.layers.0.0.bias, stages.2.blocks.9.ffn.layers.1.weight, stages.2.blocks.9.ffn.layers.1.bias, stages.2.blocks.9.norm2.weight, stages.2.blocks.9.norm2.bias, stages.2.blocks.10.attn.w_msa.logit_scale, stages.2.blocks.10.attn.w_msa.q_bias, stages.2.blocks.10.attn.w_msa.v_bias, stages.2.blocks.10.attn.w_msa.relative_coords_table, stages.2.blocks.10.attn.w_msa.relative_position_index, stages.2.blocks.10.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.10.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.10.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.10.attn.w_msa.qkv.weight, stages.2.blocks.10.attn.w_msa.proj.weight, stages.2.blocks.10.attn.w_msa.proj.bias, stages.2.blocks.10.norm1.weight, stages.2.blocks.10.norm1.bias, stages.2.blocks.10.ffn.layers.0.0.weight, stages.2.blocks.10.ffn.layers.0.0.bias, stages.2.blocks.10.ffn.layers.1.weight, stages.2.blocks.10.ffn.layers.1.bias, stages.2.blocks.10.norm2.weight, stages.2.blocks.10.norm2.bias, stages.2.blocks.11.attn.w_msa.logit_scale, stages.2.blocks.11.attn.w_msa.q_bias, stages.2.blocks.11.attn.w_msa.v_bias, stages.2.blocks.11.attn.w_msa.relative_coords_table, stages.2.blocks.11.attn.w_msa.relative_position_index, stages.2.blocks.11.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.11.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.11.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.11.attn.w_msa.qkv.weight, stages.2.blocks.11.attn.w_msa.proj.weight, stages.2.blocks.11.attn.w_msa.proj.bias, stages.2.blocks.11.norm1.weight, stages.2.blocks.11.norm1.bias, stages.2.blocks.11.ffn.layers.0.0.weight, stages.2.blocks.11.ffn.layers.0.0.bias, stages.2.blocks.11.ffn.layers.1.weight, stages.2.blocks.11.ffn.layers.1.bias, stages.2.blocks.11.norm2.weight, stages.2.blocks.11.norm2.bias, stages.2.blocks.12.attn.w_msa.logit_scale, stages.2.blocks.12.attn.w_msa.q_bias, stages.2.blocks.12.attn.w_msa.v_bias, stages.2.blocks.12.attn.w_msa.relative_coords_table, stages.2.blocks.12.attn.w_msa.relative_position_index, stages.2.blocks.12.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.12.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.12.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.12.attn.w_msa.qkv.weight, stages.2.blocks.12.attn.w_msa.proj.weight, stages.2.blocks.12.attn.w_msa.proj.bias, stages.2.blocks.12.norm1.weight, stages.2.blocks.12.norm1.bias, stages.2.blocks.12.ffn.layers.0.0.weight, stages.2.blocks.12.ffn.layers.0.0.bias, stages.2.blocks.12.ffn.layers.1.weight, stages.2.blocks.12.ffn.layers.1.bias, stages.2.blocks.12.norm2.weight, stages.2.blocks.12.norm2.bias, stages.2.blocks.13.attn.w_msa.logit_scale, stages.2.blocks.13.attn.w_msa.q_bias, stages.2.blocks.13.attn.w_msa.v_bias, stages.2.blocks.13.attn.w_msa.relative_coords_table, stages.2.blocks.13.attn.w_msa.relative_position_index, stages.2.blocks.13.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.13.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.13.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.13.attn.w_msa.qkv.weight, stages.2.blocks.13.attn.w_msa.proj.weight, stages.2.blocks.13.attn.w_msa.proj.bias, stages.2.blocks.13.norm1.weight, stages.2.blocks.13.norm1.bias, stages.2.blocks.13.ffn.layers.0.0.weight, stages.2.blocks.13.ffn.layers.0.0.bias, stages.2.blocks.13.ffn.layers.1.weight, stages.2.blocks.13.ffn.layers.1.bias, stages.2.blocks.13.norm2.weight, stages.2.blocks.13.norm2.bias, stages.2.blocks.14.attn.w_msa.logit_scale, stages.2.blocks.14.attn.w_msa.q_bias, stages.2.blocks.14.attn.w_msa.v_bias, stages.2.blocks.14.attn.w_msa.relative_coords_table, stages.2.blocks.14.attn.w_msa.relative_position_index, stages.2.blocks.14.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.14.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.14.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.14.attn.w_msa.qkv.weight, stages.2.blocks.14.attn.w_msa.proj.weight, stages.2.blocks.14.attn.w_msa.proj.bias, stages.2.blocks.14.norm1.weight, stages.2.blocks.14.norm1.bias, stages.2.blocks.14.ffn.layers.0.0.weight, stages.2.blocks.14.ffn.layers.0.0.bias, stages.2.blocks.14.ffn.layers.1.weight, stages.2.blocks.14.ffn.layers.1.bias, stages.2.blocks.14.norm2.weight, stages.2.blocks.14.norm2.bias, stages.2.blocks.15.attn.w_msa.logit_scale, stages.2.blocks.15.attn.w_msa.q_bias, stages.2.blocks.15.attn.w_msa.v_bias, stages.2.blocks.15.attn.w_msa.relative_coords_table, stages.2.blocks.15.attn.w_msa.relative_position_index, stages.2.blocks.15.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.15.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.15.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.15.attn.w_msa.qkv.weight, stages.2.blocks.15.attn.w_msa.proj.weight, stages.2.blocks.15.attn.w_msa.proj.bias, stages.2.blocks.15.norm1.weight, stages.2.blocks.15.norm1.bias, stages.2.blocks.15.ffn.layers.0.0.weight, stages.2.blocks.15.ffn.layers.0.0.bias, stages.2.blocks.15.ffn.layers.1.weight, stages.2.blocks.15.ffn.layers.1.bias, stages.2.blocks.15.norm2.weight, stages.2.blocks.15.norm2.bias, stages.2.blocks.16.attn.w_msa.logit_scale, stages.2.blocks.16.attn.w_msa.q_bias, stages.2.blocks.16.attn.w_msa.v_bias, stages.2.blocks.16.attn.w_msa.relative_coords_table, stages.2.blocks.16.attn.w_msa.relative_position_index, stages.2.blocks.16.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.16.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.16.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.16.attn.w_msa.qkv.weight, stages.2.blocks.16.attn.w_msa.proj.weight, stages.2.blocks.16.attn.w_msa.proj.bias, stages.2.blocks.16.norm1.weight, stages.2.blocks.16.norm1.bias, stages.2.blocks.16.ffn.layers.0.0.weight, stages.2.blocks.16.ffn.layers.0.0.bias, stages.2.blocks.16.ffn.layers.1.weight, stages.2.blocks.16.ffn.layers.1.bias, stages.2.blocks.16.norm2.weight, stages.2.blocks.16.norm2.bias, stages.2.blocks.17.attn.w_msa.logit_scale, stages.2.blocks.17.attn.w_msa.q_bias, stages.2.blocks.17.attn.w_msa.v_bias, stages.2.blocks.17.attn.w_msa.relative_coords_table, stages.2.blocks.17.attn.w_msa.relative_position_index, stages.2.blocks.17.attn.w_msa.cpb_mlp.0.weight, stages.2.blocks.17.attn.w_msa.cpb_mlp.0.bias, stages.2.blocks.17.attn.w_msa.cpb_mlp.2.weight, stages.2.blocks.17.attn.w_msa.qkv.weight, stages.2.blocks.17.attn.w_msa.proj.weight, stages.2.blocks.17.attn.w_msa.proj.bias, stages.2.blocks.17.norm1.weight, stages.2.blocks.17.norm1.bias, stages.2.blocks.17.ffn.layers.0.0.weight, stages.2.blocks.17.ffn.layers.0.0.bias, stages.2.blocks.17.ffn.layers.1.weight, stages.2.blocks.17.ffn.layers.1.bias, stages.2.blocks.17.norm2.weight, stages.2.blocks.17.norm2.bias, stages.3.downsample.reduction.weight, stages.3.downsample.norm.weight, stages.3.downsample.norm.bias, stages.3.blocks.0.attn.w_msa.logit_scale, stages.3.blocks.0.attn.w_msa.q_bias, stages.3.blocks.0.attn.w_msa.v_bias, stages.3.blocks.0.attn.w_msa.relative_coords_table, stages.3.blocks.0.attn.w_msa.relative_position_index, stages.3.blocks.0.attn.w_msa.cpb_mlp.0.weight, stages.3.blocks.0.attn.w_msa.cpb_mlp.0.bias, stages.3.blocks.0.attn.w_msa.cpb_mlp.2.weight, stages.3.blocks.0.attn.w_msa.qkv.weight, stages.3.blocks.0.attn.w_msa.proj.weight, stages.3.blocks.0.attn.w_msa.proj.bias, stages.3.blocks.0.norm1.weight, stages.3.blocks.0.norm1.bias, stages.3.blocks.0.ffn.layers.0.0.weight, stages.3.blocks.0.ffn.layers.0.0.bias, stages.3.blocks.0.ffn.layers.1.weight, stages.3.blocks.0.ffn.layers.1.bias, stages.3.blocks.0.norm2.weight, stages.3.blocks.0.norm2.bias, stages.3.blocks.1.attn.w_msa.logit_scale, stages.3.blocks.1.attn.w_msa.q_bias, stages.3.blocks.1.attn.w_msa.v_bias, stages.3.blocks.1.attn.w_msa.relative_coords_table, stages.3.blocks.1.attn.w_msa.relative_position_index, stages.3.blocks.1.attn.w_msa.cpb_mlp.0.weight, stages.3.blocks.1.attn.w_msa.cpb_mlp.0.bias, stages.3.blocks.1.attn.w_msa.cpb_mlp.2.weight, stages.3.blocks.1.attn.w_msa.qkv.weight, stages.3.blocks.1.attn.w_msa.proj.weight, stages.3.blocks.1.attn.w_msa.proj.bias, stages.3.blocks.1.norm1.weight, stages.3.blocks.1.norm1.bias, stages.3.blocks.1.ffn.layers.0.0.weight, stages.3.blocks.1.ffn.layers.0.0.bias, stages.3.blocks.1.ffn.layers.1.weight, stages.3.blocks.1.ffn.layers.1.bias, stages.3.blocks.1.norm2.weight, stages.3.blocks.1.norm2.bias, norm3.weight, norm3.bias
+
+08/24 09:48:32 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+08/24 09:48:32 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+08/24 09:48:32 - mmengine - INFO - Checkpoints will be saved to /home/nr4325/Desktop/Pose4/mmpose/work_dirs/WTPose_SwinV2_b_p4_coco_256x192_1k.
+08/24 09:49:21 - mmengine - INFO - Epoch(train)   [1][  50/2341]  lr: 4.954910e-05  eta: 5 days, 13:48:11  time: 0.979925  data_time: 0.434593  memory: 14198  loss: 0.001683  loss_kpt: 0.001683  acc_pose: 0.034644
+08/24 09:50:02 - mmengine - INFO - Epoch(train)   [1][ 100/2341]  lr: 9.959920e-05  eta: 5 days, 2:59:31  time: 0.821754  data_time: 0.496501  memory: 14198  loss: 0.001691  loss_kpt: 0.001691  acc_pose: 0.045636
+08/24 09:50:44 - mmengine - INFO - Epoch(train)   [1][ 150/2341]  lr: 1.496493e-04  eta: 4 days, 23:41:53  time: 0.828728  data_time: 0.501512  memory: 14198  loss: 0.001692  loss_kpt: 0.001692  acc_pose: 0.089344
+08/24 09:51:22 - mmengine - INFO - Epoch(train)   [1][ 200/2341]  lr: 1.996994e-04  eta: 4 days, 19:47:57  time: 0.762908  data_time: 0.282708  memory: 14198  loss: 0.001676  loss_kpt: 0.001676  acc_pose: 0.100480
+08/24 09:51:59 - mmengine - INFO - Epoch(train)   [1][ 250/2341]  lr: 2.497495e-04  eta: 4 days, 16:58:16  time: 0.745167  data_time: 0.215368  memory: 14198  loss: 0.001616  loss_kpt: 0.001616  acc_pose: 0.105193
+08/24 09:52:36 - mmengine - INFO - Epoch(train)   [1][ 300/2341]  lr: 2.997996e-04  eta: 4 days, 14:45:13  time: 0.730710  data_time: 0.228149  memory: 14198  loss: 0.001628  loss_kpt: 0.001628  acc_pose: 0.145438
+08/24 09:53:10 - mmengine - INFO - Epoch(train)   [1][ 350/2341]  lr: 3.498497e-04  eta: 4 days, 12:17:24  time: 0.685734  data_time: 0.067246  memory: 14198  loss: 0.001590  loss_kpt: 0.001590  acc_pose: 0.131123
+08/24 09:53:45 - mmengine - INFO - Epoch(train)   [1][ 400/2341]  lr: 3.998998e-04  eta: 4 days, 10:48:33  time: 0.707374  data_time: 0.073293  memory: 14198  loss: 0.001605  loss_kpt: 0.001605  acc_pose: 0.193845
+08/24 09:54:19 - mmengine - INFO - Epoch(train)   [1][ 450/2341]  lr: 4.499499e-04  eta: 4 days, 9:08:29  time: 0.673501  data_time: 0.194251  memory: 14198  loss: 0.001613  loss_kpt: 0.001613  acc_pose: 0.219273
+08/24 09:54:54 - mmengine - INFO - Epoch(train)   [1][ 500/2341]  lr: 5.000000e-04  eta: 4 days, 8:04:43  time: 0.693515  data_time: 0.102752  memory: 14198  loss: 0.001610  loss_kpt: 0.001610  acc_pose: 0.155961
+08/24 09:55:26 - mmengine - INFO - Epoch(train)   [1][ 550/2341]  lr: 5.000000e-04  eta: 4 days, 6:40:51  time: 0.651063  data_time: 0.198346  memory: 14198  loss: 0.001572  loss_kpt: 0.001572  acc_pose: 0.131118
+08/24 09:55:58 - mmengine - INFO - Epoch(train)   [1][ 600/2341]  lr: 5.000000e-04  eta: 4 days, 5:24:25  time: 0.641601  data_time: 0.320337  memory: 14198  loss: 0.001573  loss_kpt: 0.001573  acc_pose: 0.214687
+08/24 09:56:30 - mmengine - INFO - Epoch(train)   [1][ 650/2341]  lr: 5.000000e-04  eta: 4 days, 4:21:34  time: 0.644653  data_time: 0.326678  memory: 14198  loss: 0.001554  loss_kpt: 0.001554  acc_pose: 0.127080
+08/24 09:57:02 - mmengine - INFO - Epoch(train)   [1][ 700/2341]  lr: 5.000000e-04  eta: 4 days, 3:16:33  time: 0.625679  data_time: 0.293226  memory: 14198  loss: 0.001582  loss_kpt: 0.001582  acc_pose: 0.144803
+08/24 09:57:33 - mmengine - INFO - Epoch(train)   [1][ 750/2341]  lr: 5.000000e-04  eta: 4 days, 2:21:08  time: 0.627520  data_time: 0.196800  memory: 14198  loss: 0.001570  loss_kpt: 0.001570  acc_pose: 0.180974
+08/24 09:58:05 - mmengine - INFO - Epoch(train)   [1][ 800/2341]  lr: 5.000000e-04  eta: 4 days, 1:33:32  time: 0.629410  data_time: 0.229749  memory: 14198  loss: 0.001554  loss_kpt: 0.001554  acc_pose: 0.253838
+08/24 09:58:34 - mmengine - INFO - Epoch(train)   [1][ 850/2341]  lr: 5.000000e-04  eta: 4 days, 0:33:42  time: 0.592456  data_time: 0.164836  memory: 14198  loss: 0.001538  loss_kpt: 0.001538  acc_pose: 0.146753
+08/24 09:59:05 - mmengine - INFO - Epoch(train)   [1][ 900/2341]  lr: 5.000000e-04  eta: 3 days, 23:50:27  time: 0.614444  data_time: 0.253811  memory: 14198  loss: 0.001535  loss_kpt: 0.001535  acc_pose: 0.236136
+08/24 09:59:34 - mmengine - INFO - Epoch(train)   [1][ 950/2341]  lr: 5.000000e-04  eta: 3 days, 22:59:55  time: 0.587052  data_time: 0.250714  memory: 14198  loss: 0.001536  loss_kpt: 0.001536  acc_pose: 0.284705
+08/24 10:00:03 - mmengine - INFO - Exp name: WTPose_SwinV2_b_p4_coco_256x192_1k_20230824_094617
+08/24 10:00:03 - mmengine - INFO - Epoch(train)   [1][1000/2341]  lr: 5.000000e-04  eta: 3 days, 22:07:53  time: 0.571188  data_time: 0.229756  memory: 14198  loss: 0.001547  loss_kpt: 0.001547  acc_pose: 0.234975
+08/24 10:00:31 - mmengine - INFO - Epoch(train)   [1][1050/2341]  lr: 5.000000e-04  eta: 3 days, 21:21:13  time: 0.572319  data_time: 0.246865  memory: 14198  loss: 0.001553  loss_kpt: 0.001553  acc_pose: 0.322302
+08/24 10:01:02 - mmengine - INFO - Epoch(train)   [1][1100/2341]  lr: 5.000000e-04  eta: 3 days, 20:56:21  time: 0.619700  data_time: 0.128880  memory: 14198  loss: 0.001550  loss_kpt: 0.001550  acc_pose: 0.273481
+08/24 10:01:30 - mmengine - INFO - Epoch(train)   [1][1150/2341]  lr: 5.000000e-04  eta: 3 days, 20:11:23  time: 0.557204  data_time: 0.139753  memory: 14198  loss: 0.001544  loss_kpt: 0.001544  acc_pose: 0.248162
+08/24 10:01:58 - mmengine - INFO - Epoch(train)   [1][1200/2341]  lr: 5.000000e-04  eta: 3 days, 19:31:04  time: 0.559954  data_time: 0.227644  memory: 14198  loss: 0.001525  loss_kpt: 0.001525  acc_pose: 0.256961
+08/24 10:02:25 - mmengine - INFO - Epoch(train)   [1][1250/2341]  lr: 5.000000e-04  eta: 3 days, 18:48:37  time: 0.543668  data_time: 0.180774  memory: 14198  loss: 0.001509  loss_kpt: 0.001509  acc_pose: 0.247776

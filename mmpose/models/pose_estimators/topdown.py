@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Aug 30 12:01:43 2023
+
+@author: nr4325
+"""
+
 # Copyright (c) OpenMMLab. All rights reserved.
 from itertools import zip_longest
 from typing import Optional

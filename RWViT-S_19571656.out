@@ -1,0 +1,486 @@
+01/14 04:30:48 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.17 (default, Jul  5 2023, 21:04:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 1906355574
+    GPU 0,1: NVIDIA A100-PCIE-40GB
+    CUDA_HOME: None
+    GCC: n/a
+    PyTorch: 1.11.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.5.2 (Git Hash a9302535553c73243c632ad3c4c80beec3d19a1e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.12.0
+    OpenCV: 4.8.0
+    MMEngine: 0.8.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1906355574
+    Distributed launcher: pytorch
+    Distributed training: True
+    GPU number: 2
+------------------------------------------------------------
+
+01/14 04:30:48 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=512)
+backend_args = dict(backend='local')
+codec = dict(
+    heatmap_size=(
+        64,
+        48,
+    ),
+    input_size=(
+        256,
+        192,
+    ),
+    sigma=2,
+    type='UDPHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+custom_imports = dict(
+    allow_failed_imports=False,
+    imports=[
+        'mmpose.engine.optim_wrappers.layer_decay_optim_wrapper',
+    ])
+data_mode = 'topdown'
+data_root = 'data/coco/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=10,
+        max_keep_ckpts=1,
+        rule='greater',
+        save_best='coco/AP',
+        type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'pytorch'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        arch='base',
+        con_in_channels=768,
+        con_out_channels=128,
+        con_patch_size=(
+            16,
+            12,
+        ),
+        con_ratio=3,
+        drop_path_rate=0.3,
+        img_size=(
+            256,
+            192,
+        ),
+        init_cfg=dict(
+            checkpoint=
+            'https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_base_20230913.pth',
+            type='Pretrained'),
+        out_indices=(
+            2,
+            5,
+            8,
+            11,
+        ),
+        out_type='featmap',
+        patch_cfg=dict(padding=2),
+        patch_size=16,
+        qkv_bias=True,
+        type='ResnetWViT',
+        with_cls_token=False,
+        wtm_dilations=[
+            2,
+            1,
+            4,
+            1,
+            6,
+            1,
+            8,
+            1,
+        ],
+        wtm_dim=128,
+        wtm_in_dim=512,
+        wtm_kernel_size=7,
+        wtm_low_level_dim=256,
+        wtm_num_heads=[
+            8,
+            8,
+            8,
+            8,
+        ],
+        wtm_out_dim=128,
+        wtm_reduction=32,
+        wtm_size=(
+            64,
+            48,
+        )),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        conv_out_channels=False,
+        decoder=dict(
+            heatmap_size=(
+                64,
+                48,
+            ),
+            input_size=(
+                256,
+                192,
+            ),
+            sigma=2,
+            type='UDPHeatmap'),
+        deconv_out_channels=False,
+        in_channels=128,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=17,
+        type='HeatmapHeadWTPose'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=True),
+    type='TopdownPoseEstimator')
+norm_cfg = dict(requires_grad=True, type='SyncBN')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=1.0, norm_type=2),
+    constructor='LayerDecayOptimWrapperConstructor',
+    optimizer=dict(
+        betas=(
+            0.9,
+            0.999,
+        ), lr=0.0005, type='AdamW', weight_decay=0.1),
+    paramwise_cfg=dict(
+        custom_keys=dict(
+            bias=dict(decay_multi=0.0),
+            norm=dict(decay_mult=0.0),
+            pos_embed=dict(decay_mult=0.0),
+            relative_position_bias_table=dict(decay_mult=0.0)),
+        layer_decay_rate=0.75,
+        num_layers=12))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=210,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                192,
+            ), type='TopdownAffine', use_udp=True),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+train_cfg = dict(by_epoch=True, max_epochs=210, val_interval=10)
+train_dataloader = dict(
+    batch_size=64,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_train2017.json',
+        data_mode='topdown',
+        data_prefix=dict(img='train2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                256,
+                192,
+            ), type='TopdownAffine', use_udp=True),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        64,
+                        48,
+                    ),
+                    input_size=(
+                        256,
+                        192,
+                    ),
+                    sigma=2,
+                    type='UDPHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        256,
+        192,
+    ), type='TopdownAffine', use_udp=True),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                64,
+                48,
+            ),
+            input_size=(
+                256,
+                192,
+            ),
+            sigma=2,
+            type='UDPHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                192,
+            ), type='TopdownAffine', use_udp=True),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        256,
+        192,
+    ), type='TopdownAffine', use_udp=True),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/_RWViT_base_coco_256x192'
+
+deep_stem
+deep_stem
+01/14 04:30:51 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+loading annotations into memory...
+Done (t=7.29s)
+creating index...
+Done (t=7.19s)
+creating index...
+index created!
+index created!
+{'num_layers': 12, 'layer_decay_rate': 0.75, 'custom_keys': {'bias': {'decay_multi': 0.0}, 'pos_embed': {'decay_mult': 0.0}, 'relative_position_bias_table': {'decay_mult': 0.0}, 'norm': {'decay_mult': 0.0}}}
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+{'num_layers': 12, 'layer_decay_rate': 0.75, 'custom_keys': {'bias': {'decay_multi': 0.0}, 'pos_embed': {'decay_mult': 0.0}, 'relative_position_bias_table': {'decay_mult': 0.0}, 'norm': {'decay_mult': 0.0}}}
+loading annotations into memory...
+Done (t=0.20s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.20s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.19s)
+creating index...
+index created!
+01/14 04:31:50 - mmengine - INFO - load model from: https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_base_20230913.pth
+01/14 04:31:50 - mmengine - INFO - Loads checkpoint by http backend from path: https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_base_20230913.pth
+01/14 04:31:50 - mmengine - INFO - Resize the pos_embed shape from torch.Size([1, 196, 768]) to torch.Size([1, 192, 768]).
+01/14 04:31:50 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+size mismatch for pos_embed: copying a param with shape torch.Size([1, 196, 768]) from checkpoint, the shape in current model is torch.Size([1, 192, 768]).
+unexpected key in source state_dict: cls_token
+
+missing keys in source state_dict: connect.c1.conv_transpose_1.0.weight, connect.c1.conv_transpose_1.0.bias, connect.c1.conv_transpose_1.1.weight, connect.c1.conv_transpose_1.1.bias, connect.c1.conv_transpose_1.1.running_mean, connect.c1.conv_transpose_1.1.running_var, connect.c1.conv_1.0.weight, connect.c1.conv_1.0.bias, connect.c1.conv_1.1.weight, connect.c1.conv_1.1.bias, connect.c1.conv_1.1.running_mean, connect.c1.conv_1.1.running_var, connect.c1.conv_transpose_2.0.weight, connect.c1.conv_transpose_2.0.bias, connect.c1.conv_transpose_2.1.weight, connect.c1.conv_transpose_2.1.bias, connect.c1.conv_transpose_2.1.running_mean, connect.c1.conv_transpose_2.1.running_var, connect.c1.conv_2.0.weight, connect.c1.conv_2.0.bias, connect.c1.conv_2.1.weight, connect.c1.conv_2.1.bias, connect.c1.conv_2.1.running_mean, connect.c1.conv_2.1.running_var, connect.c2.conv_transpose_1.0.weight, connect.c2.conv_transpose_1.0.bias, connect.c2.conv_transpose_1.1.weight, connect.c2.conv_transpose_1.1.bias, connect.c2.conv_transpose_1.1.running_mean, connect.c2.conv_transpose_1.1.running_var, connect.c2.conv_1.0.weight, connect.c2.conv_1.0.bias, connect.c2.conv_1.1.weight, connect.c2.conv_1.1.bias, connect.c2.conv_1.1.running_mean, connect.c2.conv_1.1.running_var, connect.c2.conv_transpose_2.0.weight, connect.c2.conv_transpose_2.0.bias, connect.c2.conv_transpose_2.1.weight, connect.c2.conv_transpose_2.1.bias, connect.c2.conv_transpose_2.1.running_mean, connect.c2.conv_transpose_2.1.running_var, connect.c2.conv_2.0.weight, connect.c2.conv_2.0.bias, connect.c2.conv_2.1.weight, connect.c2.conv_2.1.bias, connect.c2.conv_2.1.running_mean, connect.c2.conv_2.1.running_var, connect.c3.conv_transpose_1.0.weight, connect.c3.conv_transpose_1.0.bias, connect.c3.conv_transpose_1.1.weight, connect.c3.conv_transpose_1.1.bias, connect.c3.conv_transpose_1.1.running_mean, connect.c3.conv_transpose_1.1.running_var, connect.c3.conv_1.0.weight, connect.c3.conv_1.0.bias, connect.c3.conv_1.1.weight, connect.c3.conv_1.1.bias, connect.c3.conv_1.1.running_mean, connect.c3.conv_1.1.running_var, connect.c3.conv_transpose_2.0.weight, connect.c3.conv_transpose_2.0.bias, connect.c3.conv_transpose_2.1.weight, connect.c3.conv_transpose_2.1.bias, connect.c3.conv_transpose_2.1.running_mean, connect.c3.conv_transpose_2.1.running_var, connect.c3.conv_2.0.weight, connect.c3.conv_2.0.bias, connect.c3.conv_2.1.weight, connect.c3.conv_2.1.bias, connect.c3.conv_2.1.running_mean, connect.c3.conv_2.1.running_var, connect.c4.conv_transpose_1.0.weight, connect.c4.conv_transpose_1.0.bias, connect.c4.conv_transpose_1.1.weight, connect.c4.conv_transpose_1.1.bias, connect.c4.conv_transpose_1.1.running_mean, connect.c4.conv_transpose_1.1.running_var, connect.c4.conv_1.0.weight, connect.c4.conv_1.0.bias, connect.c4.conv_1.1.weight, connect.c4.conv_1.1.bias, connect.c4.conv_1.1.running_mean, connect.c4.conv_1.1.running_var, connect.c4.conv_transpose_2.0.weight, connect.c4.conv_transpose_2.0.bias, connect.c4.conv_transpose_2.1.weight, connect.c4.conv_transpose_2.1.bias, connect.c4.conv_transpose_2.1.running_mean, connect.c4.conv_transpose_2.1.running_var, connect.c4.conv_2.0.weight, connect.c4.conv_2.0.bias, connect.c4.conv_2.1.weight, connect.c4.conv_2.1.bias, connect.c4.conv_2.1.running_mean, connect.c4.conv_2.1.running_var, wtm_a.wtm1_0.gamma1, wtm_a.wtm1_0.gamma2, wtm_a.wtm1_0.norm1.weight, wtm_a.wtm1_0.norm1.bias, wtm_a.wtm1_0.attn.rpb, wtm_a.wtm1_0.attn.qkv.weight, wtm_a.wtm1_0.attn.qkv.bias, wtm_a.wtm1_0.attn.proj.weight, wtm_a.wtm1_0.attn.proj.bias, wtm_a.wtm1_0.norm2.weight, wtm_a.wtm1_0.norm2.bias, wtm_a.wtm1_0.mlp.fc1.weight, wtm_a.wtm1_0.mlp.fc1.bias, wtm_a.wtm1_0.mlp.fc2.weight, wtm_a.wtm1_0.mlp.fc2.bias, wtm_a.wtm1_1.gamma1, wtm_a.wtm1_1.gamma2, wtm_a.wtm1_1.norm1.weight, wtm_a.wtm1_1.norm1.bias, wtm_a.wtm1_1.attn.rpb, wtm_a.wtm1_1.attn.qkv.weight, wtm_a.wtm1_1.attn.qkv.bias, wtm_a.wtm1_1.attn.proj.weight, wtm_a.wtm1_1.attn.proj.bias, wtm_a.wtm1_1.norm2.weight, wtm_a.wtm1_1.norm2.bias, wtm_a.wtm1_1.mlp.fc1.weight, wtm_a.wtm1_1.mlp.fc1.bias, wtm_a.wtm1_1.mlp.fc2.weight, wtm_a.wtm1_1.mlp.fc2.bias, wtm_a.wtm2_0.gamma1, wtm_a.wtm2_0.gamma2, wtm_a.wtm2_0.norm1.weight, wtm_a.wtm2_0.norm1.bias, wtm_a.wtm2_0.attn.rpb, wtm_a.wtm2_0.attn.qkv.weight, wtm_a.wtm2_0.attn.qkv.bias, wtm_a.wtm2_0.attn.proj.weight, wtm_a.wtm2_0.attn.proj.bias, wtm_a.wtm2_0.norm2.weight, wtm_a.wtm2_0.norm2.bias, wtm_a.wtm2_0.mlp.fc1.weight, wtm_a.wtm2_0.mlp.fc1.bias, wtm_a.wtm2_0.mlp.fc2.weight, wtm_a.wtm2_0.mlp.fc2.bias, wtm_a.wtm2_1.gamma1, wtm_a.wtm2_1.gamma2, wtm_a.wtm2_1.norm1.weight, wtm_a.wtm2_1.norm1.bias, wtm_a.wtm2_1.attn.rpb, wtm_a.wtm2_1.attn.qkv.weight, wtm_a.wtm2_1.attn.qkv.bias, wtm_a.wtm2_1.attn.proj.weight, wtm_a.wtm2_1.attn.proj.bias, wtm_a.wtm2_1.norm2.weight, wtm_a.wtm2_1.norm2.bias, wtm_a.wtm2_1.mlp.fc1.weight, wtm_a.wtm2_1.mlp.fc1.bias, wtm_a.wtm2_1.mlp.fc2.weight, wtm_a.wtm2_1.mlp.fc2.bias, wtm_a.wtm3_0.gamma1, wtm_a.wtm3_0.gamma2, wtm_a.wtm3_0.norm1.weight, wtm_a.wtm3_0.norm1.bias, wtm_a.wtm3_0.attn.rpb, wtm_a.wtm3_0.attn.qkv.weight, wtm_a.wtm3_0.attn.qkv.bias, wtm_a.wtm3_0.attn.proj.weight, wtm_a.wtm3_0.attn.proj.bias, wtm_a.wtm3_0.norm2.weight, wtm_a.wtm3_0.norm2.bias, wtm_a.wtm3_0.mlp.fc1.weight, wtm_a.wtm3_0.mlp.fc1.bias, wtm_a.wtm3_0.mlp.fc2.weight, wtm_a.wtm3_0.mlp.fc2.bias, wtm_a.wtm3_1.gamma1, wtm_a.wtm3_1.gamma2, wtm_a.wtm3_1.norm1.weight, wtm_a.wtm3_1.norm1.bias, wtm_a.wtm3_1.attn.rpb, wtm_a.wtm3_1.attn.qkv.weight, wtm_a.wtm3_1.attn.qkv.bias, wtm_a.wtm3_1.attn.proj.weight, wtm_a.wtm3_1.attn.proj.bias, wtm_a.wtm3_1.norm2.weight, wtm_a.wtm3_1.norm2.bias, wtm_a.wtm3_1.mlp.fc1.weight, wtm_a.wtm3_1.mlp.fc1.bias, wtm_a.wtm3_1.mlp.fc2.weight, wtm_a.wtm3_1.mlp.fc2.bias, wtm_a.wtm4_0.gamma1, wtm_a.wtm4_0.gamma2, wtm_a.wtm4_0.norm1.weight, wtm_a.wtm4_0.norm1.bias, wtm_a.wtm4_0.attn.rpb, wtm_a.wtm4_0.attn.qkv.weight, wtm_a.wtm4_0.attn.qkv.bias, wtm_a.wtm4_0.attn.proj.weight, wtm_a.wtm4_0.attn.proj.bias, wtm_a.wtm4_0.norm2.weight, wtm_a.wtm4_0.norm2.bias, wtm_a.wtm4_0.mlp.fc1.weight, wtm_a.wtm4_0.mlp.fc1.bias, wtm_a.wtm4_0.mlp.fc2.weight, wtm_a.wtm4_0.mlp.fc2.bias, wtm_a.wtm4_1.gamma1, wtm_a.wtm4_1.gamma2, wtm_a.wtm4_1.norm1.weight, wtm_a.wtm4_1.norm1.bias, wtm_a.wtm4_1.attn.rpb, wtm_a.wtm4_1.attn.qkv.weight, wtm_a.wtm4_1.attn.qkv.bias, wtm_a.wtm4_1.attn.proj.weight, wtm_a.wtm4_1.attn.proj.bias, wtm_a.wtm4_1.norm2.weight, wtm_a.wtm4_1.norm2.bias, wtm_a.wtm4_1.mlp.fc1.weight, wtm_a.wtm4_1.mlp.fc1.bias, wtm_a.wtm4_1.mlp.fc2.weight, wtm_a.wtm4_1.mlp.fc2.bias, wtm_a.global_avg_pool.1.weight, wtm_a.global_avg_pool.2.weight, wtm_a.global_avg_pool.2.bias, wtm_a.global_avg_pool.2.running_mean, wtm_a.global_avg_pool.2.running_var, wtm_a.conv1.weight, wtm_a.bn1.weight, wtm_a.bn1.bias, wtm_a.bn1.running_mean, wtm_a.bn1.running_var, wtm_a.conv2.weight, wtm_a.bn2.weight, wtm_a.bn2.bias, wtm_a.bn2.running_mean, wtm_a.bn2.running_var, wtm_a.low.weight, wtm_a.bn_low.weight, wtm_a.bn_low.bias, wtm_a.bn_low.running_mean, wtm_a.bn_low.running_var, wtm_a.last_conv.0.weight, wtm_a.last_conv.1.weight, wtm_a.last_conv.1.bias, wtm_a.last_conv.1.running_mean, wtm_a.last_conv.1.running_var, wtm_a.last_conv.3.weight, wtm_a.last_conv.4.weight, wtm_a.last_conv.4.bias, wtm_a.last_conv.4.running_mean, wtm_a.last_conv.4.running_var, resnet.stem.0.conv.weight, resnet.stem.0.bn.weight, resnet.stem.0.bn.bias, resnet.stem.0.bn.running_mean, resnet.stem.0.bn.running_var, resnet.stem.1.conv.weight, resnet.stem.1.bn.weight, resnet.stem.1.bn.bias, resnet.stem.1.bn.running_mean, resnet.stem.1.bn.running_var, resnet.layer1.0.conv1.weight, resnet.layer1.0.bn1.weight, resnet.layer1.0.bn1.bias, resnet.layer1.0.bn1.running_mean, resnet.layer1.0.bn1.running_var, resnet.layer1.0.conv2.weight, resnet.layer1.0.bn2.weight, resnet.layer1.0.bn2.bias, resnet.layer1.0.bn2.running_mean, resnet.layer1.0.bn2.running_var, resnet.layer1.0.conv3.weight, resnet.layer1.0.bn3.weight, resnet.layer1.0.bn3.bias, resnet.layer1.0.bn3.running_mean, resnet.layer1.0.bn3.running_var, resnet.layer1.0.downsample.0.weight, resnet.layer1.0.downsample.1.weight, resnet.layer1.0.downsample.1.bias, resnet.layer1.0.downsample.1.running_mean, resnet.layer1.0.downsample.1.running_var, resnet.layer1.1.conv1.weight, resnet.layer1.1.bn1.weight, resnet.layer1.1.bn1.bias, resnet.layer1.1.bn1.running_mean, resnet.layer1.1.bn1.running_var, resnet.layer1.1.conv2.weight, resnet.layer1.1.bn2.weight, resnet.layer1.1.bn2.bias, resnet.layer1.1.bn2.running_mean, resnet.layer1.1.bn2.running_var, resnet.layer1.1.conv3.weight, resnet.layer1.1.bn3.weight, resnet.layer1.1.bn3.bias, resnet.layer1.1.bn3.running_mean, resnet.layer1.1.bn3.running_var, resnet.layer1.2.conv1.weight, resnet.layer1.2.bn1.weight, resnet.layer1.2.bn1.bias, resnet.layer1.2.bn1.running_mean, resnet.layer1.2.bn1.running_var, resnet.layer1.2.conv2.weight, resnet.layer1.2.bn2.weight, resnet.layer1.2.bn2.bias, resnet.layer1.2.bn2.running_mean, resnet.layer1.2.bn2.running_var, resnet.layer1.2.conv3.weight, resnet.layer1.2.bn3.weight, resnet.layer1.2.bn3.bias, resnet.layer1.2.bn3.running_mean, resnet.layer1.2.bn3.running_var, resnet.layer2.0.conv1.weight, resnet.layer2.0.bn1.weight, resnet.layer2.0.bn1.bias, resnet.layer2.0.bn1.running_mean, resnet.layer2.0.bn1.running_var, resnet.layer2.0.conv2.weight, resnet.layer2.0.bn2.weight, resnet.layer2.0.bn2.bias, resnet.layer2.0.bn2.running_mean, resnet.layer2.0.bn2.running_var, resnet.layer2.0.conv3.weight, resnet.layer2.0.bn3.weight, resnet.layer2.0.bn3.bias, resnet.layer2.0.bn3.running_mean, resnet.layer2.0.bn3.running_var, resnet.layer2.0.downsample.0.weight, resnet.layer2.0.downsample.1.weight, resnet.layer2.0.downsample.1.bias, resnet.layer2.0.downsample.1.running_mean, resnet.layer2.0.downsample.1.running_var, resnet.layer2.1.conv1.weight, resnet.layer2.1.bn1.weight, resnet.layer2.1.bn1.bias, resnet.layer2.1.bn1.running_mean, resnet.layer2.1.bn1.running_var, resnet.layer2.1.conv2.weight, resnet.layer2.1.bn2.weight, resnet.layer2.1.bn2.bias, resnet.layer2.1.bn2.running_mean, resnet.layer2.1.bn2.running_var, resnet.layer2.1.conv3.weight, resnet.layer2.1.bn3.weight, resnet.layer2.1.bn3.bias, resnet.layer2.1.bn3.running_mean, resnet.layer2.1.bn3.running_var, resnet.layer2.2.conv1.weight, resnet.layer2.2.bn1.weight, resnet.layer2.2.bn1.bias, resnet.layer2.2.bn1.running_mean, resnet.layer2.2.bn1.running_var, resnet.layer2.2.conv2.weight, resnet.layer2.2.bn2.weight, resnet.layer2.2.bn2.bias, resnet.layer2.2.bn2.running_mean, resnet.layer2.2.bn2.running_var, resnet.layer2.2.conv3.weight, resnet.layer2.2.bn3.weight, resnet.layer2.2.bn3.bias, resnet.layer2.2.bn3.running_mean, resnet.layer2.2.bn3.running_var, resnet.layer2.3.conv1.weight, resnet.layer2.3.bn1.weight, resnet.layer2.3.bn1.bias, resnet.layer2.3.bn1.running_mean, resnet.layer2.3.bn1.running_var, resnet.layer2.3.conv2.weight, resnet.layer2.3.bn2.weight, resnet.layer2.3.bn2.bias, resnet.layer2.3.bn2.running_mean, resnet.layer2.3.bn2.running_var, resnet.layer2.3.conv3.weight, resnet.layer2.3.bn3.weight, resnet.layer2.3.bn3.bias, resnet.layer2.3.bn3.running_mean, resnet.layer2.3.bn3.running_var, resnet.layer3.0.conv1.weight, resnet.layer3.0.bn1.weight, resnet.layer3.0.bn1.bias, resnet.layer3.0.bn1.running_mean, resnet.layer3.0.bn1.running_var, resnet.layer3.0.conv2.weight, resnet.layer3.0.bn2.weight, resnet.layer3.0.bn2.bias, resnet.layer3.0.bn2.running_mean, resnet.layer3.0.bn2.running_var, resnet.layer3.0.conv3.weight, resnet.layer3.0.bn3.weight, resnet.layer3.0.bn3.bias, resnet.layer3.0.bn3.running_mean, resnet.layer3.0.bn3.running_var, resnet.layer3.0.downsample.0.weight, resnet.layer3.0.downsample.1.weight, resnet.layer3.0.downsample.1.bias, resnet.layer3.0.downsample.1.running_mean, resnet.layer3.0.downsample.1.running_var, resnet.layer3.1.conv1.weight, resnet.layer3.1.bn1.weight, resnet.layer3.1.bn1.bias, resnet.layer3.1.bn1.running_mean, resnet.layer3.1.bn1.running_var, resnet.layer3.1.conv2.weight, resnet.layer3.1.bn2.weight, resnet.layer3.1.bn2.bias, resnet.layer3.1.bn2.running_mean, resnet.layer3.1.bn2.running_var, resnet.layer3.1.conv3.weight, resnet.layer3.1.bn3.weight, resnet.layer3.1.bn3.bias, resnet.layer3.1.bn3.running_mean, resnet.layer3.1.bn3.running_var, resnet.layer3.2.conv1.weight, resnet.layer3.2.bn1.weight, resnet.layer3.2.bn1.bias, resnet.layer3.2.bn1.running_mean, resnet.layer3.2.bn1.running_var, resnet.layer3.2.conv2.weight, resnet.layer3.2.bn2.weight, resnet.layer3.2.bn2.bias, resnet.layer3.2.bn2.running_mean, resnet.layer3.2.bn2.running_var, resnet.layer3.2.conv3.weight, resnet.layer3.2.bn3.weight, resnet.layer3.2.bn3.bias, resnet.layer3.2.bn3.running_mean, resnet.layer3.2.bn3.running_var, resnet.layer3.3.conv1.weight, resnet.layer3.3.bn1.weight, resnet.layer3.3.bn1.bias, resnet.layer3.3.bn1.running_mean, resnet.layer3.3.bn1.running_var, resnet.layer3.3.conv2.weight, resnet.layer3.3.bn2.weight, resnet.layer3.3.bn2.bias, resnet.layer3.3.bn2.running_mean, resnet.layer3.3.bn2.running_var, resnet.layer3.3.conv3.weight, resnet.layer3.3.bn3.weight, resnet.layer3.3.bn3.bias, resnet.layer3.3.bn3.running_mean, resnet.layer3.3.bn3.running_var, resnet.layer3.4.conv1.weight, resnet.layer3.4.bn1.weight, resnet.layer3.4.bn1.bias, resnet.layer3.4.bn1.running_mean, resnet.layer3.4.bn1.running_var, resnet.layer3.4.conv2.weight, resnet.layer3.4.bn2.weight, resnet.layer3.4.bn2.bias, resnet.layer3.4.bn2.running_mean, resnet.layer3.4.bn2.running_var, resnet.layer3.4.conv3.weight, resnet.layer3.4.bn3.weight, resnet.layer3.4.bn3.bias, resnet.layer3.4.bn3.running_mean, resnet.layer3.4.bn3.running_var, resnet.layer3.5.conv1.weight, resnet.layer3.5.bn1.weight, resnet.layer3.5.bn1.bias, resnet.layer3.5.bn1.running_mean, resnet.layer3.5.bn1.running_var, resnet.layer3.5.conv2.weight, resnet.layer3.5.bn2.weight, resnet.layer3.5.bn2.bias, resnet.layer3.5.bn2.running_mean, resnet.layer3.5.bn2.running_var, resnet.layer3.5.conv3.weight, resnet.layer3.5.bn3.weight, resnet.layer3.5.bn3.bias, resnet.layer3.5.bn3.running_mean, resnet.layer3.5.bn3.running_var, resnet.layer3.6.conv1.weight, resnet.layer3.6.bn1.weight, resnet.layer3.6.bn1.bias, resnet.layer3.6.bn1.running_mean, resnet.layer3.6.bn1.running_var, resnet.layer3.6.conv2.weight, resnet.layer3.6.bn2.weight, resnet.layer3.6.bn2.bias, resnet.layer3.6.bn2.running_mean, resnet.layer3.6.bn2.running_var, resnet.layer3.6.conv3.weight, resnet.layer3.6.bn3.weight, resnet.layer3.6.bn3.bias, resnet.layer3.6.bn3.running_mean, resnet.layer3.6.bn3.running_var, resnet.layer3.7.conv1.weight, resnet.layer3.7.bn1.weight, resnet.layer3.7.bn1.bias, resnet.layer3.7.bn1.running_mean, resnet.layer3.7.bn1.running_var, resnet.layer3.7.conv2.weight, resnet.layer3.7.bn2.weight, resnet.layer3.7.bn2.bias, resnet.layer3.7.bn2.running_mean, resnet.layer3.7.bn2.running_var, resnet.layer3.7.conv3.weight, resnet.layer3.7.bn3.weight, resnet.layer3.7.bn3.bias, resnet.layer3.7.bn3.running_mean, resnet.layer3.7.bn3.running_var, resnet.layer3.8.conv1.weight, resnet.layer3.8.bn1.weight, resnet.layer3.8.bn1.bias, resnet.layer3.8.bn1.running_mean, resnet.layer3.8.bn1.running_var, resnet.layer3.8.conv2.weight, resnet.layer3.8.bn2.weight, resnet.layer3.8.bn2.bias, resnet.layer3.8.bn2.running_mean, resnet.layer3.8.bn2.running_var, resnet.layer3.8.conv3.weight, resnet.layer3.8.bn3.weight, resnet.layer3.8.bn3.bias, resnet.layer3.8.bn3.running_mean, resnet.layer3.8.bn3.running_var, resnet.layer3.9.conv1.weight, resnet.layer3.9.bn1.weight, resnet.layer3.9.bn1.bias, resnet.layer3.9.bn1.running_mean, resnet.layer3.9.bn1.running_var, resnet.layer3.9.conv2.weight, resnet.layer3.9.bn2.weight, resnet.layer3.9.bn2.bias, resnet.layer3.9.bn2.running_mean, resnet.layer3.9.bn2.running_var, resnet.layer3.9.conv3.weight, resnet.layer3.9.bn3.weight, resnet.layer3.9.bn3.bias, resnet.layer3.9.bn3.running_mean, resnet.layer3.9.bn3.running_var, resnet.layer3.10.conv1.weight, resnet.layer3.10.bn1.weight, resnet.layer3.10.bn1.bias, resnet.layer3.10.bn1.running_mean, resnet.layer3.10.bn1.running_var, resnet.layer3.10.conv2.weight, resnet.layer3.10.bn2.weight, resnet.layer3.10.bn2.bias, resnet.layer3.10.bn2.running_mean, resnet.layer3.10.bn2.running_var, resnet.layer3.10.conv3.weight, resnet.layer3.10.bn3.weight, resnet.layer3.10.bn3.bias, resnet.layer3.10.bn3.running_mean, resnet.layer3.10.bn3.running_var, resnet.layer3.11.conv1.weight, resnet.layer3.11.bn1.weight, resnet.layer3.11.bn1.bias, resnet.layer3.11.bn1.running_mean, resnet.layer3.11.bn1.running_var, resnet.layer3.11.conv2.weight, resnet.layer3.11.bn2.weight, resnet.layer3.11.bn2.bias, resnet.layer3.11.bn2.running_mean, resnet.layer3.11.bn2.running_var, resnet.layer3.11.conv3.weight, resnet.layer3.11.bn3.weight, resnet.layer3.11.bn3.bias, resnet.layer3.11.bn3.running_mean, resnet.layer3.11.bn3.running_var, resnet.layer3.12.conv1.weight, resnet.layer3.12.bn1.weight, resnet.layer3.12.bn1.bias, resnet.layer3.12.bn1.running_mean, resnet.layer3.12.bn1.running_var, resnet.layer3.12.conv2.weight, resnet.layer3.12.bn2.weight, resnet.layer3.12.bn2.bias, resnet.layer3.12.bn2.running_mean, resnet.layer3.12.bn2.running_var, resnet.layer3.12.conv3.weight, resnet.layer3.12.bn3.weight, resnet.layer3.12.bn3.bias, resnet.layer3.12.bn3.running_mean, resnet.layer3.12.bn3.running_var, resnet.layer3.13.conv1.weight, resnet.layer3.13.bn1.weight, resnet.layer3.13.bn1.bias, resnet.layer3.13.bn1.running_mean, resnet.layer3.13.bn1.running_var, resnet.layer3.13.conv2.weight, resnet.layer3.13.bn2.weight, resnet.layer3.13.bn2.bias, resnet.layer3.13.bn2.running_mean, resnet.layer3.13.bn2.running_var, resnet.layer3.13.conv3.weight, resnet.layer3.13.bn3.weight, resnet.layer3.13.bn3.bias, resnet.layer3.13.bn3.running_mean, resnet.layer3.13.bn3.running_var, resnet.layer3.14.conv1.weight, resnet.layer3.14.bn1.weight, resnet.layer3.14.bn1.bias, resnet.layer3.14.bn1.running_mean, resnet.layer3.14.bn1.running_var, resnet.layer3.14.conv2.weight, resnet.layer3.14.bn2.weight, resnet.layer3.14.bn2.bias, resnet.layer3.14.bn2.running_mean, resnet.layer3.14.bn2.running_var, resnet.layer3.14.conv3.weight, resnet.layer3.14.bn3.weight, resnet.layer3.14.bn3.bias, resnet.layer3.14.bn3.running_mean, resnet.layer3.14.bn3.running_var, resnet.layer3.15.conv1.weight, resnet.layer3.15.bn1.weight, resnet.layer3.15.bn1.bias, resnet.layer3.15.bn1.running_mean, resnet.layer3.15.bn1.running_var, resnet.layer3.15.conv2.weight, resnet.layer3.15.bn2.weight, resnet.layer3.15.bn2.bias, resnet.layer3.15.bn2.running_mean, resnet.layer3.15.bn2.running_var, resnet.layer3.15.conv3.weight, resnet.layer3.15.bn3.weight, resnet.layer3.15.bn3.bias, resnet.layer3.15.bn3.running_mean, resnet.layer3.15.bn3.running_var, resnet.layer3.16.conv1.weight, resnet.layer3.16.bn1.weight, resnet.layer3.16.bn1.bias, resnet.layer3.16.bn1.running_mean, resnet.layer3.16.bn1.running_var, resnet.layer3.16.conv2.weight, resnet.layer3.16.bn2.weight, resnet.layer3.16.bn2.bias, resnet.layer3.16.bn2.running_mean, resnet.layer3.16.bn2.running_var, resnet.layer3.16.conv3.weight, resnet.layer3.16.bn3.weight, resnet.layer3.16.bn3.bias, resnet.layer3.16.bn3.running_mean, resnet.layer3.16.bn3.running_var, resnet.layer3.17.conv1.weight, resnet.layer3.17.bn1.weight, resnet.layer3.17.bn1.bias, resnet.layer3.17.bn1.running_mean, resnet.layer3.17.bn1.running_var, resnet.layer3.17.conv2.weight, resnet.layer3.17.bn2.weight, resnet.layer3.17.bn2.bias, resnet.layer3.17.bn2.running_mean, resnet.layer3.17.bn2.running_var, resnet.layer3.17.conv3.weight, resnet.layer3.17.bn3.weight, resnet.layer3.17.bn3.bias, resnet.layer3.17.bn3.running_mean, resnet.layer3.17.bn3.running_var, resnet.layer3.18.conv1.weight, resnet.layer3.18.bn1.weight, resnet.layer3.18.bn1.bias, resnet.layer3.18.bn1.running_mean, resnet.layer3.18.bn1.running_var, resnet.layer3.18.conv2.weight, resnet.layer3.18.bn2.weight, resnet.layer3.18.bn2.bias, resnet.layer3.18.bn2.running_mean, resnet.layer3.18.bn2.running_var, resnet.layer3.18.conv3.weight, resnet.layer3.18.bn3.weight, resnet.layer3.18.bn3.bias, resnet.layer3.18.bn3.running_mean, resnet.layer3.18.bn3.running_var, resnet.layer3.19.conv1.weight, resnet.layer3.19.bn1.weight, resnet.layer3.19.bn1.bias, resnet.layer3.19.bn1.running_mean, resnet.layer3.19.bn1.running_var, resnet.layer3.19.conv2.weight, resnet.layer3.19.bn2.weight, resnet.layer3.19.bn2.bias, resnet.layer3.19.bn2.running_mean, resnet.layer3.19.bn2.running_var, resnet.layer3.19.conv3.weight, resnet.layer3.19.bn3.weight, resnet.layer3.19.bn3.bias, resnet.layer3.19.bn3.running_mean, resnet.layer3.19.bn3.running_var, resnet.layer3.20.conv1.weight, resnet.layer3.20.bn1.weight, resnet.layer3.20.bn1.bias, resnet.layer3.20.bn1.running_mean, resnet.layer3.20.bn1.running_var, resnet.layer3.20.conv2.weight, resnet.layer3.20.bn2.weight, resnet.layer3.20.bn2.bias, resnet.layer3.20.bn2.running_mean, resnet.layer3.20.bn2.running_var, resnet.layer3.20.conv3.weight, resnet.layer3.20.bn3.weight, resnet.layer3.20.bn3.bias, resnet.layer3.20.bn3.running_mean, resnet.layer3.20.bn3.running_var, resnet.layer3.21.conv1.weight, resnet.layer3.21.bn1.weight, resnet.layer3.21.bn1.bias, resnet.layer3.21.bn1.running_mean, resnet.layer3.21.bn1.running_var, resnet.layer3.21.conv2.weight, resnet.layer3.21.bn2.weight, resnet.layer3.21.bn2.bias, resnet.layer3.21.bn2.running_mean, resnet.layer3.21.bn2.running_var, resnet.layer3.21.conv3.weight, resnet.layer3.21.bn3.weight, resnet.layer3.21.bn3.bias, resnet.layer3.21.bn3.running_mean, resnet.layer3.21.bn3.running_var, resnet.layer3.22.conv1.weight, resnet.layer3.22.bn1.weight, resnet.layer3.22.bn1.bias, resnet.layer3.22.bn1.running_mean, resnet.layer3.22.bn1.running_var, resnet.layer3.22.conv2.weight, resnet.layer3.22.bn2.weight, resnet.layer3.22.bn2.bias, resnet.layer3.22.bn2.running_mean, resnet.layer3.22.bn2.running_var, resnet.layer3.22.conv3.weight, resnet.layer3.22.bn3.weight, resnet.layer3.22.bn3.bias, resnet.layer3.22.bn3.running_mean, resnet.layer3.22.bn3.running_var, resnet_1x1.conv.weight, resnet_1x1.bn.weight, resnet_1x1.bn.bias, resnet_1x1.bn.running_mean, resnet_1x1.bn.running_var
+
+01/14 04:31:50 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+01/14 04:31:50 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+01/14 04:31:50 - mmengine - INFO - Checkpoints will be saved to /home/nr4325/Desktop/Pose4/mmpose/work_dirs/_RWViT_base_coco_256x192.
+x:torch.Size([64, 256, 48, 64])
+x:torch.Size([64, 512, 24, 32])
+x:torch.Size([64, 1024, 12, 16])
+Resnet" torch.Size([64, 1024, 12, 16])
+resnet_out2: torch.Size([64, 768, 12, 16])
+resnet_out3: torch.Size([64, 192, 768])
+x:torch.Size([64, 256, 48, 64])
+x:torch.Size([64, 512, 24, 32])
+x:torch.Size([64, 1024, 12, 16])
+Resnet" torch.Size([64, 1024, 12, 16])
+resnet_out2: torch.Size([64, 768, 12, 16])
+resnet_out3: torch.Size([64, 192, 768])

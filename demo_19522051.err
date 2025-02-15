@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "demo/topdown_demo_with_mmdet.py", line 292, in <module>
+    main()
+  File "demo/topdown_demo_with_mmdet.py", line 183, in main
+    pose_estimator = init_pose_estimator(
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/apis/inference.py", line 109, in init_model
+    ckpt = load_checkpoint(model, checkpoint, map_location='cpu')
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/checkpoint.py", line 636, in load_checkpoint
+    checkpoint = _load_checkpoint(filename, map_location, logger)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/checkpoint.py", line 548, in _load_checkpoint
+    return CheckpointLoader.load_checkpoint(filename, map_location, logger)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/checkpoint.py", line 330, in load_checkpoint
+    return checkpoint_loader(filename, map_location)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/checkpoint.py", line 346, in load_from_local
+    raise FileNotFoundError(f'{filename} can not be found.')
+FileNotFoundError: weights/hrnet_w48_coco_256x192-b9e0b3ab_20200708.pth can not be found.

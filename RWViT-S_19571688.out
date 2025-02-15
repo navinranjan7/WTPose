@@ -1,0 +1,676 @@
+01/14 12:54:46 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.17 (default, Jul  5 2023, 21:04:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 1674450063
+    GPU 0,1,2,3: NVIDIA A100-PCIE-40GB
+    CUDA_HOME: None
+    GCC: n/a
+    PyTorch: 1.11.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.5.2 (Git Hash a9302535553c73243c632ad3c4c80beec3d19a1e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.12.0
+    OpenCV: 4.8.0
+    MMEngine: 0.8.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1674450063
+    Distributed launcher: pytorch
+    Distributed training: True
+    GPU number: 4
+------------------------------------------------------------
+
+01/14 12:54:46 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=512)
+backend_args = dict(backend='local')
+codec = dict(
+    heatmap_size=(
+        64,
+        48,
+    ),
+    input_size=(
+        256,
+        192,
+    ),
+    sigma=2,
+    type='UDPHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+custom_imports = dict(
+    allow_failed_imports=False,
+    imports=[
+        'mmpose.engine.optim_wrappers.layer_decay_optim_wrapper',
+    ])
+data_mode = 'topdown'
+data_root = 'data/coco/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=10,
+        max_keep_ckpts=1,
+        rule='greater',
+        save_best='coco/AP',
+        type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'pytorch'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        arch='base',
+        con_in_channels=768,
+        con_out_channels=128,
+        con_patch_size=(
+            16,
+            12,
+        ),
+        con_ratio=3,
+        drop_path_rate=0.3,
+        img_size=(
+            256,
+            192,
+        ),
+        init_cfg=dict(
+            checkpoint=
+            'https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_base_20230913.pth',
+            type='Pretrained'),
+        out_indices=(
+            2,
+            5,
+            8,
+            11,
+        ),
+        out_type='featmap',
+        patch_cfg=dict(padding=2),
+        patch_size=16,
+        qkv_bias=True,
+        type='ResnetWViT',
+        with_cls_token=False,
+        wtm_dilations=[
+            2,
+            1,
+            4,
+            1,
+            6,
+            1,
+            8,
+            1,
+        ],
+        wtm_dim=128,
+        wtm_in_dim=512,
+        wtm_kernel_size=7,
+        wtm_low_level_dim=256,
+        wtm_num_heads=[
+            8,
+            8,
+            8,
+            8,
+        ],
+        wtm_out_dim=128,
+        wtm_reduction=32,
+        wtm_size=(
+            64,
+            48,
+        )),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        conv_out_channels=False,
+        decoder=dict(
+            heatmap_size=(
+                64,
+                48,
+            ),
+            input_size=(
+                256,
+                192,
+            ),
+            sigma=2,
+            type='UDPHeatmap'),
+        deconv_out_channels=False,
+        in_channels=128,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=17,
+        type='HeatmapHeadWTPose'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=True),
+    type='TopdownPoseEstimator')
+norm_cfg = dict(requires_grad=True, type='SyncBN')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=1.0, norm_type=2),
+    constructor='LayerDecayOptimWrapperConstructor',
+    optimizer=dict(
+        betas=(
+            0.9,
+            0.999,
+        ), lr=0.0005, type='AdamW', weight_decay=0.1),
+    paramwise_cfg=dict(
+        custom_keys=dict(
+            bias=dict(decay_multi=0.0),
+            norm=dict(decay_mult=0.0),
+            pos_embed=dict(decay_mult=0.0),
+            relative_position_bias_table=dict(decay_mult=0.0)),
+        layer_decay_rate=0.75,
+        num_layers=12))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=210,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                192,
+            ), type='TopdownAffine', use_udp=True),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+train_cfg = dict(by_epoch=True, max_epochs=210, val_interval=10)
+train_dataloader = dict(
+    batch_size=48,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_train2017.json',
+        data_mode='topdown',
+        data_prefix=dict(img='train2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                256,
+                192,
+            ), type='TopdownAffine', use_udp=True),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        64,
+                        48,
+                    ),
+                    input_size=(
+                        256,
+                        192,
+                    ),
+                    sigma=2,
+                    type='UDPHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        256,
+        192,
+    ), type='TopdownAffine', use_udp=True),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                64,
+                48,
+            ),
+            input_size=(
+                256,
+                192,
+            ),
+            sigma=2,
+            type='UDPHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                192,
+            ), type='TopdownAffine', use_udp=True),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        256,
+        192,
+    ), type='TopdownAffine', use_udp=True),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/_RWViT_base_coco_256x192'
+
+deep_stem
+deep_stem
+deep_stem
+deep_stem
+01/14 12:55:00 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+loading annotations into memory...
+loading annotations into memory...
+loading annotations into memory...
+Done (t=7.64s)
+creating index...
+Done (t=8.21s)
+creating index...
+Done (t=8.35s)
+creating index...
+Done (t=8.36s)
+creating index...
+index created!
+index created!
+index created!
+index created!
+{'num_layers': 12, 'layer_decay_rate': 0.75, 'custom_keys': {'bias': {'decay_multi': 0.0}, 'pos_embed': {'decay_mult': 0.0}, 'relative_position_bias_table': {'decay_mult': 0.0}, 'norm': {'decay_mult': 0.0}}}
+loading annotations into memory...
+{'num_layers': 12, 'layer_decay_rate': 0.75, 'custom_keys': {'bias': {'decay_multi': 0.0}, 'pos_embed': {'decay_mult': 0.0}, 'relative_position_bias_table': {'decay_mult': 0.0}, 'norm': {'decay_mult': 0.0}}}
+Done (t=0.31s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.20s)
+creating index...
+index created!
+{'num_layers': 12, 'layer_decay_rate': 0.75, 'custom_keys': {'bias': {'decay_multi': 0.0}, 'pos_embed': {'decay_mult': 0.0}, 'relative_position_bias_table': {'decay_mult': 0.0}, 'norm': {'decay_mult': 0.0}}}
+loading annotations into memory...
+Done (t=0.20s)
+creating index...
+index created!
+{'num_layers': 12, 'layer_decay_rate': 0.75, 'custom_keys': {'bias': {'decay_multi': 0.0}, 'pos_embed': {'decay_mult': 0.0}, 'relative_position_bias_table': {'decay_mult': 0.0}, 'norm': {'decay_mult': 0.0}}}
+loading annotations into memory...
+Done (t=0.20s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.20s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.21s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.21s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.21s)
+creating index...
+index created!
+01/14 12:56:07 - mmengine - INFO - load model from: https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_base_20230913.pth
+01/14 12:56:07 - mmengine - INFO - Loads checkpoint by http backend from path: https://download.openmmlab.com/mmpose/v1/pretrained_models/mae_pretrain_vit_base_20230913.pth
+01/14 12:56:09 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: cls_token, pos_embed, patch_embed.projection.weight, patch_embed.projection.bias
+
+missing keys in source state_dict: connect.c1.conv_transpose_1.0.weight, connect.c1.conv_transpose_1.0.bias, connect.c1.conv_transpose_1.1.weight, connect.c1.conv_transpose_1.1.bias, connect.c1.conv_transpose_1.1.running_mean, connect.c1.conv_transpose_1.1.running_var, connect.c1.conv_1.0.weight, connect.c1.conv_1.0.bias, connect.c1.conv_1.1.weight, connect.c1.conv_1.1.bias, connect.c1.conv_1.1.running_mean, connect.c1.conv_1.1.running_var, connect.c1.conv_transpose_2.0.weight, connect.c1.conv_transpose_2.0.bias, connect.c1.conv_transpose_2.1.weight, connect.c1.conv_transpose_2.1.bias, connect.c1.conv_transpose_2.1.running_mean, connect.c1.conv_transpose_2.1.running_var, connect.c1.conv_2.0.weight, connect.c1.conv_2.0.bias, connect.c1.conv_2.1.weight, connect.c1.conv_2.1.bias, connect.c1.conv_2.1.running_mean, connect.c1.conv_2.1.running_var, connect.c2.conv_transpose_1.0.weight, connect.c2.conv_transpose_1.0.bias, connect.c2.conv_transpose_1.1.weight, connect.c2.conv_transpose_1.1.bias, connect.c2.conv_transpose_1.1.running_mean, connect.c2.conv_transpose_1.1.running_var, connect.c2.conv_1.0.weight, connect.c2.conv_1.0.bias, connect.c2.conv_1.1.weight, connect.c2.conv_1.1.bias, connect.c2.conv_1.1.running_mean, connect.c2.conv_1.1.running_var, connect.c2.conv_transpose_2.0.weight, connect.c2.conv_transpose_2.0.bias, connect.c2.conv_transpose_2.1.weight, connect.c2.conv_transpose_2.1.bias, connect.c2.conv_transpose_2.1.running_mean, connect.c2.conv_transpose_2.1.running_var, connect.c2.conv_2.0.weight, connect.c2.conv_2.0.bias, connect.c2.conv_2.1.weight, connect.c2.conv_2.1.bias, connect.c2.conv_2.1.running_mean, connect.c2.conv_2.1.running_var, connect.c3.conv_transpose_1.0.weight, connect.c3.conv_transpose_1.0.bias, connect.c3.conv_transpose_1.1.weight, connect.c3.conv_transpose_1.1.bias, connect.c3.conv_transpose_1.1.running_mean, connect.c3.conv_transpose_1.1.running_var, connect.c3.conv_1.0.weight, connect.c3.conv_1.0.bias, connect.c3.conv_1.1.weight, connect.c3.conv_1.1.bias, connect.c3.conv_1.1.running_mean, connect.c3.conv_1.1.running_var, connect.c3.conv_transpose_2.0.weight, connect.c3.conv_transpose_2.0.bias, connect.c3.conv_transpose_2.1.weight, connect.c3.conv_transpose_2.1.bias, connect.c3.conv_transpose_2.1.running_mean, connect.c3.conv_transpose_2.1.running_var, connect.c3.conv_2.0.weight, connect.c3.conv_2.0.bias, connect.c3.conv_2.1.weight, connect.c3.conv_2.1.bias, connect.c3.conv_2.1.running_mean, connect.c3.conv_2.1.running_var, connect.c4.conv_transpose_1.0.weight, connect.c4.conv_transpose_1.0.bias, connect.c4.conv_transpose_1.1.weight, connect.c4.conv_transpose_1.1.bias, connect.c4.conv_transpose_1.1.running_mean, connect.c4.conv_transpose_1.1.running_var, connect.c4.conv_1.0.weight, connect.c4.conv_1.0.bias, connect.c4.conv_1.1.weight, connect.c4.conv_1.1.bias, connect.c4.conv_1.1.running_mean, connect.c4.conv_1.1.running_var, connect.c4.conv_transpose_2.0.weight, connect.c4.conv_transpose_2.0.bias, connect.c4.conv_transpose_2.1.weight, connect.c4.conv_transpose_2.1.bias, connect.c4.conv_transpose_2.1.running_mean, connect.c4.conv_transpose_2.1.running_var, connect.c4.conv_2.0.weight, connect.c4.conv_2.0.bias, connect.c4.conv_2.1.weight, connect.c4.conv_2.1.bias, connect.c4.conv_2.1.running_mean, connect.c4.conv_2.1.running_var, wtm_a.wtm1_0.gamma1, wtm_a.wtm1_0.gamma2, wtm_a.wtm1_0.norm1.weight, wtm_a.wtm1_0.norm1.bias, wtm_a.wtm1_0.attn.rpb, wtm_a.wtm1_0.attn.qkv.weight, wtm_a.wtm1_0.attn.qkv.bias, wtm_a.wtm1_0.attn.proj.weight, wtm_a.wtm1_0.attn.proj.bias, wtm_a.wtm1_0.norm2.weight, wtm_a.wtm1_0.norm2.bias, wtm_a.wtm1_0.mlp.fc1.weight, wtm_a.wtm1_0.mlp.fc1.bias, wtm_a.wtm1_0.mlp.fc2.weight, wtm_a.wtm1_0.mlp.fc2.bias, wtm_a.wtm1_1.gamma1, wtm_a.wtm1_1.gamma2, wtm_a.wtm1_1.norm1.weight, wtm_a.wtm1_1.norm1.bias, wtm_a.wtm1_1.attn.rpb, wtm_a.wtm1_1.attn.qkv.weight, wtm_a.wtm1_1.attn.qkv.bias, wtm_a.wtm1_1.attn.proj.weight, wtm_a.wtm1_1.attn.proj.bias, wtm_a.wtm1_1.norm2.weight, wtm_a.wtm1_1.norm2.bias, wtm_a.wtm1_1.mlp.fc1.weight, wtm_a.wtm1_1.mlp.fc1.bias, wtm_a.wtm1_1.mlp.fc2.weight, wtm_a.wtm1_1.mlp.fc2.bias, wtm_a.wtm2_0.gamma1, wtm_a.wtm2_0.gamma2, wtm_a.wtm2_0.norm1.weight, wtm_a.wtm2_0.norm1.bias, wtm_a.wtm2_0.attn.rpb, wtm_a.wtm2_0.attn.qkv.weight, wtm_a.wtm2_0.attn.qkv.bias, wtm_a.wtm2_0.attn.proj.weight, wtm_a.wtm2_0.attn.proj.bias, wtm_a.wtm2_0.norm2.weight, wtm_a.wtm2_0.norm2.bias, wtm_a.wtm2_0.mlp.fc1.weight, wtm_a.wtm2_0.mlp.fc1.bias, wtm_a.wtm2_0.mlp.fc2.weight, wtm_a.wtm2_0.mlp.fc2.bias, wtm_a.wtm2_1.gamma1, wtm_a.wtm2_1.gamma2, wtm_a.wtm2_1.norm1.weight, wtm_a.wtm2_1.norm1.bias, wtm_a.wtm2_1.attn.rpb, wtm_a.wtm2_1.attn.qkv.weight, wtm_a.wtm2_1.attn.qkv.bias, wtm_a.wtm2_1.attn.proj.weight, wtm_a.wtm2_1.attn.proj.bias, wtm_a.wtm2_1.norm2.weight, wtm_a.wtm2_1.norm2.bias, wtm_a.wtm2_1.mlp.fc1.weight, wtm_a.wtm2_1.mlp.fc1.bias, wtm_a.wtm2_1.mlp.fc2.weight, wtm_a.wtm2_1.mlp.fc2.bias, wtm_a.wtm3_0.gamma1, wtm_a.wtm3_0.gamma2, wtm_a.wtm3_0.norm1.weight, wtm_a.wtm3_0.norm1.bias, wtm_a.wtm3_0.attn.rpb, wtm_a.wtm3_0.attn.qkv.weight, wtm_a.wtm3_0.attn.qkv.bias, wtm_a.wtm3_0.attn.proj.weight, wtm_a.wtm3_0.attn.proj.bias, wtm_a.wtm3_0.norm2.weight, wtm_a.wtm3_0.norm2.bias, wtm_a.wtm3_0.mlp.fc1.weight, wtm_a.wtm3_0.mlp.fc1.bias, wtm_a.wtm3_0.mlp.fc2.weight, wtm_a.wtm3_0.mlp.fc2.bias, wtm_a.wtm3_1.gamma1, wtm_a.wtm3_1.gamma2, wtm_a.wtm3_1.norm1.weight, wtm_a.wtm3_1.norm1.bias, wtm_a.wtm3_1.attn.rpb, wtm_a.wtm3_1.attn.qkv.weight, wtm_a.wtm3_1.attn.qkv.bias, wtm_a.wtm3_1.attn.proj.weight, wtm_a.wtm3_1.attn.proj.bias, wtm_a.wtm3_1.norm2.weight, wtm_a.wtm3_1.norm2.bias, wtm_a.wtm3_1.mlp.fc1.weight, wtm_a.wtm3_1.mlp.fc1.bias, wtm_a.wtm3_1.mlp.fc2.weight, wtm_a.wtm3_1.mlp.fc2.bias, wtm_a.wtm4_0.gamma1, wtm_a.wtm4_0.gamma2, wtm_a.wtm4_0.norm1.weight, wtm_a.wtm4_0.norm1.bias, wtm_a.wtm4_0.attn.rpb, wtm_a.wtm4_0.attn.qkv.weight, wtm_a.wtm4_0.attn.qkv.bias, wtm_a.wtm4_0.attn.proj.weight, wtm_a.wtm4_0.attn.proj.bias, wtm_a.wtm4_0.norm2.weight, wtm_a.wtm4_0.norm2.bias, wtm_a.wtm4_0.mlp.fc1.weight, wtm_a.wtm4_0.mlp.fc1.bias, wtm_a.wtm4_0.mlp.fc2.weight, wtm_a.wtm4_0.mlp.fc2.bias, wtm_a.wtm4_1.gamma1, wtm_a.wtm4_1.gamma2, wtm_a.wtm4_1.norm1.weight, wtm_a.wtm4_1.norm1.bias, wtm_a.wtm4_1.attn.rpb, wtm_a.wtm4_1.attn.qkv.weight, wtm_a.wtm4_1.attn.qkv.bias, wtm_a.wtm4_1.attn.proj.weight, wtm_a.wtm4_1.attn.proj.bias, wtm_a.wtm4_1.norm2.weight, wtm_a.wtm4_1.norm2.bias, wtm_a.wtm4_1.mlp.fc1.weight, wtm_a.wtm4_1.mlp.fc1.bias, wtm_a.wtm4_1.mlp.fc2.weight, wtm_a.wtm4_1.mlp.fc2.bias, wtm_a.global_avg_pool.1.weight, wtm_a.global_avg_pool.2.weight, wtm_a.global_avg_pool.2.bias, wtm_a.global_avg_pool.2.running_mean, wtm_a.global_avg_pool.2.running_var, wtm_a.conv1.weight, wtm_a.bn1.weight, wtm_a.bn1.bias, wtm_a.bn1.running_mean, wtm_a.bn1.running_var, wtm_a.conv2.weight, wtm_a.bn2.weight, wtm_a.bn2.bias, wtm_a.bn2.running_mean, wtm_a.bn2.running_var, wtm_a.low.weight, wtm_a.bn_low.weight, wtm_a.bn_low.bias, wtm_a.bn_low.running_mean, wtm_a.bn_low.running_var, wtm_a.last_conv.0.weight, wtm_a.last_conv.1.weight, wtm_a.last_conv.1.bias, wtm_a.last_conv.1.running_mean, wtm_a.last_conv.1.running_var, wtm_a.last_conv.3.weight, wtm_a.last_conv.4.weight, wtm_a.last_conv.4.bias, wtm_a.last_conv.4.running_mean, wtm_a.last_conv.4.running_var, resnet.stem.0.conv.weight, resnet.stem.0.bn.weight, resnet.stem.0.bn.bias, resnet.stem.0.bn.running_mean, resnet.stem.0.bn.running_var, resnet.stem.1.conv.weight, resnet.stem.1.bn.weight, resnet.stem.1.bn.bias, resnet.stem.1.bn.running_mean, resnet.stem.1.bn.running_var, resnet.layer1.0.conv1.weight, resnet.layer1.0.bn1.weight, resnet.layer1.0.bn1.bias, resnet.layer1.0.bn1.running_mean, resnet.layer1.0.bn1.running_var, resnet.layer1.0.conv2.weight, resnet.layer1.0.bn2.weight, resnet.layer1.0.bn2.bias, resnet.layer1.0.bn2.running_mean, resnet.layer1.0.bn2.running_var, resnet.layer1.0.conv3.weight, resnet.layer1.0.bn3.weight, resnet.layer1.0.bn3.bias, resnet.layer1.0.bn3.running_mean, resnet.layer1.0.bn3.running_var, resnet.layer1.0.downsample.0.weight, resnet.layer1.0.downsample.1.weight, resnet.layer1.0.downsample.1.bias, resnet.layer1.0.downsample.1.running_mean, resnet.layer1.0.downsample.1.running_var, resnet.layer1.1.conv1.weight, resnet.layer1.1.bn1.weight, resnet.layer1.1.bn1.bias, resnet.layer1.1.bn1.running_mean, resnet.layer1.1.bn1.running_var, resnet.layer1.1.conv2.weight, resnet.layer1.1.bn2.weight, resnet.layer1.1.bn2.bias, resnet.layer1.1.bn2.running_mean, resnet.layer1.1.bn2.running_var, resnet.layer1.1.conv3.weight, resnet.layer1.1.bn3.weight, resnet.layer1.1.bn3.bias, resnet.layer1.1.bn3.running_mean, resnet.layer1.1.bn3.running_var, resnet.layer1.2.conv1.weight, resnet.layer1.2.bn1.weight, resnet.layer1.2.bn1.bias, resnet.layer1.2.bn1.running_mean, resnet.layer1.2.bn1.running_var, resnet.layer1.2.conv2.weight, resnet.layer1.2.bn2.weight, resnet.layer1.2.bn2.bias, resnet.layer1.2.bn2.running_mean, resnet.layer1.2.bn2.running_var, resnet.layer1.2.conv3.weight, resnet.layer1.2.bn3.weight, resnet.layer1.2.bn3.bias, resnet.layer1.2.bn3.running_mean, resnet.layer1.2.bn3.running_var, resnet.layer2.0.conv1.weight, resnet.layer2.0.bn1.weight, resnet.layer2.0.bn1.bias, resnet.layer2.0.bn1.running_mean, resnet.layer2.0.bn1.running_var, resnet.layer2.0.conv2.weight, resnet.layer2.0.bn2.weight, resnet.layer2.0.bn2.bias, resnet.layer2.0.bn2.running_mean, resnet.layer2.0.bn2.running_var, resnet.layer2.0.conv3.weight, resnet.layer2.0.bn3.weight, resnet.layer2.0.bn3.bias, resnet.layer2.0.bn3.running_mean, resnet.layer2.0.bn3.running_var, resnet.layer2.0.downsample.0.weight, resnet.layer2.0.downsample.1.weight, resnet.layer2.0.downsample.1.bias, resnet.layer2.0.downsample.1.running_mean, resnet.layer2.0.downsample.1.running_var, resnet.layer2.1.conv1.weight, resnet.layer2.1.bn1.weight, resnet.layer2.1.bn1.bias, resnet.layer2.1.bn1.running_mean, resnet.layer2.1.bn1.running_var, resnet.layer2.1.conv2.weight, resnet.layer2.1.bn2.weight, resnet.layer2.1.bn2.bias, resnet.layer2.1.bn2.running_mean, resnet.layer2.1.bn2.running_var, resnet.layer2.1.conv3.weight, resnet.layer2.1.bn3.weight, resnet.layer2.1.bn3.bias, resnet.layer2.1.bn3.running_mean, resnet.layer2.1.bn3.running_var, resnet.layer2.2.conv1.weight, resnet.layer2.2.bn1.weight, resnet.layer2.2.bn1.bias, resnet.layer2.2.bn1.running_mean, resnet.layer2.2.bn1.running_var, resnet.layer2.2.conv2.weight, resnet.layer2.2.bn2.weight, resnet.layer2.2.bn2.bias, resnet.layer2.2.bn2.running_mean, resnet.layer2.2.bn2.running_var, resnet.layer2.2.conv3.weight, resnet.layer2.2.bn3.weight, resnet.layer2.2.bn3.bias, resnet.layer2.2.bn3.running_mean, resnet.layer2.2.bn3.running_var, resnet.layer2.3.conv1.weight, resnet.layer2.3.bn1.weight, resnet.layer2.3.bn1.bias, resnet.layer2.3.bn1.running_mean, resnet.layer2.3.bn1.running_var, resnet.layer2.3.conv2.weight, resnet.layer2.3.bn2.weight, resnet.layer2.3.bn2.bias, resnet.layer2.3.bn2.running_mean, resnet.layer2.3.bn2.running_var, resnet.layer2.3.conv3.weight, resnet.layer2.3.bn3.weight, resnet.layer2.3.bn3.bias, resnet.layer2.3.bn3.running_mean, resnet.layer2.3.bn3.running_var, resnet.layer3.0.conv1.weight, resnet.layer3.0.bn1.weight, resnet.layer3.0.bn1.bias, resnet.layer3.0.bn1.running_mean, resnet.layer3.0.bn1.running_var, resnet.layer3.0.conv2.weight, resnet.layer3.0.bn2.weight, resnet.layer3.0.bn2.bias, resnet.layer3.0.bn2.running_mean, resnet.layer3.0.bn2.running_var, resnet.layer3.0.conv3.weight, resnet.layer3.0.bn3.weight, resnet.layer3.0.bn3.bias, resnet.layer3.0.bn3.running_mean, resnet.layer3.0.bn3.running_var, resnet.layer3.0.downsample.0.weight, resnet.layer3.0.downsample.1.weight, resnet.layer3.0.downsample.1.bias, resnet.layer3.0.downsample.1.running_mean, resnet.layer3.0.downsample.1.running_var, resnet.layer3.1.conv1.weight, resnet.layer3.1.bn1.weight, resnet.layer3.1.bn1.bias, resnet.layer3.1.bn1.running_mean, resnet.layer3.1.bn1.running_var, resnet.layer3.1.conv2.weight, resnet.layer3.1.bn2.weight, resnet.layer3.1.bn2.bias, resnet.layer3.1.bn2.running_mean, resnet.layer3.1.bn2.running_var, resnet.layer3.1.conv3.weight, resnet.layer3.1.bn3.weight, resnet.layer3.1.bn3.bias, resnet.layer3.1.bn3.running_mean, resnet.layer3.1.bn3.running_var, resnet.layer3.2.conv1.weight, resnet.layer3.2.bn1.weight, resnet.layer3.2.bn1.bias, resnet.layer3.2.bn1.running_mean, resnet.layer3.2.bn1.running_var, resnet.layer3.2.conv2.weight, resnet.layer3.2.bn2.weight, resnet.layer3.2.bn2.bias, resnet.layer3.2.bn2.running_mean, resnet.layer3.2.bn2.running_var, resnet.layer3.2.conv3.weight, resnet.layer3.2.bn3.weight, resnet.layer3.2.bn3.bias, resnet.layer3.2.bn3.running_mean, resnet.layer3.2.bn3.running_var, resnet.layer3.3.conv1.weight, resnet.layer3.3.bn1.weight, resnet.layer3.3.bn1.bias, resnet.layer3.3.bn1.running_mean, resnet.layer3.3.bn1.running_var, resnet.layer3.3.conv2.weight, resnet.layer3.3.bn2.weight, resnet.layer3.3.bn2.bias, resnet.layer3.3.bn2.running_mean, resnet.layer3.3.bn2.running_var, resnet.layer3.3.conv3.weight, resnet.layer3.3.bn3.weight, resnet.layer3.3.bn3.bias, resnet.layer3.3.bn3.running_mean, resnet.layer3.3.bn3.running_var, resnet.layer3.4.conv1.weight, resnet.layer3.4.bn1.weight, resnet.layer3.4.bn1.bias, resnet.layer3.4.bn1.running_mean, resnet.layer3.4.bn1.running_var, resnet.layer3.4.conv2.weight, resnet.layer3.4.bn2.weight, resnet.layer3.4.bn2.bias, resnet.layer3.4.bn2.running_mean, resnet.layer3.4.bn2.running_var, resnet.layer3.4.conv3.weight, resnet.layer3.4.bn3.weight, resnet.layer3.4.bn3.bias, resnet.layer3.4.bn3.running_mean, resnet.layer3.4.bn3.running_var, resnet.layer3.5.conv1.weight, resnet.layer3.5.bn1.weight, resnet.layer3.5.bn1.bias, resnet.layer3.5.bn1.running_mean, resnet.layer3.5.bn1.running_var, resnet.layer3.5.conv2.weight, resnet.layer3.5.bn2.weight, resnet.layer3.5.bn2.bias, resnet.layer3.5.bn2.running_mean, resnet.layer3.5.bn2.running_var, resnet.layer3.5.conv3.weight, resnet.layer3.5.bn3.weight, resnet.layer3.5.bn3.bias, resnet.layer3.5.bn3.running_mean, resnet.layer3.5.bn3.running_var, resnet.layer3.6.conv1.weight, resnet.layer3.6.bn1.weight, resnet.layer3.6.bn1.bias, resnet.layer3.6.bn1.running_mean, resnet.layer3.6.bn1.running_var, resnet.layer3.6.conv2.weight, resnet.layer3.6.bn2.weight, resnet.layer3.6.bn2.bias, resnet.layer3.6.bn2.running_mean, resnet.layer3.6.bn2.running_var, resnet.layer3.6.conv3.weight, resnet.layer3.6.bn3.weight, resnet.layer3.6.bn3.bias, resnet.layer3.6.bn3.running_mean, resnet.layer3.6.bn3.running_var, resnet.layer3.7.conv1.weight, resnet.layer3.7.bn1.weight, resnet.layer3.7.bn1.bias, resnet.layer3.7.bn1.running_mean, resnet.layer3.7.bn1.running_var, resnet.layer3.7.conv2.weight, resnet.layer3.7.bn2.weight, resnet.layer3.7.bn2.bias, resnet.layer3.7.bn2.running_mean, resnet.layer3.7.bn2.running_var, resnet.layer3.7.conv3.weight, resnet.layer3.7.bn3.weight, resnet.layer3.7.bn3.bias, resnet.layer3.7.bn3.running_mean, resnet.layer3.7.bn3.running_var, resnet.layer3.8.conv1.weight, resnet.layer3.8.bn1.weight, resnet.layer3.8.bn1.bias, resnet.layer3.8.bn1.running_mean, resnet.layer3.8.bn1.running_var, resnet.layer3.8.conv2.weight, resnet.layer3.8.bn2.weight, resnet.layer3.8.bn2.bias, resnet.layer3.8.bn2.running_mean, resnet.layer3.8.bn2.running_var, resnet.layer3.8.conv3.weight, resnet.layer3.8.bn3.weight, resnet.layer3.8.bn3.bias, resnet.layer3.8.bn3.running_mean, resnet.layer3.8.bn3.running_var, resnet.layer3.9.conv1.weight, resnet.layer3.9.bn1.weight, resnet.layer3.9.bn1.bias, resnet.layer3.9.bn1.running_mean, resnet.layer3.9.bn1.running_var, resnet.layer3.9.conv2.weight, resnet.layer3.9.bn2.weight, resnet.layer3.9.bn2.bias, resnet.layer3.9.bn2.running_mean, resnet.layer3.9.bn2.running_var, resnet.layer3.9.conv3.weight, resnet.layer3.9.bn3.weight, resnet.layer3.9.bn3.bias, resnet.layer3.9.bn3.running_mean, resnet.layer3.9.bn3.running_var, resnet.layer3.10.conv1.weight, resnet.layer3.10.bn1.weight, resnet.layer3.10.bn1.bias, resnet.layer3.10.bn1.running_mean, resnet.layer3.10.bn1.running_var, resnet.layer3.10.conv2.weight, resnet.layer3.10.bn2.weight, resnet.layer3.10.bn2.bias, resnet.layer3.10.bn2.running_mean, resnet.layer3.10.bn2.running_var, resnet.layer3.10.conv3.weight, resnet.layer3.10.bn3.weight, resnet.layer3.10.bn3.bias, resnet.layer3.10.bn3.running_mean, resnet.layer3.10.bn3.running_var, resnet.layer3.11.conv1.weight, resnet.layer3.11.bn1.weight, resnet.layer3.11.bn1.bias, resnet.layer3.11.bn1.running_mean, resnet.layer3.11.bn1.running_var, resnet.layer3.11.conv2.weight, resnet.layer3.11.bn2.weight, resnet.layer3.11.bn2.bias, resnet.layer3.11.bn2.running_mean, resnet.layer3.11.bn2.running_var, resnet.layer3.11.conv3.weight, resnet.layer3.11.bn3.weight, resnet.layer3.11.bn3.bias, resnet.layer3.11.bn3.running_mean, resnet.layer3.11.bn3.running_var, resnet.layer3.12.conv1.weight, resnet.layer3.12.bn1.weight, resnet.layer3.12.bn1.bias, resnet.layer3.12.bn1.running_mean, resnet.layer3.12.bn1.running_var, resnet.layer3.12.conv2.weight, resnet.layer3.12.bn2.weight, resnet.layer3.12.bn2.bias, resnet.layer3.12.bn2.running_mean, resnet.layer3.12.bn2.running_var, resnet.layer3.12.conv3.weight, resnet.layer3.12.bn3.weight, resnet.layer3.12.bn3.bias, resnet.layer3.12.bn3.running_mean, resnet.layer3.12.bn3.running_var, resnet.layer3.13.conv1.weight, resnet.layer3.13.bn1.weight, resnet.layer3.13.bn1.bias, resnet.layer3.13.bn1.running_mean, resnet.layer3.13.bn1.running_var, resnet.layer3.13.conv2.weight, resnet.layer3.13.bn2.weight, resnet.layer3.13.bn2.bias, resnet.layer3.13.bn2.running_mean, resnet.layer3.13.bn2.running_var, resnet.layer3.13.conv3.weight, resnet.layer3.13.bn3.weight, resnet.layer3.13.bn3.bias, resnet.layer3.13.bn3.running_mean, resnet.layer3.13.bn3.running_var, resnet.layer3.14.conv1.weight, resnet.layer3.14.bn1.weight, resnet.layer3.14.bn1.bias, resnet.layer3.14.bn1.running_mean, resnet.layer3.14.bn1.running_var, resnet.layer3.14.conv2.weight, resnet.layer3.14.bn2.weight, resnet.layer3.14.bn2.bias, resnet.layer3.14.bn2.running_mean, resnet.layer3.14.bn2.running_var, resnet.layer3.14.conv3.weight, resnet.layer3.14.bn3.weight, resnet.layer3.14.bn3.bias, resnet.layer3.14.bn3.running_mean, resnet.layer3.14.bn3.running_var, resnet.layer3.15.conv1.weight, resnet.layer3.15.bn1.weight, resnet.layer3.15.bn1.bias, resnet.layer3.15.bn1.running_mean, resnet.layer3.15.bn1.running_var, resnet.layer3.15.conv2.weight, resnet.layer3.15.bn2.weight, resnet.layer3.15.bn2.bias, resnet.layer3.15.bn2.running_mean, resnet.layer3.15.bn2.running_var, resnet.layer3.15.conv3.weight, resnet.layer3.15.bn3.weight, resnet.layer3.15.bn3.bias, resnet.layer3.15.bn3.running_mean, resnet.layer3.15.bn3.running_var, resnet.layer3.16.conv1.weight, resnet.layer3.16.bn1.weight, resnet.layer3.16.bn1.bias, resnet.layer3.16.bn1.running_mean, resnet.layer3.16.bn1.running_var, resnet.layer3.16.conv2.weight, resnet.layer3.16.bn2.weight, resnet.layer3.16.bn2.bias, resnet.layer3.16.bn2.running_mean, resnet.layer3.16.bn2.running_var, resnet.layer3.16.conv3.weight, resnet.layer3.16.bn3.weight, resnet.layer3.16.bn3.bias, resnet.layer3.16.bn3.running_mean, resnet.layer3.16.bn3.running_var, resnet.layer3.17.conv1.weight, resnet.layer3.17.bn1.weight, resnet.layer3.17.bn1.bias, resnet.layer3.17.bn1.running_mean, resnet.layer3.17.bn1.running_var, resnet.layer3.17.conv2.weight, resnet.layer3.17.bn2.weight, resnet.layer3.17.bn2.bias, resnet.layer3.17.bn2.running_mean, resnet.layer3.17.bn2.running_var, resnet.layer3.17.conv3.weight, resnet.layer3.17.bn3.weight, resnet.layer3.17.bn3.bias, resnet.layer3.17.bn3.running_mean, resnet.layer3.17.bn3.running_var, resnet.layer3.18.conv1.weight, resnet.layer3.18.bn1.weight, resnet.layer3.18.bn1.bias, resnet.layer3.18.bn1.running_mean, resnet.layer3.18.bn1.running_var, resnet.layer3.18.conv2.weight, resnet.layer3.18.bn2.weight, resnet.layer3.18.bn2.bias, resnet.layer3.18.bn2.running_mean, resnet.layer3.18.bn2.running_var, resnet.layer3.18.conv3.weight, resnet.layer3.18.bn3.weight, resnet.layer3.18.bn3.bias, resnet.layer3.18.bn3.running_mean, resnet.layer3.18.bn3.running_var, resnet.layer3.19.conv1.weight, resnet.layer3.19.bn1.weight, resnet.layer3.19.bn1.bias, resnet.layer3.19.bn1.running_mean, resnet.layer3.19.bn1.running_var, resnet.layer3.19.conv2.weight, resnet.layer3.19.bn2.weight, resnet.layer3.19.bn2.bias, resnet.layer3.19.bn2.running_mean, resnet.layer3.19.bn2.running_var, resnet.layer3.19.conv3.weight, resnet.layer3.19.bn3.weight, resnet.layer3.19.bn3.bias, resnet.layer3.19.bn3.running_mean, resnet.layer3.19.bn3.running_var, resnet.layer3.20.conv1.weight, resnet.layer3.20.bn1.weight, resnet.layer3.20.bn1.bias, resnet.layer3.20.bn1.running_mean, resnet.layer3.20.bn1.running_var, resnet.layer3.20.conv2.weight, resnet.layer3.20.bn2.weight, resnet.layer3.20.bn2.bias, resnet.layer3.20.bn2.running_mean, resnet.layer3.20.bn2.running_var, resnet.layer3.20.conv3.weight, resnet.layer3.20.bn3.weight, resnet.layer3.20.bn3.bias, resnet.layer3.20.bn3.running_mean, resnet.layer3.20.bn3.running_var, resnet.layer3.21.conv1.weight, resnet.layer3.21.bn1.weight, resnet.layer3.21.bn1.bias, resnet.layer3.21.bn1.running_mean, resnet.layer3.21.bn1.running_var, resnet.layer3.21.conv2.weight, resnet.layer3.21.bn2.weight, resnet.layer3.21.bn2.bias, resnet.layer3.21.bn2.running_mean, resnet.layer3.21.bn2.running_var, resnet.layer3.21.conv3.weight, resnet.layer3.21.bn3.weight, resnet.layer3.21.bn3.bias, resnet.layer3.21.bn3.running_mean, resnet.layer3.21.bn3.running_var, resnet.layer3.22.conv1.weight, resnet.layer3.22.bn1.weight, resnet.layer3.22.bn1.bias, resnet.layer3.22.bn1.running_mean, resnet.layer3.22.bn1.running_var, resnet.layer3.22.conv2.weight, resnet.layer3.22.bn2.weight, resnet.layer3.22.bn2.bias, resnet.layer3.22.bn2.running_mean, resnet.layer3.22.bn2.running_var, resnet.layer3.22.conv3.weight, resnet.layer3.22.bn3.weight, resnet.layer3.22.bn3.bias, resnet.layer3.22.bn3.running_mean, resnet.layer3.22.bn3.running_var, resnet_1x1.conv.weight, resnet_1x1.bn.weight, resnet_1x1.bn.bias, resnet_1x1.bn.running_mean, resnet_1x1.bn.running_var
+
+01/14 12:56:10 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+01/14 12:56:10 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+01/14 12:56:10 - mmengine - INFO - Checkpoints will be saved to /home/nr4325/Desktop/Pose4/mmpose/work_dirs/_RWViT_base_coco_256x192.
+01/14 12:57:48 - mmengine - INFO - Epoch(train)   [1][ 50/781]  base_lr: 4.954910e-05 lr: 1.569535e-06  eta: 3 days, 17:56:00  time: 1.974630  data_time: 0.950018  memory: 29791  grad_norm: 0.006008  loss: 0.002323  loss_kpt: 0.002323  acc_pose: 0.012339
+01/14 12:59:13 - mmengine - INFO - Epoch(train)   [1][100/781]  base_lr: 9.959920e-05 lr: 3.154939e-06  eta: 3 days, 11:44:53  time: 1.704136  data_time: 0.813925  memory: 29791  grad_norm: 0.001039  loss: 0.002259  loss_kpt: 0.002259  acc_pose: 0.041895
+01/14 13:00:43 - mmengine - INFO - Epoch(train)   [1][150/781]  base_lr: 1.496493e-04 lr: 4.740344e-06  eta: 3 days, 11:07:15  time: 1.799738  data_time: 0.522300  memory: 29791  grad_norm: 0.001373  loss: 0.002238  loss_kpt: 0.002238  acc_pose: 0.050556
+01/14 13:02:09 - mmengine - INFO - Epoch(train)   [1][200/781]  base_lr: 1.996994e-04 lr: 6.325748e-06  eta: 3 days, 9:49:46  time: 1.714874  data_time: 0.428176  memory: 29791  grad_norm: 0.002094  loss: 0.002212  loss_kpt: 0.002212  acc_pose: 0.112415
+01/14 13:03:38 - mmengine - INFO - Epoch(train)   [1][250/781]  base_lr: 2.497495e-04 lr: 7.911153e-06  eta: 3 days, 9:36:58  time: 1.777646  data_time: 0.293318  memory: 29791  grad_norm: 0.002783  loss: 0.002187  loss_kpt: 0.002187  acc_pose: 0.094921
+01/14 13:05:04 - mmengine - INFO - Epoch(train)   [1][300/781]  base_lr: 2.997996e-04 lr: 9.496558e-06  eta: 3 days, 9:01:28  time: 1.719410  data_time: 0.105944  memory: 29791  grad_norm: 0.003132  loss: 0.002168  loss_kpt: 0.002168  acc_pose: 0.134111
+01/14 13:06:30 - mmengine - INFO - Epoch(train)   [1][350/781]  base_lr: 3.498497e-04 lr: 1.108196e-05  eta: 3 days, 8:36:50  time: 1.722346  data_time: 0.271848  memory: 29791  grad_norm: 0.003210  loss: 0.002053  loss_kpt: 0.002053  acc_pose: 0.180234
+01/14 13:07:57 - mmengine - INFO - Epoch(train)   [1][400/781]  base_lr: 3.998998e-04 lr: 1.266737e-05  eta: 3 days, 8:21:03  time: 1.731272  data_time: 0.155172  memory: 29791  grad_norm: 0.003502  loss: 0.002065  loss_kpt: 0.002065  acc_pose: 0.241772
+01/14 13:09:25 - mmengine - INFO - Epoch(train)   [1][450/781]  base_lr: 4.499499e-04 lr: 1.425277e-05  eta: 3 days, 8:16:50  time: 1.758964  data_time: 0.100424  memory: 29791  grad_norm: 0.003065  loss: 0.002040  loss_kpt: 0.002040  acc_pose: 0.202744
+01/14 13:10:50 - mmengine - INFO - Epoch(train)   [1][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 7:59:04  time: 1.707181  data_time: 0.109778  memory: 29791  grad_norm: 0.002869  loss: 0.002003  loss_kpt: 0.002003  acc_pose: 0.159832
+01/14 13:12:20 - mmengine - INFO - Epoch(train)   [1][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 8:04:46  time: 1.789984  data_time: 0.102978  memory: 29791  grad_norm: 0.002726  loss: 0.001972  loss_kpt: 0.001972  acc_pose: 0.266927
+01/14 13:13:44 - mmengine - INFO - Epoch(train)   [1][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 7:47:46  time: 1.695191  data_time: 0.104761  memory: 29791  grad_norm: 0.002491  loss: 0.001941  loss_kpt: 0.001941  acc_pose: 0.175790
+01/14 13:15:11 - mmengine - INFO - Epoch(train)   [1][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 7:43:13  time: 1.743251  data_time: 0.133249  memory: 29791  grad_norm: 0.002425  loss: 0.001913  loss_kpt: 0.001913  acc_pose: 0.273124
+01/14 13:16:37 - mmengine - INFO - Epoch(train)   [1][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 7:31:21  time: 1.703325  data_time: 0.131879  memory: 29791  grad_norm: 0.002384  loss: 0.001877  loss_kpt: 0.001877  acc_pose: 0.307121
+01/14 13:18:03 - mmengine - INFO - Epoch(train)   [1][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 7:26:21  time: 1.733471  data_time: 0.133510  memory: 29791  grad_norm: 0.002155  loss: 0.001849  loss_kpt: 0.001849  acc_pose: 0.288644
+01/14 13:18:51 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 13:20:23 - mmengine - INFO - Epoch(train)   [2][ 50/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 7:16:39  time: 1.838563  data_time: 0.700830  memory: 29791  grad_norm: 0.002176  loss: 0.001798  loss_kpt: 0.001798  acc_pose: 0.310433
+01/14 13:21:48 - mmengine - INFO - Epoch(train)   [2][100/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 7:06:26  time: 1.692236  data_time: 0.325113  memory: 29791  grad_norm: 0.002348  loss: 0.001793  loss_kpt: 0.001793  acc_pose: 0.307931
+01/14 13:23:16 - mmengine - INFO - Epoch(train)   [2][150/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 7:07:08  time: 1.760463  data_time: 0.122661  memory: 29791  grad_norm: 0.002220  loss: 0.001767  loss_kpt: 0.001767  acc_pose: 0.376558
+01/14 13:24:39 - mmengine - INFO - Epoch(train)   [2][200/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:56:06  time: 1.677503  data_time: 0.088404  memory: 29791  grad_norm: 0.002198  loss: 0.001740  loss_kpt: 0.001740  acc_pose: 0.351769
+01/14 13:25:13 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 13:26:07 - mmengine - INFO - Epoch(train)   [2][250/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:56:04  time: 1.753803  data_time: 0.106446  memory: 29791  grad_norm: 0.002082  loss: 0.001727  loss_kpt: 0.001727  acc_pose: 0.326600
+01/14 13:27:34 - mmengine - INFO - Epoch(train)   [2][300/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:54:37  time: 1.743605  data_time: 0.278898  memory: 29791  grad_norm: 0.002205  loss: 0.001681  loss_kpt: 0.001681  acc_pose: 0.308532
+01/14 13:28:59 - mmengine - INFO - Epoch(train)   [2][350/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:48:13  time: 1.702285  data_time: 0.446066  memory: 29791  grad_norm: 0.002280  loss: 0.001671  loss_kpt: 0.001671  acc_pose: 0.406507
+01/14 13:30:26 - mmengine - INFO - Epoch(train)   [2][400/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:46:38  time: 1.740543  data_time: 0.356426  memory: 29791  grad_norm: 0.002269  loss: 0.001693  loss_kpt: 0.001693  acc_pose: 0.351077
+01/14 13:31:51 - mmengine - INFO - Epoch(train)   [2][450/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:39:46  time: 1.692571  data_time: 0.196072  memory: 29791  grad_norm: 0.002323  loss: 0.001616  loss_kpt: 0.001616  acc_pose: 0.428458
+01/14 13:33:28 - mmengine - INFO - Epoch(train)   [2][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 7:00:10  time: 1.946180  data_time: 0.230863  memory: 29791  grad_norm: 0.002368  loss: 0.001626  loss_kpt: 0.001626  acc_pose: 0.428123
+01/14 13:34:48 - mmengine - INFO - Epoch(train)   [2][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:41:50  time: 1.582001  data_time: 0.643602  memory: 29791  grad_norm: 0.002351  loss: 0.001598  loss_kpt: 0.001598  acc_pose: 0.442872
+01/14 13:36:13 - mmengine - INFO - Epoch(train)   [2][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:37:26  time: 1.711504  data_time: 0.723554  memory: 29791  grad_norm: 0.002372  loss: 0.001545  loss_kpt: 0.001545  acc_pose: 0.460275
+01/14 13:37:39 - mmengine - INFO - Epoch(train)   [2][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:34:26  time: 1.724026  data_time: 0.507861  memory: 29791  grad_norm: 0.002435  loss: 0.001575  loss_kpt: 0.001575  acc_pose: 0.363283
+01/14 13:39:06 - mmengine - INFO - Epoch(train)   [2][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:32:24  time: 1.733467  data_time: 0.301376  memory: 29791  grad_norm: 0.002382  loss: 0.001520  loss_kpt: 0.001520  acc_pose: 0.487000
+01/14 13:40:32 - mmengine - INFO - Epoch(train)   [2][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:29:50  time: 1.727086  data_time: 0.110116  memory: 29791  grad_norm: 0.002342  loss: 0.001535  loss_kpt: 0.001535  acc_pose: 0.470097
+01/14 13:41:22 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 13:42:54 - mmengine - INFO - Epoch(train)   [3][ 50/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:28:46  time: 1.841604  data_time: 1.075141  memory: 29791  grad_norm: 0.002421  loss: 0.001514  loss_kpt: 0.001514  acc_pose: 0.437895
+01/14 13:44:18 - mmengine - INFO - Epoch(train)   [3][100/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:22:05  time: 1.675410  data_time: 0.878119  memory: 29791  grad_norm: 0.002448  loss: 0.001495  loss_kpt: 0.001495  acc_pose: 0.417046
+01/14 13:45:47 - mmengine - INFO - Epoch(train)   [3][150/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:24:01  time: 1.780535  data_time: 0.754115  memory: 29791  grad_norm: 0.002437  loss: 0.001489  loss_kpt: 0.001489  acc_pose: 0.532299
+01/14 13:47:10 - mmengine - INFO - Epoch(train)   [3][200/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:17:27  time: 1.672299  data_time: 0.398305  memory: 29791  grad_norm: 0.002650  loss: 0.001491  loss_kpt: 0.001491  acc_pose: 0.440257
+01/14 13:48:39 - mmengine - INFO - Epoch(train)   [3][250/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:17:56  time: 1.763013  data_time: 0.809501  memory: 29791  grad_norm: 0.002348  loss: 0.001455  loss_kpt: 0.001455  acc_pose: 0.470581
+01/14 13:50:03 - mmengine - INFO - Epoch(train)   [3][300/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:13:30  time: 1.696789  data_time: 0.778367  memory: 29791  grad_norm: 0.002501  loss: 0.001450  loss_kpt: 0.001450  acc_pose: 0.498907
+01/14 13:51:32 - mmengine - INFO - Epoch(train)   [3][350/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:13:56  time: 1.763450  data_time: 0.706602  memory: 29791  grad_norm: 0.002370  loss: 0.001457  loss_kpt: 0.001457  acc_pose: 0.571307
+01/14 13:52:56 - mmengine - INFO - Epoch(train)   [3][400/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:08:51  time: 1.684437  data_time: 0.349365  memory: 29791  grad_norm: 0.002528  loss: 0.001431  loss_kpt: 0.001431  acc_pose: 0.542406
+01/14 13:54:03 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 13:54:24 - mmengine - INFO - Epoch(train)   [3][450/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:09:17  time: 1.764153  data_time: 0.197127  memory: 29791  grad_norm: 0.002547  loss: 0.001410  loss_kpt: 0.001410  acc_pose: 0.565433
+01/14 13:55:48 - mmengine - INFO - Epoch(train)   [3][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:03:50  time: 1.675659  data_time: 0.289635  memory: 29791  grad_norm: 0.002439  loss: 0.001412  loss_kpt: 0.001412  acc_pose: 0.524361
+01/14 13:57:16 - mmengine - INFO - Epoch(train)   [3][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:04:09  time: 1.762988  data_time: 0.119738  memory: 29791  grad_norm: 0.002406  loss: 0.001383  loss_kpt: 0.001383  acc_pose: 0.521608
+01/14 13:58:41 - mmengine - INFO - Epoch(train)   [3][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:00:53  time: 1.706744  data_time: 0.112557  memory: 29791  grad_norm: 0.002379  loss: 0.001384  loss_kpt: 0.001384  acc_pose: 0.503323
+01/14 14:00:09 - mmengine - INFO - Epoch(train)   [3][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 6:00:18  time: 1.749457  data_time: 0.107930  memory: 29791  grad_norm: 0.002392  loss: 0.001397  loss_kpt: 0.001397  acc_pose: 0.511325
+01/14 14:01:35 - mmengine - INFO - Epoch(train)   [3][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:58:32  time: 1.730283  data_time: 0.108061  memory: 29791  grad_norm: 0.002543  loss: 0.001379  loss_kpt: 0.001379  acc_pose: 0.607606
+01/14 14:03:00 - mmengine - INFO - Epoch(train)   [3][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:54:55  time: 1.698193  data_time: 0.152417  memory: 29791  grad_norm: 0.002469  loss: 0.001353  loss_kpt: 0.001353  acc_pose: 0.461705
+01/14 14:03:49 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 14:05:21 - mmengine - INFO - Epoch(train)   [4][ 50/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:52:40  time: 1.838090  data_time: 1.021734  memory: 29791  grad_norm: 0.002552  loss: 0.001353  loss_kpt: 0.001353  acc_pose: 0.516025
+01/14 14:06:45 - mmengine - INFO - Epoch(train)   [4][100/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:48:06  time: 1.677944  data_time: 0.787880  memory: 29791  grad_norm: 0.002444  loss: 0.001326  loss_kpt: 0.001326  acc_pose: 0.514870
+01/14 14:08:13 - mmengine - INFO - Epoch(train)   [4][150/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:48:47  time: 1.772902  data_time: 0.670909  memory: 29791  grad_norm: 0.002437  loss: 0.001324  loss_kpt: 0.001324  acc_pose: 0.535256
+01/14 14:09:39 - mmengine - INFO - Epoch(train)   [4][200/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:45:58  time: 1.708512  data_time: 0.306628  memory: 29791  grad_norm: 0.002478  loss: 0.001304  loss_kpt: 0.001304  acc_pose: 0.614296
+01/14 14:11:06 - mmengine - INFO - Epoch(train)   [4][250/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:44:56  time: 1.741831  data_time: 0.516210  memory: 29791  grad_norm: 0.002462  loss: 0.001347  loss_kpt: 0.001347  acc_pose: 0.531314
+01/14 14:12:34 - mmengine - INFO - Epoch(train)   [4][300/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:44:30  time: 1.753825  data_time: 0.368071  memory: 29791  grad_norm: 0.002498  loss: 0.001334  loss_kpt: 0.001334  acc_pose: 0.492578
+01/14 14:14:01 - mmengine - INFO - Epoch(train)   [4][350/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:43:50  time: 1.749936  data_time: 0.508439  memory: 29791  grad_norm: 0.002435  loss: 0.001288  loss_kpt: 0.001288  acc_pose: 0.549038
+01/14 14:15:30 - mmengine - INFO - Epoch(train)   [4][400/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:44:48  time: 1.783832  data_time: 0.373098  memory: 29791  grad_norm: 0.002408  loss: 0.001313  loss_kpt: 0.001313  acc_pose: 0.609645
+01/14 14:16:54 - mmengine - INFO - Epoch(train)   [4][450/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:40:53  time: 1.684507  data_time: 0.290489  memory: 29791  grad_norm: 0.002491  loss: 0.001290  loss_kpt: 0.001290  acc_pose: 0.562933
+01/14 14:18:22 - mmengine - INFO - Epoch(train)   [4][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:39:59  time: 1.746070  data_time: 0.293134  memory: 29791  grad_norm: 0.002454  loss: 0.001286  loss_kpt: 0.001286  acc_pose: 0.557263
+01/14 14:19:48 - mmengine - INFO - Epoch(train)   [4][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:37:42  time: 1.716934  data_time: 0.205138  memory: 29791  grad_norm: 0.002393  loss: 0.001280  loss_kpt: 0.001280  acc_pose: 0.572520
+01/14 14:21:17 - mmengine - INFO - Epoch(train)   [4][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:38:21  time: 1.780402  data_time: 0.132437  memory: 29791  grad_norm: 0.002444  loss: 0.001237  loss_kpt: 0.001237  acc_pose: 0.589438
+01/14 14:22:41 - mmengine - INFO - Epoch(train)   [4][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:34:43  time: 1.686405  data_time: 0.141642  memory: 29791  grad_norm: 0.002332  loss: 0.001269  loss_kpt: 0.001269  acc_pose: 0.563621
+01/14 14:22:54 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 14:24:09 - mmengine - INFO - Epoch(train)   [4][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:34:14  time: 1.756357  data_time: 0.120946  memory: 29791  grad_norm: 0.002341  loss: 0.001244  loss_kpt: 0.001244  acc_pose: 0.586583
+01/14 14:25:34 - mmengine - INFO - Epoch(train)   [4][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:31:19  time: 1.700960  data_time: 0.103758  memory: 29791  grad_norm: 0.002418  loss: 0.001255  loss_kpt: 0.001255  acc_pose: 0.494341
+01/14 14:26:23 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 14:27:56 - mmengine - INFO - Epoch(train)   [5][ 50/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:30:19  time: 1.858009  data_time: 0.950532  memory: 29791  grad_norm: 0.002600  loss: 0.001229  loss_kpt: 0.001229  acc_pose: 0.523412
+01/14 14:29:21 - mmengine - INFO - Epoch(train)   [5][100/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:27:09  time: 1.693137  data_time: 0.694092  memory: 29791  grad_norm: 0.002470  loss: 0.001229  loss_kpt: 0.001229  acc_pose: 0.663779
+01/14 14:30:48 - mmengine - INFO - Epoch(train)   [5][150/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:26:28  time: 1.752800  data_time: 0.566505  memory: 29791  grad_norm: 0.002542  loss: 0.001212  loss_kpt: 0.001212  acc_pose: 0.503003
+01/14 14:32:13 - mmengine - INFO - Epoch(train)   [5][200/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:23:36  time: 1.699132  data_time: 0.362140  memory: 29791  grad_norm: 0.002465  loss: 0.001213  loss_kpt: 0.001213  acc_pose: 0.583455
+01/14 14:33:39 - mmengine - INFO - Epoch(train)   [5][250/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:21:28  time: 1.716563  data_time: 0.481441  memory: 29791  grad_norm: 0.002435  loss: 0.001222  loss_kpt: 0.001222  acc_pose: 0.613792
+01/14 14:35:07 - mmengine - INFO - Epoch(train)   [5][300/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:20:52  time: 1.755254  data_time: 0.514092  memory: 29791  grad_norm: 0.002455  loss: 0.001199  loss_kpt: 0.001199  acc_pose: 0.628207
+01/14 14:36:33 - mmengine - INFO - Epoch(train)   [5][350/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:18:55  time: 1.720859  data_time: 0.417703  memory: 29791  grad_norm: 0.002530  loss: 0.001200  loss_kpt: 0.001200  acc_pose: 0.592972
+01/14 14:37:59 - mmengine - INFO - Epoch(train)   [5][400/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:17:23  time: 1.731438  data_time: 0.207009  memory: 29791  grad_norm: 0.002426  loss: 0.001201  loss_kpt: 0.001201  acc_pose: 0.605047
+01/14 14:39:27 - mmengine - INFO - Epoch(train)   [5][450/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:16:30  time: 1.749115  data_time: 0.134844  memory: 29791  grad_norm: 0.002253  loss: 0.001164  loss_kpt: 0.001164  acc_pose: 0.659181
+01/14 14:40:53 - mmengine - INFO - Epoch(train)   [5][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:14:50  time: 1.727924  data_time: 0.124198  memory: 29791  grad_norm: 0.002433  loss: 0.001216  loss_kpt: 0.001216  acc_pose: 0.635853
+01/14 14:42:20 - mmengine - INFO - Epoch(train)   [5][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:13:09  time: 1.727325  data_time: 0.107311  memory: 29791  grad_norm: 0.002463  loss: 0.001194  loss_kpt: 0.001194  acc_pose: 0.552117
+01/14 14:43:47 - mmengine - INFO - Epoch(train)   [5][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:12:14  time: 1.748225  data_time: 0.108062  memory: 29791  grad_norm: 0.002416  loss: 0.001169  loss_kpt: 0.001169  acc_pose: 0.611003
+01/14 14:45:12 - mmengine - INFO - Epoch(train)   [5][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:09:48  time: 1.706156  data_time: 0.127377  memory: 29791  grad_norm: 0.002252  loss: 0.001181  loss_kpt: 0.001181  acc_pose: 0.649401
+01/14 14:46:36 - mmengine - INFO - Epoch(train)   [5][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:06:09  time: 1.670691  data_time: 0.292261  memory: 29791  grad_norm: 0.002367  loss: 0.001189  loss_kpt: 0.001189  acc_pose: 0.504774
+01/14 14:48:02 - mmengine - INFO - Epoch(train)   [5][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:04:36  time: 1.729406  data_time: 0.800200  memory: 29791  grad_norm: 0.002491  loss: 0.001176  loss_kpt: 0.001176  acc_pose: 0.609850
+01/14 14:48:52 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 14:50:24 - mmengine - INFO - Epoch(train)   [6][ 50/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:03:05  time: 1.838908  data_time: 1.037531  memory: 29791  grad_norm: 0.002389  loss: 0.001189  loss_kpt: 0.001189  acc_pose: 0.583317
+01/14 14:51:40 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 14:51:49 - mmengine - INFO - Epoch(train)   [6][100/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 5:00:45  time: 1.706484  data_time: 0.784458  memory: 29791  grad_norm: 0.002443  loss: 0.001148  loss_kpt: 0.001148  acc_pose: 0.572086
+01/14 14:53:15 - mmengine - INFO - Epoch(train)   [6][150/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:58:59  time: 1.722897  data_time: 0.407473  memory: 29791  grad_norm: 0.002473  loss: 0.001160  loss_kpt: 0.001160  acc_pose: 0.657710
+01/14 14:54:42 - mmengine - INFO - Epoch(train)   [6][200/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:57:47  time: 1.740362  data_time: 0.663873  memory: 29791  grad_norm: 0.002377  loss: 0.001143  loss_kpt: 0.001143  acc_pose: 0.567577
+01/14 14:56:08 - mmengine - INFO - Epoch(train)   [6][250/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:55:32  time: 1.707317  data_time: 0.681717  memory: 29791  grad_norm: 0.002391  loss: 0.001157  loss_kpt: 0.001157  acc_pose: 0.639843
+01/14 14:57:35 - mmengine - INFO - Epoch(train)   [6][300/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:54:25  time: 1.742638  data_time: 0.813101  memory: 29791  grad_norm: 0.002572  loss: 0.001156  loss_kpt: 0.001156  acc_pose: 0.566592
+01/14 14:59:00 - mmengine - INFO - Epoch(train)   [6][350/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:52:05  time: 1.704454  data_time: 0.675157  memory: 29791  grad_norm: 0.002498  loss: 0.001154  loss_kpt: 0.001154  acc_pose: 0.692459
+01/14 15:00:27 - mmengine - INFO - Epoch(train)   [6][400/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:50:46  time: 1.736114  data_time: 0.551815  memory: 29791  grad_norm: 0.002247  loss: 0.001140  loss_kpt: 0.001140  acc_pose: 0.651060
+01/14 15:01:52 - mmengine - INFO - Epoch(train)   [6][450/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:48:39  time: 1.710321  data_time: 0.672579  memory: 29791  grad_norm: 0.002409  loss: 0.001153  loss_kpt: 0.001153  acc_pose: 0.637648
+01/14 15:03:19 - mmengine - INFO - Epoch(train)   [6][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:47:14  time: 1.732613  data_time: 0.646365  memory: 29791  grad_norm: 0.002386  loss: 0.001142  loss_kpt: 0.001142  acc_pose: 0.584527
+01/14 15:04:45 - mmengine - INFO - Epoch(train)   [6][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:45:27  time: 1.720665  data_time: 0.438849  memory: 29791  grad_norm: 0.002502  loss: 0.001113  loss_kpt: 0.001113  acc_pose: 0.662907
+01/14 15:06:11 - mmengine - INFO - Epoch(train)   [6][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:43:50  time: 1.725819  data_time: 0.251113  memory: 29791  grad_norm: 0.002527  loss: 0.001110  loss_kpt: 0.001110  acc_pose: 0.647288
+01/14 15:07:39 - mmengine - INFO - Epoch(train)   [6][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:42:47  time: 1.745659  data_time: 0.104354  memory: 29791  grad_norm: 0.002416  loss: 0.001118  loss_kpt: 0.001118  acc_pose: 0.627744
+01/14 15:09:04 - mmengine - INFO - Epoch(train)   [6][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:40:46  time: 1.711765  data_time: 0.124677  memory: 29791  grad_norm: 0.002413  loss: 0.001112  loss_kpt: 0.001112  acc_pose: 0.686243
+01/14 15:10:31 - mmengine - INFO - Epoch(train)   [6][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:39:36  time: 1.741813  data_time: 0.127757  memory: 29791  grad_norm: 0.002297  loss: 0.001109  loss_kpt: 0.001109  acc_pose: 0.686443
+01/14 15:11:19 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 15:12:49 - mmengine - INFO - Epoch(train)   [7][ 50/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:35:33  time: 1.798008  data_time: 0.674661  memory: 29791  grad_norm: 0.002396  loss: 0.001118  loss_kpt: 0.001118  acc_pose: 0.641422
+01/14 15:14:17 - mmengine - INFO - Epoch(train)   [7][100/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:35:19  time: 1.775029  data_time: 0.548851  memory: 29791  grad_norm: 0.002296  loss: 0.001116  loss_kpt: 0.001116  acc_pose: 0.653454
+01/14 15:15:44 - mmengine - INFO - Epoch(train)   [7][150/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:33:40  time: 1.724093  data_time: 0.413374  memory: 29791  grad_norm: 0.002394  loss: 0.001080  loss_kpt: 0.001080  acc_pose: 0.601489
+01/14 15:17:12 - mmengine - INFO - Epoch(train)   [7][200/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:33:10  time: 1.765893  data_time: 0.312278  memory: 29791  grad_norm: 0.002329  loss: 0.001098  loss_kpt: 0.001098  acc_pose: 0.631137
+01/14 15:18:38 - mmengine - INFO - Epoch(train)   [7][250/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:31:39  time: 1.729497  data_time: 0.109756  memory: 29791  grad_norm: 0.002332  loss: 0.001111  loss_kpt: 0.001111  acc_pose: 0.650451
+01/14 15:20:05 - mmengine - INFO - Epoch(train)   [7][300/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:30:11  time: 1.730869  data_time: 0.324621  memory: 29791  grad_norm: 0.002373  loss: 0.001094  loss_kpt: 0.001094  acc_pose: 0.642736
+01/14 15:20:30 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 15:21:33 - mmengine - INFO - Epoch(train)   [7][350/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:29:24  time: 1.757205  data_time: 0.376133  memory: 29791  grad_norm: 0.002354  loss: 0.001096  loss_kpt: 0.001096  acc_pose: 0.642404
+01/14 15:23:00 - mmengine - INFO - Epoch(train)   [7][400/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:28:25  time: 1.749400  data_time: 0.204728  memory: 29791  grad_norm: 0.002413  loss: 0.001091  loss_kpt: 0.001091  acc_pose: 0.705875
+01/14 15:24:26 - mmengine - INFO - Epoch(train)   [7][450/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:26:47  time: 1.724932  data_time: 0.146615  memory: 29791  grad_norm: 0.002441  loss: 0.001089  loss_kpt: 0.001089  acc_pose: 0.619203
+01/14 15:25:53 - mmengine - INFO - Epoch(train)   [7][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:25:10  time: 1.725955  data_time: 0.260159  memory: 29791  grad_norm: 0.002395  loss: 0.001062  loss_kpt: 0.001062  acc_pose: 0.608678
+01/14 15:27:18 - mmengine - INFO - Epoch(train)   [7][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:23:08  time: 1.708771  data_time: 0.359308  memory: 29791  grad_norm: 0.002414  loss: 0.001068  loss_kpt: 0.001068  acc_pose: 0.590157
+01/14 15:28:52 - mmengine - INFO - Epoch(train)   [7][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:25:23  time: 1.879459  data_time: 0.315725  memory: 29791  grad_norm: 0.002330  loss: 0.001065  loss_kpt: 0.001065  acc_pose: 0.668008
+01/14 15:30:13 - mmengine - INFO - Epoch(train)   [7][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:20:53  time: 1.610012  data_time: 0.435680  memory: 29791  grad_norm: 0.002355  loss: 0.001079  loss_kpt: 0.001079  acc_pose: 0.639951
+01/14 15:31:40 - mmengine - INFO - Epoch(train)   [7][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:19:57  time: 1.752857  data_time: 0.496173  memory: 29791  grad_norm: 0.002422  loss: 0.001069  loss_kpt: 0.001069  acc_pose: 0.637386
+01/14 15:33:08 - mmengine - INFO - Epoch(train)   [7][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:18:55  time: 1.749379  data_time: 0.128628  memory: 29791  grad_norm: 0.002505  loss: 0.001094  loss_kpt: 0.001094  acc_pose: 0.611941
+01/14 15:33:58 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 15:35:29 - mmengine - INFO - Epoch(train)   [8][ 50/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:16:55  time: 1.822319  data_time: 0.718541  memory: 29791  grad_norm: 0.002450  loss: 0.001079  loss_kpt: 0.001079  acc_pose: 0.680936
+01/14 15:36:56 - mmengine - INFO - Epoch(train)   [8][100/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:15:49  time: 1.747477  data_time: 0.483847  memory: 29791  grad_norm: 0.002235  loss: 0.001069  loss_kpt: 0.001069  acc_pose: 0.655031
+01/14 15:38:23 - mmengine - INFO - Epoch(train)   [8][150/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:14:29  time: 1.737629  data_time: 0.280092  memory: 29791  grad_norm: 0.002364  loss: 0.001069  loss_kpt: 0.001069  acc_pose: 0.617735
+01/14 15:39:49 - mmengine - INFO - Epoch(train)   [8][200/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:12:50  time: 1.723835  data_time: 0.245963  memory: 29791  grad_norm: 0.002562  loss: 0.001040  loss_kpt: 0.001040  acc_pose: 0.620735
+01/14 15:41:18 - mmengine - INFO - Epoch(train)   [8][250/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:12:16  time: 1.770547  data_time: 0.153733  memory: 29791  grad_norm: 0.002416  loss: 0.001048  loss_kpt: 0.001048  acc_pose: 0.689483
+01/14 15:42:42 - mmengine - INFO - Epoch(train)   [8][300/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:09:38  time: 1.681526  data_time: 0.134407  memory: 29791  grad_norm: 0.002405  loss: 0.001080  loss_kpt: 0.001080  acc_pose: 0.658566
+01/14 15:44:09 - mmengine - INFO - Epoch(train)   [8][350/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:08:30  time: 1.746041  data_time: 0.109508  memory: 29791  grad_norm: 0.002267  loss: 0.001052  loss_kpt: 0.001052  acc_pose: 0.671983
+01/14 15:45:34 - mmengine - INFO - Epoch(train)   [8][400/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:06:24  time: 1.703405  data_time: 0.091934  memory: 29791  grad_norm: 0.002354  loss: 0.001044  loss_kpt: 0.001044  acc_pose: 0.645381
+01/14 15:47:01 - mmengine - INFO - Epoch(train)   [8][450/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:05:09  time: 1.741544  data_time: 0.110903  memory: 29791  grad_norm: 0.002333  loss: 0.001037  loss_kpt: 0.001037  acc_pose: 0.687709
+01/14 15:48:27 - mmengine - INFO - Epoch(train)   [8][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:03:09  time: 1.707654  data_time: 0.130311  memory: 29791  grad_norm: 0.002410  loss: 0.001028  loss_kpt: 0.001028  acc_pose: 0.699181
+01/14 15:49:23 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 15:49:54 - mmengine - INFO - Epoch(train)   [8][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 4:01:54  time: 1.740514  data_time: 0.099208  memory: 29791  grad_norm: 0.002115  loss: 0.001042  loss_kpt: 0.001042  acc_pose: 0.683124
+01/14 15:51:19 - mmengine - INFO - Epoch(train)   [8][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:59:49  time: 1.702942  data_time: 0.116440  memory: 29791  grad_norm: 0.002202  loss: 0.001042  loss_kpt: 0.001042  acc_pose: 0.639243
+01/14 15:52:47 - mmengine - INFO - Epoch(train)   [8][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:58:56  time: 1.758898  data_time: 0.129557  memory: 29791  grad_norm: 0.002388  loss: 0.001041  loss_kpt: 0.001041  acc_pose: 0.624086
+01/14 15:54:10 - mmengine - INFO - Epoch(train)   [8][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:56:09  time: 1.669355  data_time: 0.117028  memory: 29791  grad_norm: 0.002284  loss: 0.001032  loss_kpt: 0.001032  acc_pose: 0.661483
+01/14 15:55:36 - mmengine - INFO - Epoch(train)   [8][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:54:20  time: 1.714138  data_time: 0.111456  memory: 29791  grad_norm: 0.002393  loss: 0.001054  loss_kpt: 0.001054  acc_pose: 0.682754
+01/14 15:56:25 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 15:57:57 - mmengine - INFO - Epoch(train)   [9][ 50/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:52:09  time: 1.829871  data_time: 1.037229  memory: 29791  grad_norm: 0.002332  loss: 0.001026  loss_kpt: 0.001026  acc_pose: 0.600247
+01/14 15:59:21 - mmengine - INFO - Epoch(train)   [9][100/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:49:52  time: 1.690981  data_time: 0.895045  memory: 29791  grad_norm: 0.002274  loss: 0.001032  loss_kpt: 0.001032  acc_pose: 0.610332
+01/14 16:00:50 - mmengine - INFO - Epoch(train)   [9][150/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:49:21  time: 1.777377  data_time: 0.807114  memory: 29791  grad_norm: 0.002151  loss: 0.001022  loss_kpt: 0.001022  acc_pose: 0.689138
+01/14 16:02:15 - mmengine - INFO - Epoch(train)   [9][200/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:47:02  time: 1.688815  data_time: 0.639247  memory: 29791  grad_norm: 0.002208  loss: 0.001029  loss_kpt: 0.001029  acc_pose: 0.739075
+01/14 16:03:43 - mmengine - INFO - Epoch(train)   [9][250/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:46:08  time: 1.758247  data_time: 0.705124  memory: 29791  grad_norm: 0.002232  loss: 0.001027  loss_kpt: 0.001027  acc_pose: 0.743289
+01/14 16:05:08 - mmengine - INFO - Epoch(train)   [9][300/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:44:09  time: 1.704560  data_time: 0.456906  memory: 29791  grad_norm: 0.002171  loss: 0.001009  loss_kpt: 0.001009  acc_pose: 0.698402
+01/14 16:06:35 - mmengine - INFO - Epoch(train)   [9][350/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:43:08  time: 1.752968  data_time: 0.171128  memory: 29791  grad_norm: 0.002411  loss: 0.001005  loss_kpt: 0.001005  acc_pose: 0.676260
+01/14 16:08:00 - mmengine - INFO - Epoch(train)   [9][400/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:40:57  time: 1.694529  data_time: 0.145930  memory: 29791  grad_norm: 0.002291  loss: 0.001012  loss_kpt: 0.001012  acc_pose: 0.701430
+01/14 16:09:28 - mmengine - INFO - Epoch(train)   [9][450/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:39:56  time: 1.752689  data_time: 0.131349  memory: 29791  grad_norm: 0.002310  loss: 0.001011  loss_kpt: 0.001011  acc_pose: 0.659601
+01/14 16:10:53 - mmengine - INFO - Epoch(train)   [9][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:38:08  time: 1.713083  data_time: 0.122959  memory: 29791  grad_norm: 0.002195  loss: 0.000995  loss_kpt: 0.000995  acc_pose: 0.679352
+01/14 16:12:20 - mmengine - INFO - Epoch(train)   [9][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:36:41  time: 1.731430  data_time: 0.124517  memory: 29791  grad_norm: 0.002297  loss: 0.001016  loss_kpt: 0.001016  acc_pose: 0.697225
+01/14 16:13:46 - mmengine - INFO - Epoch(train)   [9][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:35:02  time: 1.720266  data_time: 0.138255  memory: 29791  grad_norm: 0.002220  loss: 0.000993  loss_kpt: 0.000993  acc_pose: 0.619033
+01/14 16:15:09 - mmengine - INFO - Epoch(train)   [9][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:32:11  time: 1.657412  data_time: 0.279438  memory: 29791  grad_norm: 0.002346  loss: 0.001000  loss_kpt: 0.001000  acc_pose: 0.625178
+01/14 16:16:36 - mmengine - INFO - Epoch(train)   [9][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:30:52  time: 1.737968  data_time: 0.419731  memory: 29791  grad_norm: 0.002213  loss: 0.000989  loss_kpt: 0.000989  acc_pose: 0.684511
+01/14 16:18:02 - mmengine - INFO - Epoch(train)   [9][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:29:14  time: 1.719886  data_time: 0.192416  memory: 29791  grad_norm: 0.002357  loss: 0.000976  loss_kpt: 0.000976  acc_pose: 0.652909
+01/14 16:18:05 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 16:18:52 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 16:20:23 - mmengine - INFO - Epoch(train)  [10][ 50/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:27:11  time: 1.814965  data_time: 0.732003  memory: 29791  grad_norm: 0.002213  loss: 0.000989  loss_kpt: 0.000989  acc_pose: 0.655924
+01/14 16:21:48 - mmengine - INFO - Epoch(train)  [10][100/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:25:19  time: 1.708500  data_time: 0.886239  memory: 29791  grad_norm: 0.002345  loss: 0.001000  loss_kpt: 0.001000  acc_pose: 0.672177
+01/14 16:23:18 - mmengine - INFO - Epoch(train)  [10][150/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:24:57  time: 1.789598  data_time: 0.317297  memory: 29791  grad_norm: 0.002203  loss: 0.000994  loss_kpt: 0.000994  acc_pose: 0.725779
+01/14 16:24:46 - mmengine - INFO - Epoch(train)  [10][200/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:23:59  time: 1.757099  data_time: 0.595108  memory: 29791  grad_norm: 0.002251  loss: 0.000998  loss_kpt: 0.000998  acc_pose: 0.635905
+01/14 16:26:13 - mmengine - INFO - Epoch(train)  [10][250/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:22:42  time: 1.740843  data_time: 0.241360  memory: 29791  grad_norm: 0.002387  loss: 0.001006  loss_kpt: 0.001006  acc_pose: 0.706105
+01/14 16:27:40 - mmengine - INFO - Epoch(train)  [10][300/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:21:24  time: 1.739181  data_time: 0.411139  memory: 29791  grad_norm: 0.002152  loss: 0.000992  loss_kpt: 0.000992  acc_pose: 0.679434
+01/14 16:29:06 - mmengine - INFO - Epoch(train)  [10][350/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:20:05  time: 1.737964  data_time: 0.609593  memory: 29791  grad_norm: 0.002357  loss: 0.000985  loss_kpt: 0.000985  acc_pose: 0.713922
+01/14 16:30:33 - mmengine - INFO - Epoch(train)  [10][400/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:18:40  time: 1.733738  data_time: 0.606205  memory: 29791  grad_norm: 0.002338  loss: 0.000998  loss_kpt: 0.000998  acc_pose: 0.634448
+01/14 16:32:01 - mmengine - INFO - Epoch(train)  [10][450/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:17:47  time: 1.763658  data_time: 0.204279  memory: 29791  grad_norm: 0.002457  loss: 0.001000  loss_kpt: 0.001000  acc_pose: 0.660060
+01/14 16:33:34 - mmengine - INFO - Epoch(train)  [10][500/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:18:27  time: 1.852815  data_time: 0.126766  memory: 29791  grad_norm: 0.002226  loss: 0.000986  loss_kpt: 0.000986  acc_pose: 0.747485
+01/14 16:34:55 - mmengine - INFO - Epoch(train)  [10][550/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:15:09  time: 1.624500  data_time: 0.439070  memory: 29791  grad_norm: 0.002203  loss: 0.000972  loss_kpt: 0.000972  acc_pose: 0.706057
+01/14 16:36:22 - mmengine - INFO - Epoch(train)  [10][600/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:13:48  time: 1.738108  data_time: 0.744017  memory: 29791  grad_norm: 0.002190  loss: 0.000971  loss_kpt: 0.000971  acc_pose: 0.710942
+01/14 16:37:49 - mmengine - INFO - Epoch(train)  [10][650/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:12:22  time: 1.731728  data_time: 0.524759  memory: 29791  grad_norm: 0.002420  loss: 0.000994  loss_kpt: 0.000994  acc_pose: 0.756795
+01/14 16:39:17 - mmengine - INFO - Epoch(train)  [10][700/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:11:25  time: 1.761515  data_time: 0.367216  memory: 29791  grad_norm: 0.002241  loss: 0.000982  loss_kpt: 0.000982  acc_pose: 0.659678
+01/14 16:40:43 - mmengine - INFO - Epoch(train)  [10][750/781]  base_lr: 5.000000e-04 lr: 1.583818e-05  eta: 3 days, 3:09:46  time: 1.720028  data_time: 0.208281  memory: 29791  grad_norm: 0.002275  loss: 0.000980  loss_kpt: 0.000980  acc_pose: 0.628256
+01/14 16:41:33 - mmengine - INFO - Exp name: _RWViT_base_coco_256x192_20250114_125408
+01/14 16:41:33 - mmengine - INFO - Saving checkpoint at 10 epochs
+01/14 16:42:22 - mmengine - INFO - Epoch(val)  [10][ 50/814]    eta: 0:11:21  time: 0.892157  data_time: 0.582078  memory: 29791  
+01/14 16:43:00 - mmengine - INFO - Epoch(val)  [10][100/814]    eta: 0:09:54  time: 0.772522  data_time: 0.463007  memory: 3702  
+01/14 16:43:39 - mmengine - INFO - Epoch(val)  [10][150/814]    eta: 0:09:00  time: 0.776326  data_time: 0.471178  memory: 3702  
+01/14 16:44:17 - mmengine - INFO - Epoch(val)  [10][200/814]    eta: 0:08:12  time: 0.766435  data_time: 0.470738  memory: 3702  
+01/14 16:44:57 - mmengine - INFO - Epoch(val)  [10][250/814]    eta: 0:07:31  time: 0.794728  data_time: 0.494936  memory: 3702  
+01/14 16:45:36 - mmengine - INFO - Epoch(val)  [10][300/814]    eta: 0:06:49  time: 0.780854  data_time: 0.484985  memory: 3702  
+01/14 16:46:15 - mmengine - INFO - Epoch(val)  [10][350/814]    eta: 0:06:08  time: 0.781307  data_time: 0.480963  memory: 3702  
+01/14 16:46:53 - mmengine - INFO - Epoch(val)  [10][400/814]    eta: 0:05:27  time: 0.764483  data_time: 0.460914  memory: 3702  

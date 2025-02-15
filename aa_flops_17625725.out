@@ -1,0 +1,4 @@
+x_:torch.Size([1, 1920, 64, 48])
+x: torch.Size([1, 128, 64, 48])
+p1_:torch.Size([1, 128, 64, 48, 1])
+par:torch.Size([4480, 98, 1])

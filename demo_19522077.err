@@ -1,0 +1,14 @@
+usage: topdown_demo_with_mmdet.py [-h] [--input INPUT] [--show]
+                                  [--output-root OUTPUT_ROOT]
+                                  [--save-predictions] [--device DEVICE]
+                                  [--det-cat-id DET_CAT_ID]
+                                  [--bbox-thr BBOX_THR] [--nms-thr NMS_THR]
+                                  [--kpt-thr KPT_THR] [--draw-heatmap]
+                                  [--show-kpt-idx]
+                                  [--skeleton-style {mmpose,openpose}]
+                                  [--radius RADIUS] [--thickness THICKNESS]
+                                  [--show-interval SHOW_INTERVAL]
+                                  [--alpha ALPHA] [--draw-bbox]
+                                  det_config det_checkpoint pose_config
+                                  pose_checkpoint
+topdown_demo_with_mmdet.py: error: unrecognized arguments: --out-file wtm/result1111.jpg  

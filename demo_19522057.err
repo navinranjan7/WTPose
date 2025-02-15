@@ -1,0 +1,14 @@
+/var/spool/slurmd/job19522057/slurm_script: line 25: image_path: command not found
+Traceback (most recent call last):
+  File "demo/image_demo.py", line 105, in <module>
+    main()
+  File "demo/image_demo.py", line 90, in main
+    visualizer.add_datasample(
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/dist/utils.py", line 401, in wrapper
+    return func(*args, **kwargs)
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/visualization/local_visualizer.py", line 578, in add_datasample
+    mmcv.imwrite(drawn_img[..., ::-1], out_file)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmcv/image/io.py", line 355, in imwrite
+    flag, img_buff = cv2.imencode(img_ext, img, params)
+cv2.error: OpenCV(4.8.0) /io/opencv/modules/imgcodecs/src/loadsave.cpp:1120: error: (-2:Unspecified error) could not find encoder for the specified extension in function 'imencode'
+

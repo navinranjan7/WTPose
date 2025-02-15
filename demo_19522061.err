@@ -1,0 +1,7 @@
+usage: image_demo.py [-h] [--out-file OUT_FILE] [--device DEVICE]
+                     [--draw-heatmap] [--show-kpt-idx]
+                     [--skeleton-style {mmpose,openpose}] [--kpt-thr KPT_THR]
+                     [--radius RADIUS] [--thickness THICKNESS] [--alpha ALPHA]
+                     [--show]
+                     img config checkpoint
+image_demo.py: error: unrecognized arguments: --config --checkpoint

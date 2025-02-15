@@ -1,0 +1,38 @@
+/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+slurmstepd: error: *** JOB 17572074 ON skl-a-48 CANCELLED AT 2023-12-22T03:00:23 ***
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "tools/train.py", line 162, in <module>
+  File "tools/train.py", line 162, in <module>
+    main()
+  File "tools/train.py", line 158, in main
+    main()
+  File "tools/train.py", line 158, in main
+    runner.train()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/runner.py", line 1745, in train
+    runner.train()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/runner.py", line 1745, in train
+    model = self.train_loop.run()  # type: ignore
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/loops.py", line 96, in run
+    model = self.train_loop.run()  # type: ignore
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/loops.py", line 96, in run
+    self.run_epoch()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/loops.py", line 111, in run_epoch
+    self.run_epoch()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/runner/loops.py", line 111, in run_epoch
+    for idx, data_batch in enumerate(self.dataloader):
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 530, in __next__
+    for idx, data_batch in enumerate(self.dataloader):
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 530, in __next__
+    data = self._next_data()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1207, in _next_data
+    data = self._next_data()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1207, in _next_data
+    idx, data = self._get_data()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1173, in _get_data
+    idx, data = self._get_data()
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1173, in _get_data
+    success, data = self._try_get_data()

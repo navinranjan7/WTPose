@@ -1,0 +1,23 @@
+import: unable to open X server `' @ error/import.c/ImportImageCommand/346.
+Traceback (most recent call last):
+  File "demo/topdown_demo_with_mmdet.py", line 292, in <module>
+    main()
+  File "demo/topdown_demo_with_mmdet.py", line 208, in main
+    pred_instances = process_one_image(args, args.input, detector,
+  File "demo/topdown_demo_with_mmdet.py", line 55, in process_one_image
+    visualizer.add_datasample(
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/dist/utils.py", line 401, in wrapper
+    return func(*args, **kwargs)
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/visualization/local_visualizer.py", line 581, in add_datasample
+    self.add_image(name, drawn_img, step)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/dist/utils.py", line 401, in wrapper
+    return func(*args, **kwargs)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/visualization/visualizer.py", line 1082, in add_image
+    vis_backend.add_image(name, image, step)  # type: ignore
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/visualization/vis_backend.py", line 56, in wrapper
+    obj._init_env()  # type: ignore
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/visualization/vis_backend.py", line 212, in _init_env
+    if not os.path.exists(self._save_dir):
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/genericpath.py", line 19, in exists
+    os.stat(path)
+TypeError: stat: path should be string, bytes, os.PathLike or integer, not NoneType

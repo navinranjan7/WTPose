@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "demo/topdown_demo_with_mmdet.py", line 292, in <module>
+    main()
+  File "demo/topdown_demo_with_mmdet.py", line 208, in main
+    pred_instances = process_one_image(args, args.input, detector,
+  File "demo/topdown_demo_with_mmdet.py", line 36, in process_one_image
+    det_result = inference_detector(detector, img)
+  File "/home/nr4325/Desktop/Pose4/mmpose/demo/mmdetection/mmdet/apis/inference.py", line 182, in inference_detector
+    data_ = test_pipeline(data_)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmcv/transforms/base.py", line 12, in __call__
+    return self.transform(results)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmcv/transforms/wrappers.py", line 88, in transform
+    results = t(results)  # type: ignore
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmcv/transforms/base.py", line 12, in __call__
+    return self.transform(results)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmcv/transforms/loading.py", line 107, in transform
+    raise e
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmcv/transforms/loading.py", line 99, in transform
+    img_bytes = fileio.get(
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/fileio/io.py", line 181, in get
+    return backend.get(filepath)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/fileio/backends/local_backend.py", line 33, in get
+    with open(filepath, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/tests/data/coco/000000000785.jpg'

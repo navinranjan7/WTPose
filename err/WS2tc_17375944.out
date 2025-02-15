@@ -1,0 +1,1212 @@
+09/12 23:35:52 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.17 (default, Jul  5 2023, 21:04:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 876185855
+    GPU 0,1: Tesla P4
+    CUDA_HOME: None
+    GCC: n/a
+    PyTorch: 1.11.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.5.2 (Git Hash a9302535553c73243c632ad3c4c80beec3d19a1e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.12.0
+    OpenCV: 4.8.0
+    MMEngine: 0.8.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 876185855
+    Distributed launcher: pytorch
+    Distributed training: True
+    GPU number: 2
+------------------------------------------------------------
+
+09/12 23:35:52 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=256)
+backend_args = dict(backend='local')
+codec = dict(
+    heatmap_size=(
+        72,
+        96,
+    ),
+    input_size=(
+        288,
+        384,
+    ),
+    sigma=2,
+    type='MSRAHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+data_mode = 'topdown'
+data_root = 'data/coco/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=10,
+        rule='greater',
+        save_best='coco/AP',
+        type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'pytorch'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        arch='base',
+        drop_path_rate=0.3,
+        init_cfg=dict(
+            checkpoint=
+            '/home/nr4325/Desktop/Pose4/mmpose/ImageNet_pretrained_model/resnet101_swinv2_b.pth',
+            type='Pretrained'),
+        type='wtSwinV2',
+        wtm_dilations=[
+            2,
+            1,
+            4,
+            1,
+            6,
+            1,
+            8,
+            1,
+        ],
+        wtm_dim=128,
+        wtm_in_dim=1920,
+        wtm_kernel_size=7,
+        wtm_low_level_dim=256,
+        wtm_num_heads=[
+            8,
+            8,
+            8,
+            8,
+        ],
+        wtm_out_dim=128,
+        wtm_reduction=32,
+        wtm_size=(
+            96,
+            72,
+        )),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        conv_out_channels=False,
+        decoder=dict(
+            heatmap_size=(
+                72,
+                96,
+            ),
+            input_size=(
+                288,
+                384,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        deconv_out_channels=False,
+        in_channels=128,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=17,
+        type='HeatmapHeadWTPose'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=True),
+    type='TopdownPoseEstimator')
+norm_cfg = dict(requires_grad=True, type='SyncBN')
+optim_wrapper = dict(optimizer=dict(lr=0.0005, type='Adam'))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=210,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                288,
+                384,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+train_cfg = dict(by_epoch=True, max_epochs=210, val_interval=10)
+train_dataloader = dict(
+    batch_size=2,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_train2017.json',
+        data_mode='topdown',
+        data_prefix=dict(img='train2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                288,
+                384,
+            ), type='TopdownAffine'),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        72,
+                        96,
+                    ),
+                    input_size=(
+                        288,
+                        384,
+                    ),
+                    sigma=2,
+                    type='MSRAHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        288,
+        384,
+    ), type='TopdownAffine'),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                72,
+                96,
+            ),
+            input_size=(
+                288,
+                384,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='annotations/person_keypoints_val2017.json',
+        bbox_file=
+        'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json',
+        data_mode='topdown',
+        data_prefix=dict(img='val2017/'),
+        data_root='data/coco/',
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                288,
+                384,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='data/coco/annotations/person_keypoints_val2017.json',
+    type='CocoMetric')
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        288,
+        384,
+    ), type='TopdownAffine'),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/aa_WTPose_SwinV2_b_w8_coco_384x384_1k'
+
+09/12 23:35:53 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+loading annotations into memory...
+Done (t=7.00s)
+creating index...
+Done (t=7.22s)
+creating index...
+index created!
+index created!
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.17s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.17s)
+creating index...
+index created!
+09/12 23:36:51 - mmengine - INFO - load model from: /home/nr4325/Desktop/Pose4/mmpose/ImageNet_pretrained_model/resnet101_swinv2_b.pth
+09/12 23:36:51 - mmengine - INFO - Loads checkpoint by local backend from path: /home/nr4325/Desktop/Pose4/mmpose/ImageNet_pretrained_model/resnet101_swinv2_b.pth
+loading annotations into memory...
+Done (t=0.18s)
+creating index...
+index created!
+09/12 23:36:54 - mmengine - INFO - Delete `relative_position_index` and `relative_coords_table` since we always re-init these params according to the `window_size`, which might cause unwanted but unworried warnings when loading checkpoint.
+09/12 23:36:55 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: patch_embed.projection.weight, patch_embed.projection.bias, patch_embed.norm.weight, patch_embed.norm.bias, head.fc.weight, head.fc.bias
+
+missing keys in source state_dict: stages.0.blocks.0.attn.w_msa.relative_coords_table, stages.0.blocks.0.attn.w_msa.relative_position_index, stages.0.blocks.1.attn.w_msa.relative_coords_table, stages.0.blocks.1.attn.w_msa.relative_position_index, stages.1.blocks.0.attn.w_msa.relative_coords_table, stages.1.blocks.0.attn.w_msa.relative_position_index, stages.1.blocks.1.attn.w_msa.relative_coords_table, stages.1.blocks.1.attn.w_msa.relative_position_index, stages.2.blocks.0.attn.w_msa.relative_coords_table, stages.2.blocks.0.attn.w_msa.relative_position_index, stages.2.blocks.1.attn.w_msa.relative_coords_table, stages.2.blocks.1.attn.w_msa.relative_position_index, stages.2.blocks.2.attn.w_msa.relative_coords_table, stages.2.blocks.2.attn.w_msa.relative_position_index, stages.2.blocks.3.attn.w_msa.relative_coords_table, stages.2.blocks.3.attn.w_msa.relative_position_index, stages.2.blocks.4.attn.w_msa.relative_coords_table, stages.2.blocks.4.attn.w_msa.relative_position_index, stages.2.blocks.5.attn.w_msa.relative_coords_table, stages.2.blocks.5.attn.w_msa.relative_position_index, stages.2.blocks.6.attn.w_msa.relative_coords_table, stages.2.blocks.6.attn.w_msa.relative_position_index, stages.2.blocks.7.attn.w_msa.relative_coords_table, stages.2.blocks.7.attn.w_msa.relative_position_index, stages.2.blocks.8.attn.w_msa.relative_coords_table, stages.2.blocks.8.attn.w_msa.relative_position_index, stages.2.blocks.9.attn.w_msa.relative_coords_table, stages.2.blocks.9.attn.w_msa.relative_position_index, stages.2.blocks.10.attn.w_msa.relative_coords_table, stages.2.blocks.10.attn.w_msa.relative_position_index, stages.2.blocks.11.attn.w_msa.relative_coords_table, stages.2.blocks.11.attn.w_msa.relative_position_index, stages.2.blocks.12.attn.w_msa.relative_coords_table, stages.2.blocks.12.attn.w_msa.relative_position_index, stages.2.blocks.13.attn.w_msa.relative_coords_table, stages.2.blocks.13.attn.w_msa.relative_position_index, stages.2.blocks.14.attn.w_msa.relative_coords_table, stages.2.blocks.14.attn.w_msa.relative_position_index, stages.2.blocks.15.attn.w_msa.relative_coords_table, stages.2.blocks.15.attn.w_msa.relative_position_index, stages.2.blocks.16.attn.w_msa.relative_coords_table, stages.2.blocks.16.attn.w_msa.relative_position_index, stages.2.blocks.17.attn.w_msa.relative_coords_table, stages.2.blocks.17.attn.w_msa.relative_position_index, stages.3.blocks.0.attn.w_msa.relative_coords_table, stages.3.blocks.0.attn.w_msa.relative_position_index, stages.3.blocks.1.attn.w_msa.relative_coords_table, stages.3.blocks.1.attn.w_msa.relative_position_index, norm0.weight, norm0.bias, norm1.weight, norm1.bias, norm2.weight, norm2.bias, resnet.stem.0.conv.weight, resnet.stem.0.bn.weight, resnet.stem.0.bn.bias, resnet.stem.0.bn.running_mean, resnet.stem.0.bn.running_var, resnet.stem.1.conv.weight, resnet.stem.1.bn.weight, resnet.stem.1.bn.bias, resnet.stem.1.bn.running_mean, resnet.stem.1.bn.running_var, wtm.wtm1_0.gamma1, wtm.wtm1_0.gamma2, wtm.wtm1_0.norm1.weight, wtm.wtm1_0.norm1.bias, wtm.wtm1_0.attn.rpb, wtm.wtm1_0.attn.qkv.weight, wtm.wtm1_0.attn.qkv.bias, wtm.wtm1_0.attn.proj.weight, wtm.wtm1_0.attn.proj.bias, wtm.wtm1_0.norm2.weight, wtm.wtm1_0.norm2.bias, wtm.wtm1_0.mlp.fc1.weight, wtm.wtm1_0.mlp.fc1.bias, wtm.wtm1_0.mlp.fc2.weight, wtm.wtm1_0.mlp.fc2.bias, wtm.wtm1_1.gamma1, wtm.wtm1_1.gamma2, wtm.wtm1_1.norm1.weight, wtm.wtm1_1.norm1.bias, wtm.wtm1_1.attn.rpb, wtm.wtm1_1.attn.qkv.weight, wtm.wtm1_1.attn.qkv.bias, wtm.wtm1_1.attn.proj.weight, wtm.wtm1_1.attn.proj.bias, wtm.wtm1_1.norm2.weight, wtm.wtm1_1.norm2.bias, wtm.wtm1_1.mlp.fc1.weight, wtm.wtm1_1.mlp.fc1.bias, wtm.wtm1_1.mlp.fc2.weight, wtm.wtm1_1.mlp.fc2.bias, wtm.wtm2_0.gamma1, wtm.wtm2_0.gamma2, wtm.wtm2_0.norm1.weight, wtm.wtm2_0.norm1.bias, wtm.wtm2_0.attn.rpb, wtm.wtm2_0.attn.qkv.weight, wtm.wtm2_0.attn.qkv.bias, wtm.wtm2_0.attn.proj.weight, wtm.wtm2_0.attn.proj.bias, wtm.wtm2_0.norm2.weight, wtm.wtm2_0.norm2.bias, wtm.wtm2_0.mlp.fc1.weight, wtm.wtm2_0.mlp.fc1.bias, wtm.wtm2_0.mlp.fc2.weight, wtm.wtm2_0.mlp.fc2.bias, wtm.wtm2_1.gamma1, wtm.wtm2_1.gamma2, wtm.wtm2_1.norm1.weight, wtm.wtm2_1.norm1.bias, wtm.wtm2_1.attn.rpb, wtm.wtm2_1.attn.qkv.weight, wtm.wtm2_1.attn.qkv.bias, wtm.wtm2_1.attn.proj.weight, wtm.wtm2_1.attn.proj.bias, wtm.wtm2_1.norm2.weight, wtm.wtm2_1.norm2.bias, wtm.wtm2_1.mlp.fc1.weight, wtm.wtm2_1.mlp.fc1.bias, wtm.wtm2_1.mlp.fc2.weight, wtm.wtm2_1.mlp.fc2.bias, wtm.wtm3_0.gamma1, wtm.wtm3_0.gamma2, wtm.wtm3_0.norm1.weight, wtm.wtm3_0.norm1.bias, wtm.wtm3_0.attn.rpb, wtm.wtm3_0.attn.qkv.weight, wtm.wtm3_0.attn.qkv.bias, wtm.wtm3_0.attn.proj.weight, wtm.wtm3_0.attn.proj.bias, wtm.wtm3_0.norm2.weight, wtm.wtm3_0.norm2.bias, wtm.wtm3_0.mlp.fc1.weight, wtm.wtm3_0.mlp.fc1.bias, wtm.wtm3_0.mlp.fc2.weight, wtm.wtm3_0.mlp.fc2.bias, wtm.wtm3_1.gamma1, wtm.wtm3_1.gamma2, wtm.wtm3_1.norm1.weight, wtm.wtm3_1.norm1.bias, wtm.wtm3_1.attn.rpb, wtm.wtm3_1.attn.qkv.weight, wtm.wtm3_1.attn.qkv.bias, wtm.wtm3_1.attn.proj.weight, wtm.wtm3_1.attn.proj.bias, wtm.wtm3_1.norm2.weight, wtm.wtm3_1.norm2.bias, wtm.wtm3_1.mlp.fc1.weight, wtm.wtm3_1.mlp.fc1.bias, wtm.wtm3_1.mlp.fc2.weight, wtm.wtm3_1.mlp.fc2.bias, wtm.wtm4_0.gamma1, wtm.wtm4_0.gamma2, wtm.wtm4_0.norm1.weight, wtm.wtm4_0.norm1.bias, wtm.wtm4_0.attn.rpb, wtm.wtm4_0.attn.qkv.weight, wtm.wtm4_0.attn.qkv.bias, wtm.wtm4_0.attn.proj.weight, wtm.wtm4_0.attn.proj.bias, wtm.wtm4_0.norm2.weight, wtm.wtm4_0.norm2.bias, wtm.wtm4_0.mlp.fc1.weight, wtm.wtm4_0.mlp.fc1.bias, wtm.wtm4_0.mlp.fc2.weight, wtm.wtm4_0.mlp.fc2.bias, wtm.wtm4_1.gamma1, wtm.wtm4_1.gamma2, wtm.wtm4_1.norm1.weight, wtm.wtm4_1.norm1.bias, wtm.wtm4_1.attn.rpb, wtm.wtm4_1.attn.qkv.weight, wtm.wtm4_1.attn.qkv.bias, wtm.wtm4_1.attn.proj.weight, wtm.wtm4_1.attn.proj.bias, wtm.wtm4_1.norm2.weight, wtm.wtm4_1.norm2.bias, wtm.wtm4_1.mlp.fc1.weight, wtm.wtm4_1.mlp.fc1.bias, wtm.wtm4_1.mlp.fc2.weight, wtm.wtm4_1.mlp.fc2.bias, wtm.global_avg_pool.1.weight, wtm.global_avg_pool.2.weight, wtm.global_avg_pool.2.bias, wtm.global_avg_pool.2.running_mean, wtm.global_avg_pool.2.running_var, wtm.conv1.weight, wtm.bn1.weight, wtm.bn1.bias, wtm.bn1.running_mean, wtm.bn1.running_var, wtm.conv2.weight, wtm.bn2.weight, wtm.bn2.bias, wtm.bn2.running_mean, wtm.bn2.running_var, wtm.low.weight, wtm.bn_low.weight, wtm.bn_low.bias, wtm.bn_low.running_mean, wtm.bn_low.running_var, wtm.last_conv.0.weight, wtm.last_conv.1.weight, wtm.last_conv.1.bias, wtm.last_conv.1.running_mean, wtm.last_conv.1.running_var, wtm.last_conv.3.weight, wtm.last_conv.4.weight, wtm.last_conv.4.bias, wtm.last_conv.4.running_mean, wtm.last_conv.4.running_var, conv3.weight, bn3.weight, bn3.bias, bn3.running_mean, bn3.running_var
+
+09/12 23:36:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+09/12 23:36:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+09/12 23:36:55 - mmengine - INFO - Checkpoints will be saved to /home/nr4325/Desktop/Pose4/mmpose/work_dirs/aa_WTPose_SwinV2_b_w8_coco_384x384_1k.
+09/12 23:37:34 - mmengine - INFO - Epoch(train)   [1][   50/37454]  lr: 4.954910e-05  eta: 72 days, 3:42:13  time: 0.792613  data_time: 0.045717  memory: 4858  loss: 0.001005  loss_kpt: 0.001005  acc_pose: 0.000000
+09/12 23:38:11 - mmengine - INFO - Epoch(train)   [1][  100/37454]  lr: 9.959920e-05  eta: 69 days, 23:48:47  time: 0.745122  data_time: 0.006419  memory: 4858  loss: 0.000994  loss_kpt: 0.000994  acc_pose: 0.000000
+09/12 23:38:49 - mmengine - INFO - Epoch(train)   [1][  150/37454]  lr: 1.496493e-04  eta: 69 days, 5:11:44  time: 0.743318  data_time: 0.006862  memory: 4858  loss: 0.001033  loss_kpt: 0.001033  acc_pose: 0.041667
+09/12 23:39:26 - mmengine - INFO - Epoch(train)   [1][  200/37454]  lr: 1.996994e-04  eta: 68 days, 17:38:17  time: 0.739210  data_time: 0.006026  memory: 4858  loss: 0.000964  loss_kpt: 0.000964  acc_pose: 0.000000
+09/12 23:40:03 - mmengine - INFO - Epoch(train)   [1][  250/37454]  lr: 2.497495e-04  eta: 68 days, 10:38:54  time: 0.739093  data_time: 0.005723  memory: 4858  loss: 0.000923  loss_kpt: 0.000923  acc_pose: 0.136364
+09/12 23:40:40 - mmengine - INFO - Epoch(train)   [1][  300/37454]  lr: 2.997996e-04  eta: 68 days, 7:11:22  time: 0.742400  data_time: 0.006766  memory: 4858  loss: 0.000947  loss_kpt: 0.000947  acc_pose: 0.071429
+09/12 23:41:17 - mmengine - INFO - Epoch(train)   [1][  350/37454]  lr: 3.498497e-04  eta: 68 days, 4:02:42  time: 0.740252  data_time: 0.005991  memory: 4858  loss: 0.000997  loss_kpt: 0.000997  acc_pose: 0.000000
+09/12 23:41:54 - mmengine - INFO - Epoch(train)   [1][  400/37454]  lr: 3.998998e-04  eta: 68 days, 2:20:48  time: 0.742678  data_time: 0.006724  memory: 4858  loss: 0.000965  loss_kpt: 0.000965  acc_pose: 0.000000
+09/12 23:42:31 - mmengine - INFO - Epoch(train)   [1][  450/37454]  lr: 4.499499e-04  eta: 68 days, 0:55:08  time: 0.742247  data_time: 0.005669  memory: 4858  loss: 0.001017  loss_kpt: 0.001017  acc_pose: 0.088235
+09/12 23:43:08 - mmengine - INFO - Epoch(train)   [1][  500/37454]  lr: 5.000000e-04  eta: 67 days, 23:47:22  time: 0.742315  data_time: 0.007298  memory: 4858  loss: 0.000998  loss_kpt: 0.000998  acc_pose: 0.000000
+09/12 23:43:45 - mmengine - INFO - Epoch(train)   [1][  550/37454]  lr: 5.000000e-04  eta: 67 days, 22:36:15  time: 0.741008  data_time: 0.006165  memory: 4858  loss: 0.000926  loss_kpt: 0.000926  acc_pose: 0.029412
+09/12 23:44:22 - mmengine - INFO - Epoch(train)   [1][  600/37454]  lr: 5.000000e-04  eta: 67 days, 21:51:49  time: 0.742377  data_time: 0.006258  memory: 4858  loss: 0.000939  loss_kpt: 0.000939  acc_pose: 0.000000
+09/12 23:44:59 - mmengine - INFO - Epoch(train)   [1][  650/37454]  lr: 5.000000e-04  eta: 67 days, 21:01:23  time: 0.741111  data_time: 0.005745  memory: 4858  loss: 0.000959  loss_kpt: 0.000959  acc_pose: 0.088235
+09/12 23:45:36 - mmengine - INFO - Epoch(train)   [1][  700/37454]  lr: 5.000000e-04  eta: 67 days, 20:16:09  time: 0.740908  data_time: 0.006052  memory: 4858  loss: 0.000956  loss_kpt: 0.000956  acc_pose: 0.000000
+09/12 23:46:13 - mmengine - INFO - Epoch(train)   [1][  750/37454]  lr: 5.000000e-04  eta: 67 days, 19:45:52  time: 0.741938  data_time: 0.006221  memory: 4858  loss: 0.000978  loss_kpt: 0.000978  acc_pose: 0.300000
+09/12 23:46:51 - mmengine - INFO - Epoch(train)   [1][  800/37454]  lr: 5.000000e-04  eta: 67 days, 19:26:05  time: 0.742766  data_time: 0.006686  memory: 4858  loss: 0.001009  loss_kpt: 0.001009  acc_pose: 0.187500
+09/12 23:47:28 - mmengine - INFO - Epoch(train)   [1][  850/37454]  lr: 5.000000e-04  eta: 67 days, 19:00:29  time: 0.741722  data_time: 0.007422  memory: 4858  loss: 0.000918  loss_kpt: 0.000918  acc_pose: 0.192308
+09/12 23:48:05 - mmengine - INFO - Epoch(train)   [1][  900/37454]  lr: 5.000000e-04  eta: 67 days, 18:40:35  time: 0.742122  data_time: 0.008137  memory: 4858  loss: 0.000943  loss_kpt: 0.000943  acc_pose: 0.000000
+09/12 23:48:42 - mmengine - INFO - Epoch(train)   [1][  950/37454]  lr: 5.000000e-04  eta: 67 days, 18:00:49  time: 0.738946  data_time: 0.006512  memory: 4858  loss: 0.000953  loss_kpt: 0.000953  acc_pose: 0.133333
+09/12 23:49:19 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/12 23:49:19 - mmengine - INFO - Epoch(train)   [1][ 1000/37454]  lr: 5.000000e-04  eta: 67 days, 17:47:56  time: 0.742453  data_time: 0.006575  memory: 4858  loss: 0.000907  loss_kpt: 0.000907  acc_pose: 0.294118
+09/12 23:49:56 - mmengine - INFO - Epoch(train)   [1][ 1050/37454]  lr: 5.000000e-04  eta: 67 days, 17:05:06  time: 0.737467  data_time: 0.005955  memory: 4858  loss: 0.001003  loss_kpt: 0.001003  acc_pose: 0.156250
+09/12 23:50:33 - mmengine - INFO - Epoch(train)   [1][ 1100/37454]  lr: 5.000000e-04  eta: 67 days, 16:32:39  time: 0.738564  data_time: 0.007128  memory: 4858  loss: 0.001006  loss_kpt: 0.001006  acc_pose: 0.352941
+09/12 23:51:09 - mmengine - INFO - Epoch(train)   [1][ 1150/37454]  lr: 5.000000e-04  eta: 67 days, 15:47:07  time: 0.735784  data_time: 0.004694  memory: 4858  loss: 0.001006  loss_kpt: 0.001006  acc_pose: 0.035714
+09/12 23:51:46 - mmengine - INFO - Epoch(train)   [1][ 1200/37454]  lr: 5.000000e-04  eta: 67 days, 15:07:51  time: 0.736245  data_time: 0.005159  memory: 4858  loss: 0.000943  loss_kpt: 0.000943  acc_pose: 0.100000
+09/12 23:52:23 - mmengine - INFO - Epoch(train)   [1][ 1250/37454]  lr: 5.000000e-04  eta: 67 days, 14:41:27  time: 0.738110  data_time: 0.005438  memory: 4858  loss: 0.000956  loss_kpt: 0.000956  acc_pose: 0.041667
+09/12 23:53:00 - mmengine - INFO - Epoch(train)   [1][ 1300/37454]  lr: 5.000000e-04  eta: 67 days, 14:16:27  time: 0.737994  data_time: 0.005368  memory: 4858  loss: 0.000982  loss_kpt: 0.000982  acc_pose: 0.000000
+09/12 23:53:37 - mmengine - INFO - Epoch(train)   [1][ 1350/37454]  lr: 5.000000e-04  eta: 67 days, 14:01:38  time: 0.739722  data_time: 0.007083  memory: 4858  loss: 0.000896  loss_kpt: 0.000896  acc_pose: 0.558824
+09/12 23:54:14 - mmengine - INFO - Epoch(train)   [1][ 1400/37454]  lr: 5.000000e-04  eta: 67 days, 13:44:10  time: 0.738934  data_time: 0.007612  memory: 4858  loss: 0.000947  loss_kpt: 0.000947  acc_pose: 0.000000
+09/12 23:54:51 - mmengine - INFO - Epoch(train)   [1][ 1450/37454]  lr: 5.000000e-04  eta: 67 days, 13:21:01  time: 0.737424  data_time: 0.005481  memory: 4858  loss: 0.000946  loss_kpt: 0.000946  acc_pose: 0.133333
+09/12 23:55:28 - mmengine - INFO - Epoch(train)   [1][ 1500/37454]  lr: 5.000000e-04  eta: 67 days, 13:08:34  time: 0.739528  data_time: 0.007103  memory: 4858  loss: 0.000951  loss_kpt: 0.000951  acc_pose: 0.125000
+09/12 23:56:05 - mmengine - INFO - Epoch(train)   [1][ 1550/37454]  lr: 5.000000e-04  eta: 67 days, 12:47:12  time: 0.737235  data_time: 0.005686  memory: 4858  loss: 0.000972  loss_kpt: 0.000972  acc_pose: 0.250000
+09/12 23:56:42 - mmengine - INFO - Epoch(train)   [1][ 1600/37454]  lr: 5.000000e-04  eta: 67 days, 12:27:27  time: 0.737319  data_time: 0.005363  memory: 4858  loss: 0.000973  loss_kpt: 0.000973  acc_pose: 0.423077
+09/12 23:57:18 - mmengine - INFO - Epoch(train)   [1][ 1650/37454]  lr: 5.000000e-04  eta: 67 days, 12:08:49  time: 0.737306  data_time: 0.005376  memory: 4858  loss: 0.000956  loss_kpt: 0.000956  acc_pose: 0.000000
+09/12 23:57:55 - mmengine - INFO - Epoch(train)   [1][ 1700/37454]  lr: 5.000000e-04  eta: 67 days, 12:01:22  time: 0.739930  data_time: 0.005917  memory: 4858  loss: 0.000980  loss_kpt: 0.000980  acc_pose: 0.000000
+09/12 23:58:32 - mmengine - INFO - Epoch(train)   [1][ 1750/37454]  lr: 5.000000e-04  eta: 67 days, 11:55:15  time: 0.740183  data_time: 0.007018  memory: 4858  loss: 0.000928  loss_kpt: 0.000928  acc_pose: 0.117647
+09/12 23:59:09 - mmengine - INFO - Epoch(train)   [1][ 1800/37454]  lr: 5.000000e-04  eta: 67 days, 11:45:10  time: 0.739008  data_time: 0.007303  memory: 4858  loss: 0.000970  loss_kpt: 0.000970  acc_pose: 0.272727
+09/12 23:59:46 - mmengine - INFO - Epoch(train)   [1][ 1850/37454]  lr: 5.000000e-04  eta: 67 days, 11:41:06  time: 0.740567  data_time: 0.008170  memory: 4858  loss: 0.000871  loss_kpt: 0.000871  acc_pose: 0.178571
+09/13 00:00:23 - mmengine - INFO - Epoch(train)   [1][ 1900/37454]  lr: 5.000000e-04  eta: 67 days, 11:28:16  time: 0.737968  data_time: 0.005904  memory: 4858  loss: 0.000920  loss_kpt: 0.000920  acc_pose: 0.066667
+09/13 00:01:00 - mmengine - INFO - Epoch(train)   [1][ 1950/37454]  lr: 5.000000e-04  eta: 67 days, 11:29:34  time: 0.741990  data_time: 0.008492  memory: 4858  loss: 0.001050  loss_kpt: 0.001050  acc_pose: 0.222222
+09/13 00:01:38 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 00:01:38 - mmengine - INFO - Epoch(train)   [1][ 2000/37454]  lr: 5.000000e-04  eta: 67 days, 11:35:59  time: 0.743578  data_time: 0.008974  memory: 4858  loss: 0.000898  loss_kpt: 0.000898  acc_pose: 0.400000
+09/13 00:02:15 - mmengine - INFO - Epoch(train)   [1][ 2050/37454]  lr: 5.000000e-04  eta: 67 days, 11:31:29  time: 0.740275  data_time: 0.006928  memory: 4858  loss: 0.000934  loss_kpt: 0.000934  acc_pose: 0.166667
+09/13 00:02:52 - mmengine - INFO - Epoch(train)   [1][ 2100/37454]  lr: 5.000000e-04  eta: 67 days, 11:26:11  time: 0.739955  data_time: 0.006419  memory: 4858  loss: 0.000923  loss_kpt: 0.000923  acc_pose: 0.500000
+09/13 00:03:29 - mmengine - INFO - Epoch(train)   [1][ 2150/37454]  lr: 5.000000e-04  eta: 67 days, 11:18:10  time: 0.738993  data_time: 0.006722  memory: 4858  loss: 0.000905  loss_kpt: 0.000905  acc_pose: 0.038462
+09/13 00:04:06 - mmengine - INFO - Epoch(train)   [1][ 2200/37454]  lr: 5.000000e-04  eta: 67 days, 11:42:04  time: 0.749596  data_time: 0.013588  memory: 4858  loss: 0.000922  loss_kpt: 0.000922  acc_pose: 0.178571
+09/13 00:04:43 - mmengine - INFO - Epoch(train)   [1][ 2250/37454]  lr: 5.000000e-04  eta: 67 days, 11:38:51  time: 0.740660  data_time: 0.008482  memory: 4858  loss: 0.000968  loss_kpt: 0.000968  acc_pose: 0.458333
+09/13 00:05:20 - mmengine - INFO - Epoch(train)   [1][ 2300/37454]  lr: 5.000000e-04  eta: 67 days, 11:33:54  time: 0.740011  data_time: 0.006878  memory: 4858  loss: 0.000926  loss_kpt: 0.000926  acc_pose: 0.466667
+09/13 00:05:57 - mmengine - INFO - Epoch(train)   [1][ 2350/37454]  lr: 5.000000e-04  eta: 67 days, 11:22:56  time: 0.737790  data_time: 0.005241  memory: 4858  loss: 0.000944  loss_kpt: 0.000944  acc_pose: 0.076923
+09/13 00:06:34 - mmengine - INFO - Epoch(train)   [1][ 2400/37454]  lr: 5.000000e-04  eta: 67 days, 11:20:59  time: 0.740932  data_time: 0.008793  memory: 4858  loss: 0.000938  loss_kpt: 0.000938  acc_pose: 0.176471
+09/13 00:07:11 - mmengine - INFO - Epoch(train)   [1][ 2450/37454]  lr: 5.000000e-04  eta: 67 days, 11:24:14  time: 0.742857  data_time: 0.008398  memory: 4858  loss: 0.000869  loss_kpt: 0.000869  acc_pose: 0.181818
+09/13 00:07:48 - mmengine - INFO - Epoch(train)   [1][ 2500/37454]  lr: 5.000000e-04  eta: 67 days, 11:22:14  time: 0.740907  data_time: 0.007643  memory: 4858  loss: 0.000967  loss_kpt: 0.000967  acc_pose: 0.294118
+09/13 00:08:25 - mmengine - INFO - Epoch(train)   [1][ 2550/37454]  lr: 5.000000e-04  eta: 67 days, 11:20:23  time: 0.740953  data_time: 0.007728  memory: 4858  loss: 0.000923  loss_kpt: 0.000923  acc_pose: 0.033333
+09/13 00:09:02 - mmengine - INFO - Epoch(train)   [1][ 2600/37454]  lr: 5.000000e-04  eta: 67 days, 11:20:29  time: 0.741700  data_time: 0.009777  memory: 4858  loss: 0.000903  loss_kpt: 0.000903  acc_pose: 0.142857
+09/13 00:09:39 - mmengine - INFO - Epoch(train)   [1][ 2650/37454]  lr: 5.000000e-04  eta: 67 days, 11:19:23  time: 0.741229  data_time: 0.008293  memory: 4858  loss: 0.000930  loss_kpt: 0.000930  acc_pose: 0.352941
+09/13 00:10:17 - mmengine - INFO - Epoch(train)   [1][ 2700/37454]  lr: 5.000000e-04  eta: 67 days, 11:23:22  time: 0.743319  data_time: 0.009399  memory: 4858  loss: 0.000894  loss_kpt: 0.000894  acc_pose: 0.266667
+09/13 00:10:54 - mmengine - INFO - Epoch(train)   [1][ 2750/37454]  lr: 5.000000e-04  eta: 67 days, 11:18:53  time: 0.739833  data_time: 0.005914  memory: 4858  loss: 0.000884  loss_kpt: 0.000884  acc_pose: 0.133333
+09/13 00:11:31 - mmengine - INFO - Epoch(train)   [1][ 2800/37454]  lr: 5.000000e-04  eta: 67 days, 11:22:41  time: 0.743318  data_time: 0.008333  memory: 4858  loss: 0.000912  loss_kpt: 0.000912  acc_pose: 0.294118
+09/13 00:12:08 - mmengine - INFO - Epoch(train)   [1][ 2850/37454]  lr: 5.000000e-04  eta: 67 days, 11:26:24  time: 0.743341  data_time: 0.010770  memory: 4858  loss: 0.000899  loss_kpt: 0.000899  acc_pose: 0.100000
+09/13 00:12:45 - mmengine - INFO - Epoch(train)   [1][ 2900/37454]  lr: 5.000000e-04  eta: 67 days, 11:23:39  time: 0.740553  data_time: 0.008165  memory: 4858  loss: 0.000953  loss_kpt: 0.000953  acc_pose: 0.071429
+09/13 00:13:22 - mmengine - INFO - Epoch(train)   [1][ 2950/37454]  lr: 5.000000e-04  eta: 67 days, 11:19:09  time: 0.739732  data_time: 0.007178  memory: 4858  loss: 0.000912  loss_kpt: 0.000912  acc_pose: 0.318182
+09/13 00:13:59 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 00:13:59 - mmengine - INFO - Epoch(train)   [1][ 3000/37454]  lr: 5.000000e-04  eta: 67 days, 11:17:23  time: 0.740917  data_time: 0.007194  memory: 4858  loss: 0.000926  loss_kpt: 0.000926  acc_pose: 0.166667
+09/13 00:14:36 - mmengine - INFO - Epoch(train)   [1][ 3050/37454]  lr: 5.000000e-04  eta: 67 days, 11:19:24  time: 0.742670  data_time: 0.009366  memory: 4858  loss: 0.000957  loss_kpt: 0.000957  acc_pose: 0.000000
+09/13 00:15:14 - mmengine - INFO - Epoch(train)   [1][ 3100/37454]  lr: 5.000000e-04  eta: 67 days, 11:34:43  time: 0.748999  data_time: 0.012519  memory: 4858  loss: 0.000948  loss_kpt: 0.000948  acc_pose: 0.178571
+09/13 00:15:51 - mmengine - INFO - Epoch(train)   [1][ 3150/37454]  lr: 5.000000e-04  eta: 67 days, 11:57:35  time: 0.752871  data_time: 0.020752  memory: 4858  loss: 0.000911  loss_kpt: 0.000911  acc_pose: 0.117647
+09/13 00:16:28 - mmengine - INFO - Epoch(train)   [1][ 3200/37454]  lr: 5.000000e-04  eta: 67 days, 11:52:20  time: 0.739498  data_time: 0.008515  memory: 4858  loss: 0.000937  loss_kpt: 0.000937  acc_pose: 0.470588
+09/13 00:17:05 - mmengine - INFO - Epoch(train)   [1][ 3250/37454]  lr: 5.000000e-04  eta: 67 days, 11:51:00  time: 0.741362  data_time: 0.008648  memory: 4858  loss: 0.000908  loss_kpt: 0.000908  acc_pose: 0.058824
+09/13 00:17:42 - mmengine - INFO - Epoch(train)   [1][ 3300/37454]  lr: 5.000000e-04  eta: 67 days, 11:46:01  time: 0.739525  data_time: 0.006595  memory: 4858  loss: 0.000897  loss_kpt: 0.000897  acc_pose: 0.156250
+09/13 00:18:19 - mmengine - INFO - Epoch(train)   [1][ 3350/37454]  lr: 5.000000e-04  eta: 67 days, 11:40:09  time: 0.739002  data_time: 0.007131  memory: 4858  loss: 0.000898  loss_kpt: 0.000898  acc_pose: 0.031250
+09/13 00:18:56 - mmengine - INFO - Epoch(train)   [1][ 3400/37454]  lr: 5.000000e-04  eta: 67 days, 11:44:24  time: 0.744168  data_time: 0.010449  memory: 4858  loss: 0.000811  loss_kpt: 0.000811  acc_pose: 0.307692
+09/13 00:19:33 - mmengine - INFO - Epoch(train)   [1][ 3450/37454]  lr: 5.000000e-04  eta: 67 days, 11:40:49  time: 0.740124  data_time: 0.007787  memory: 4858  loss: 0.000904  loss_kpt: 0.000904  acc_pose: 0.038462
+09/13 00:20:11 - mmengine - INFO - Epoch(train)   [1][ 3500/37454]  lr: 5.000000e-04  eta: 67 days, 11:44:20  time: 0.743871  data_time: 0.011791  memory: 4858  loss: 0.000948  loss_kpt: 0.000948  acc_pose: 0.250000
+09/13 00:20:48 - mmengine - INFO - Epoch(train)   [1][ 3550/37454]  lr: 5.000000e-04  eta: 67 days, 11:45:18  time: 0.742548  data_time: 0.009642  memory: 4858  loss: 0.000891  loss_kpt: 0.000891  acc_pose: 0.187500
+09/13 00:21:26 - mmengine - INFO - Epoch(train)   [1][ 3600/37454]  lr: 5.000000e-04  eta: 67 days, 12:27:59  time: 0.765498  data_time: 0.009306  memory: 4858  loss: 0.000857  loss_kpt: 0.000857  acc_pose: 0.115385
+09/13 00:22:03 - mmengine - INFO - Epoch(train)   [1][ 3650/37454]  lr: 5.000000e-04  eta: 67 days, 12:23:11  time: 0.739700  data_time: 0.007845  memory: 4858  loss: 0.000842  loss_kpt: 0.000842  acc_pose: 0.535714
+09/13 00:22:40 - mmengine - INFO - Epoch(train)   [1][ 3700/37454]  lr: 5.000000e-04  eta: 67 days, 12:27:21  time: 0.744712  data_time: 0.011201  memory: 4858  loss: 0.000894  loss_kpt: 0.000894  acc_pose: 0.125000
+09/13 00:23:17 - mmengine - INFO - Epoch(train)   [1][ 3750/37454]  lr: 5.000000e-04  eta: 67 days, 12:26:40  time: 0.742000  data_time: 0.010178  memory: 4858  loss: 0.000935  loss_kpt: 0.000935  acc_pose: 0.323529
+09/13 00:23:54 - mmengine - INFO - Epoch(train)   [1][ 3800/37454]  lr: 5.000000e-04  eta: 67 days, 12:28:05  time: 0.743215  data_time: 0.009937  memory: 4858  loss: 0.000948  loss_kpt: 0.000948  acc_pose: 0.346154
+09/13 00:24:32 - mmengine - INFO - Epoch(train)   [1][ 3850/37454]  lr: 5.000000e-04  eta: 67 days, 12:32:06  time: 0.744782  data_time: 0.009620  memory: 4858  loss: 0.000949  loss_kpt: 0.000949  acc_pose: 0.312500
+09/13 00:25:09 - mmengine - INFO - Epoch(train)   [1][ 3900/37454]  lr: 5.000000e-04  eta: 67 days, 12:33:38  time: 0.743367  data_time: 0.008593  memory: 4858  loss: 0.000947  loss_kpt: 0.000947  acc_pose: 0.071429
+09/13 00:25:46 - mmengine - INFO - Epoch(train)   [1][ 3950/37454]  lr: 5.000000e-04  eta: 67 days, 12:31:59  time: 0.741488  data_time: 0.009164  memory: 4858  loss: 0.000993  loss_kpt: 0.000993  acc_pose: 0.437500
+09/13 00:26:23 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 00:26:23 - mmengine - INFO - Epoch(train)   [1][ 4000/37454]  lr: 5.000000e-04  eta: 67 days, 12:29:08  time: 0.740729  data_time: 0.009313  memory: 4858  loss: 0.000854  loss_kpt: 0.000854  acc_pose: 0.083333
+09/13 00:27:00 - mmengine - INFO - Epoch(train)   [1][ 4050/37454]  lr: 5.000000e-04  eta: 67 days, 12:26:26  time: 0.740801  data_time: 0.008907  memory: 4858  loss: 0.000889  loss_kpt: 0.000889  acc_pose: 0.166667
+09/13 00:27:37 - mmengine - INFO - Epoch(train)   [1][ 4100/37454]  lr: 5.000000e-04  eta: 67 days, 12:23:46  time: 0.740777  data_time: 0.008784  memory: 4858  loss: 0.000957  loss_kpt: 0.000957  acc_pose: 0.076923
+09/13 00:28:14 - mmengine - INFO - Epoch(train)   [1][ 4150/37454]  lr: 5.000000e-04  eta: 67 days, 12:20:56  time: 0.740653  data_time: 0.007918  memory: 4858  loss: 0.000901  loss_kpt: 0.000901  acc_pose: 0.250000
+09/13 00:28:51 - mmengine - INFO - Epoch(train)   [1][ 4200/37454]  lr: 5.000000e-04  eta: 67 days, 12:16:10  time: 0.739363  data_time: 0.007848  memory: 4858  loss: 0.000951  loss_kpt: 0.000951  acc_pose: 0.222222
+09/13 00:29:28 - mmengine - INFO - Epoch(train)   [1][ 4250/37454]  lr: 5.000000e-04  eta: 67 days, 12:15:32  time: 0.741991  data_time: 0.009475  memory: 4858  loss: 0.000908  loss_kpt: 0.000908  acc_pose: 0.382353
+09/13 00:30:05 - mmengine - INFO - Epoch(train)   [1][ 4300/37454]  lr: 5.000000e-04  eta: 67 days, 12:12:26  time: 0.740370  data_time: 0.007605  memory: 4858  loss: 0.000945  loss_kpt: 0.000945  acc_pose: 0.100000
+09/13 00:30:42 - mmengine - INFO - Epoch(train)   [1][ 4350/37454]  lr: 5.000000e-04  eta: 67 days, 12:11:37  time: 0.741861  data_time: 0.010073  memory: 4858  loss: 0.000938  loss_kpt: 0.000938  acc_pose: 0.000000
+09/13 00:31:19 - mmengine - INFO - Epoch(train)   [1][ 4400/37454]  lr: 5.000000e-04  eta: 67 days, 12:08:34  time: 0.740339  data_time: 0.009099  memory: 4858  loss: 0.000884  loss_kpt: 0.000884  acc_pose: 0.294118
+09/13 00:31:56 - mmengine - INFO - Epoch(train)   [1][ 4450/37454]  lr: 5.000000e-04  eta: 67 days, 12:07:11  time: 0.741442  data_time: 0.008217  memory: 4858  loss: 0.000876  loss_kpt: 0.000876  acc_pose: 0.000000
+09/13 00:32:33 - mmengine - INFO - Epoch(train)   [1][ 4500/37454]  lr: 5.000000e-04  eta: 67 days, 12:04:05  time: 0.740258  data_time: 0.008487  memory: 4858  loss: 0.000912  loss_kpt: 0.000912  acc_pose: 0.147059
+09/13 00:33:10 - mmengine - INFO - Epoch(train)   [1][ 4550/37454]  lr: 5.000000e-04  eta: 67 days, 12:01:38  time: 0.740660  data_time: 0.007968  memory: 4858  loss: 0.000879  loss_kpt: 0.000879  acc_pose: 0.133333
+09/13 00:33:48 - mmengine - INFO - Epoch(train)   [1][ 4600/37454]  lr: 5.000000e-04  eta: 67 days, 12:02:07  time: 0.742699  data_time: 0.010458  memory: 4858  loss: 0.000916  loss_kpt: 0.000916  acc_pose: 0.500000
+09/13 00:34:25 - mmengine - INFO - Epoch(train)   [1][ 4650/37454]  lr: 5.000000e-04  eta: 67 days, 12:00:00  time: 0.740859  data_time: 0.009257  memory: 4858  loss: 0.000857  loss_kpt: 0.000857  acc_pose: 0.176471
+09/13 00:35:02 - mmengine - INFO - Epoch(train)   [1][ 4700/37454]  lr: 5.000000e-04  eta: 67 days, 11:57:30  time: 0.740577  data_time: 0.008441  memory: 4858  loss: 0.000895  loss_kpt: 0.000895  acc_pose: 0.166667
+09/13 00:35:39 - mmengine - INFO - Epoch(train)   [1][ 4750/37454]  lr: 5.000000e-04  eta: 67 days, 11:56:14  time: 0.741428  data_time: 0.007757  memory: 4858  loss: 0.000925  loss_kpt: 0.000925  acc_pose: 0.441176
+09/13 00:36:16 - mmengine - INFO - Epoch(train)   [1][ 4800/37454]  lr: 5.000000e-04  eta: 67 days, 11:53:17  time: 0.740192  data_time: 0.008530  memory: 4858  loss: 0.000856  loss_kpt: 0.000856  acc_pose: 0.382353
+09/13 00:36:53 - mmengine - INFO - Epoch(train)   [1][ 4850/37454]  lr: 5.000000e-04  eta: 67 days, 11:52:59  time: 0.742118  data_time: 0.010265  memory: 4858  loss: 0.000903  loss_kpt: 0.000903  acc_pose: 0.214286
+09/13 00:37:30 - mmengine - INFO - Epoch(train)   [1][ 4900/37454]  lr: 5.000000e-04  eta: 67 days, 11:52:46  time: 0.742190  data_time: 0.010437  memory: 4858  loss: 0.000885  loss_kpt: 0.000885  acc_pose: 0.352941
+09/13 00:38:07 - mmengine - INFO - Epoch(train)   [1][ 4950/37454]  lr: 5.000000e-04  eta: 67 days, 11:50:29  time: 0.740624  data_time: 0.009952  memory: 4858  loss: 0.000901  loss_kpt: 0.000901  acc_pose: 0.300000
+09/13 00:38:44 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 00:38:44 - mmengine - INFO - Epoch(train)   [1][ 5000/37454]  lr: 5.000000e-04  eta: 67 days, 11:48:20  time: 0.740715  data_time: 0.008974  memory: 4858  loss: 0.000904  loss_kpt: 0.000904  acc_pose: 0.142857
+09/13 00:39:21 - mmengine - INFO - Epoch(train)   [1][ 5050/37454]  lr: 5.000000e-04  eta: 67 days, 11:46:55  time: 0.741242  data_time: 0.007833  memory: 4858  loss: 0.000934  loss_kpt: 0.000934  acc_pose: 0.076923
+09/13 00:39:58 - mmengine - INFO - Epoch(train)   [1][ 5100/37454]  lr: 5.000000e-04  eta: 67 days, 11:46:00  time: 0.741628  data_time: 0.007387  memory: 4858  loss: 0.000829  loss_kpt: 0.000829  acc_pose: 0.500000
+09/13 00:40:35 - mmengine - INFO - Epoch(train)   [1][ 5150/37454]  lr: 5.000000e-04  eta: 67 days, 11:46:59  time: 0.743114  data_time: 0.010775  memory: 4858  loss: 0.000823  loss_kpt: 0.000823  acc_pose: 0.000000
+09/13 00:41:12 - mmengine - INFO - Epoch(train)   [1][ 5200/37454]  lr: 5.000000e-04  eta: 67 days, 11:43:30  time: 0.739600  data_time: 0.007291  memory: 4858  loss: 0.000884  loss_kpt: 0.000884  acc_pose: 0.156250
+09/13 00:41:49 - mmengine - INFO - Epoch(train)   [1][ 5250/37454]  lr: 5.000000e-04  eta: 67 days, 11:43:33  time: 0.742378  data_time: 0.009259  memory: 4858  loss: 0.000851  loss_kpt: 0.000851  acc_pose: 0.406250
+09/13 00:42:27 - mmengine - INFO - Epoch(train)   [1][ 5300/37454]  lr: 5.000000e-04  eta: 67 days, 11:42:55  time: 0.741829  data_time: 0.009417  memory: 4858  loss: 0.000921  loss_kpt: 0.000921  acc_pose: 0.464286
+09/13 00:43:04 - mmengine - INFO - Epoch(train)   [1][ 5350/37454]  lr: 5.000000e-04  eta: 67 days, 11:40:42  time: 0.740552  data_time: 0.009023  memory: 4858  loss: 0.000848  loss_kpt: 0.000848  acc_pose: 0.071429
+09/13 00:43:41 - mmengine - INFO - Epoch(train)   [1][ 5400/37454]  lr: 5.000000e-04  eta: 67 days, 11:39:10  time: 0.741078  data_time: 0.009160  memory: 4858  loss: 0.000874  loss_kpt: 0.000874  acc_pose: 0.083333
+09/13 00:44:18 - mmengine - INFO - Epoch(train)   [1][ 5450/37454]  lr: 5.000000e-04  eta: 67 days, 11:37:54  time: 0.741302  data_time: 0.008398  memory: 4858  loss: 0.000902  loss_kpt: 0.000902  acc_pose: 0.125000
+09/13 00:44:55 - mmengine - INFO - Epoch(train)   [1][ 5500/37454]  lr: 5.000000e-04  eta: 67 days, 11:35:55  time: 0.740668  data_time: 0.007123  memory: 4858  loss: 0.000928  loss_kpt: 0.000928  acc_pose: 0.416667
+09/13 00:45:32 - mmengine - INFO - Epoch(train)   [1][ 5550/37454]  lr: 5.000000e-04  eta: 67 days, 11:36:47  time: 0.743077  data_time: 0.009466  memory: 4858  loss: 0.000858  loss_kpt: 0.000858  acc_pose: 0.066667
+09/13 00:46:09 - mmengine - INFO - Epoch(train)   [1][ 5600/37454]  lr: 5.000000e-04  eta: 67 days, 11:37:54  time: 0.743313  data_time: 0.011435  memory: 4858  loss: 0.000867  loss_kpt: 0.000867  acc_pose: 0.035714
+09/13 00:46:46 - mmengine - INFO - Epoch(train)   [1][ 5650/37454]  lr: 5.000000e-04  eta: 67 days, 11:40:04  time: 0.744250  data_time: 0.011173  memory: 4858  loss: 0.000909  loss_kpt: 0.000909  acc_pose: 0.382353
+09/13 00:47:23 - mmengine - INFO - Epoch(train)   [1][ 5700/37454]  lr: 5.000000e-04  eta: 67 days, 11:39:07  time: 0.741561  data_time: 0.008084  memory: 4858  loss: 0.000914  loss_kpt: 0.000914  acc_pose: 0.100000
+09/13 00:48:01 - mmengine - INFO - Epoch(train)   [1][ 5750/37454]  lr: 5.000000e-04  eta: 67 days, 11:40:34  time: 0.743689  data_time: 0.008849  memory: 4858  loss: 0.000856  loss_kpt: 0.000856  acc_pose: 0.333333
+09/13 00:48:38 - mmengine - INFO - Epoch(train)   [1][ 5800/37454]  lr: 5.000000e-04  eta: 67 days, 11:44:34  time: 0.745965  data_time: 0.009504  memory: 4858  loss: 0.000936  loss_kpt: 0.000936  acc_pose: 0.214286
+09/13 00:49:15 - mmengine - INFO - Epoch(train)   [1][ 5850/37454]  lr: 5.000000e-04  eta: 67 days, 11:47:35  time: 0.745154  data_time: 0.009393  memory: 4858  loss: 0.000911  loss_kpt: 0.000911  acc_pose: 0.500000
+09/13 00:49:52 - mmengine - INFO - Epoch(train)   [1][ 5900/37454]  lr: 5.000000e-04  eta: 67 days, 11:50:19  time: 0.744953  data_time: 0.009040  memory: 4858  loss: 0.000943  loss_kpt: 0.000943  acc_pose: 0.000000
+09/13 00:50:29 - mmengine - INFO - Epoch(train)   [1][ 5950/37454]  lr: 5.000000e-04  eta: 67 days, 11:48:07  time: 0.740534  data_time: 0.008677  memory: 4858  loss: 0.000914  loss_kpt: 0.000914  acc_pose: 0.107143
+09/13 00:51:07 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 00:51:07 - mmengine - INFO - Epoch(train)   [1][ 6000/37454]  lr: 5.000000e-04  eta: 67 days, 11:49:06  time: 0.743406  data_time: 0.011314  memory: 4858  loss: 0.000869  loss_kpt: 0.000869  acc_pose: 0.125000
+09/13 00:51:43 - mmengine - INFO - Epoch(train)   [1][ 6050/37454]  lr: 5.000000e-04  eta: 67 days, 11:45:53  time: 0.739576  data_time: 0.008484  memory: 4858  loss: 0.000896  loss_kpt: 0.000896  acc_pose: 0.214286
+09/13 00:52:21 - mmengine - INFO - Epoch(train)   [1][ 6100/37454]  lr: 5.000000e-04  eta: 67 days, 11:48:13  time: 0.744688  data_time: 0.011994  memory: 4858  loss: 0.000889  loss_kpt: 0.000889  acc_pose: 0.333333
+09/13 00:52:58 - mmengine - INFO - Epoch(train)   [1][ 6150/37454]  lr: 5.000000e-04  eta: 67 days, 11:52:27  time: 0.746529  data_time: 0.009236  memory: 4858  loss: 0.000923  loss_kpt: 0.000923  acc_pose: 0.529412
+09/13 00:53:35 - mmengine - INFO - Epoch(train)   [1][ 6200/37454]  lr: 5.000000e-04  eta: 67 days, 11:54:19  time: 0.744356  data_time: 0.011604  memory: 4858  loss: 0.000884  loss_kpt: 0.000884  acc_pose: 0.083333
+09/13 00:54:12 - mmengine - INFO - Epoch(train)   [1][ 6250/37454]  lr: 5.000000e-04  eta: 67 days, 11:53:35  time: 0.741898  data_time: 0.009407  memory: 4858  loss: 0.000914  loss_kpt: 0.000914  acc_pose: 0.142857
+09/13 00:54:49 - mmengine - INFO - Epoch(train)   [1][ 6300/37454]  lr: 5.000000e-04  eta: 67 days, 11:52:45  time: 0.741830  data_time: 0.008329  memory: 4858  loss: 0.000893  loss_kpt: 0.000893  acc_pose: 0.382353
+09/13 00:55:27 - mmengine - INFO - Epoch(train)   [1][ 6350/37454]  lr: 5.000000e-04  eta: 67 days, 11:55:15  time: 0.745038  data_time: 0.010272  memory: 4858  loss: 0.000862  loss_kpt: 0.000862  acc_pose: 0.500000
+09/13 00:56:04 - mmengine - INFO - Epoch(train)   [1][ 6400/37454]  lr: 5.000000e-04  eta: 67 days, 11:52:57  time: 0.740401  data_time: 0.008377  memory: 4858  loss: 0.000948  loss_kpt: 0.000948  acc_pose: 0.500000
+09/13 00:56:41 - mmengine - INFO - Epoch(train)   [1][ 6450/37454]  lr: 5.000000e-04  eta: 67 days, 11:54:38  time: 0.744296  data_time: 0.008553  memory: 4858  loss: 0.000822  loss_kpt: 0.000822  acc_pose: 0.333333
+09/13 00:57:18 - mmengine - INFO - Epoch(train)   [1][ 6500/37454]  lr: 5.000000e-04  eta: 67 days, 11:52:54  time: 0.740947  data_time: 0.009322  memory: 4858  loss: 0.000864  loss_kpt: 0.000864  acc_pose: 0.346154
+09/13 00:57:55 - mmengine - INFO - Epoch(train)   [1][ 6550/37454]  lr: 5.000000e-04  eta: 67 days, 11:53:38  time: 0.743381  data_time: 0.010876  memory: 4858  loss: 0.000816  loss_kpt: 0.000816  acc_pose: 0.187500
+09/13 00:58:32 - mmengine - INFO - Epoch(train)   [1][ 6600/37454]  lr: 5.000000e-04  eta: 67 days, 11:53:12  time: 0.742235  data_time: 0.010761  memory: 4858  loss: 0.000898  loss_kpt: 0.000898  acc_pose: 0.208333
+09/13 00:59:10 - mmengine - INFO - Epoch(train)   [1][ 6650/37454]  lr: 5.000000e-04  eta: 67 days, 11:57:48  time: 0.747363  data_time: 0.013952  memory: 4858  loss: 0.000913  loss_kpt: 0.000913  acc_pose: 0.235294
+09/13 00:59:47 - mmengine - INFO - Epoch(train)   [1][ 6700/37454]  lr: 5.000000e-04  eta: 67 days, 12:00:48  time: 0.745797  data_time: 0.013122  memory: 4858  loss: 0.000851  loss_kpt: 0.000851  acc_pose: 0.136364
+09/13 01:00:24 - mmengine - INFO - Epoch(train)   [1][ 6750/37454]  lr: 5.000000e-04  eta: 67 days, 12:02:17  time: 0.744277  data_time: 0.008722  memory: 4858  loss: 0.000917  loss_kpt: 0.000917  acc_pose: 0.269231
+09/13 01:01:02 - mmengine - INFO - Epoch(train)   [1][ 6800/37454]  lr: 5.000000e-04  eta: 67 days, 12:06:51  time: 0.747518  data_time: 0.008328  memory: 4858  loss: 0.000935  loss_kpt: 0.000935  acc_pose: 0.531250
+09/13 01:01:39 - mmengine - INFO - Epoch(train)   [1][ 6850/37454]  lr: 5.000000e-04  eta: 67 days, 12:03:49  time: 0.739654  data_time: 0.008031  memory: 4858  loss: 0.000908  loss_kpt: 0.000908  acc_pose: 0.333333
+09/13 01:02:16 - mmengine - INFO - Epoch(train)   [1][ 6900/37454]  lr: 5.000000e-04  eta: 67 days, 12:01:57  time: 0.740846  data_time: 0.007801  memory: 4858  loss: 0.000885  loss_kpt: 0.000885  acc_pose: 0.115385
+09/13 01:02:53 - mmengine - INFO - Epoch(train)   [1][ 6950/37454]  lr: 5.000000e-04  eta: 67 days, 12:02:31  time: 0.743396  data_time: 0.010984  memory: 4858  loss: 0.000909  loss_kpt: 0.000909  acc_pose: 0.437500
+09/13 01:03:30 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 01:03:30 - mmengine - INFO - Epoch(train)   [1][ 7000/37454]  lr: 5.000000e-04  eta: 67 days, 12:03:04  time: 0.743403  data_time: 0.008638  memory: 4858  loss: 0.000801  loss_kpt: 0.000801  acc_pose: 0.181818
+09/13 01:04:07 - mmengine - INFO - Epoch(train)   [1][ 7050/37454]  lr: 5.000000e-04  eta: 67 days, 12:03:43  time: 0.743527  data_time: 0.008745  memory: 4858  loss: 0.000935  loss_kpt: 0.000935  acc_pose: 0.100000
+09/13 01:04:44 - mmengine - INFO - Epoch(train)   [1][ 7100/37454]  lr: 5.000000e-04  eta: 67 days, 12:03:32  time: 0.742660  data_time: 0.008809  memory: 4858  loss: 0.000889  loss_kpt: 0.000889  acc_pose: 0.468750
+09/13 01:05:21 - mmengine - INFO - Epoch(train)   [1][ 7150/37454]  lr: 5.000000e-04  eta: 67 days, 12:02:36  time: 0.741830  data_time: 0.008364  memory: 4858  loss: 0.000916  loss_kpt: 0.000916  acc_pose: 0.133333
+09/13 01:05:58 - mmengine - INFO - Epoch(train)   [1][ 7200/37454]  lr: 5.000000e-04  eta: 67 days, 12:02:13  time: 0.742431  data_time: 0.007510  memory: 4858  loss: 0.000848  loss_kpt: 0.000848  acc_pose: 0.250000
+09/13 01:06:36 - mmengine - INFO - Epoch(train)   [1][ 7250/37454]  lr: 5.000000e-04  eta: 67 days, 12:02:37  time: 0.743301  data_time: 0.009329  memory: 4858  loss: 0.000937  loss_kpt: 0.000937  acc_pose: 0.033333
+09/13 01:07:13 - mmengine - INFO - Epoch(train)   [1][ 7300/37454]  lr: 5.000000e-04  eta: 67 days, 12:03:32  time: 0.743906  data_time: 0.009027  memory: 4858  loss: 0.000897  loss_kpt: 0.000897  acc_pose: 0.281250
+09/13 01:07:50 - mmengine - INFO - Epoch(train)   [1][ 7350/37454]  lr: 5.000000e-04  eta: 67 days, 12:01:42  time: 0.740830  data_time: 0.007790  memory: 4858  loss: 0.000932  loss_kpt: 0.000932  acc_pose: 0.300000
+09/13 01:08:27 - mmengine - INFO - Epoch(train)   [1][ 7400/37454]  lr: 5.000000e-04  eta: 67 days, 12:04:15  time: 0.745761  data_time: 0.011125  memory: 4858  loss: 0.000860  loss_kpt: 0.000860  acc_pose: 0.125000
+09/13 01:09:04 - mmengine - INFO - Epoch(train)   [1][ 7450/37454]  lr: 5.000000e-04  eta: 67 days, 12:03:49  time: 0.742427  data_time: 0.007375  memory: 4858  loss: 0.000855  loss_kpt: 0.000855  acc_pose: 0.166667
+09/13 01:09:41 - mmengine - INFO - Epoch(train)   [1][ 7500/37454]  lr: 5.000000e-04  eta: 67 days, 12:03:32  time: 0.742596  data_time: 0.007731  memory: 4858  loss: 0.000840  loss_kpt: 0.000840  acc_pose: 0.090909
+09/13 01:10:19 - mmengine - INFO - Epoch(train)   [1][ 7550/37454]  lr: 5.000000e-04  eta: 67 days, 12:05:19  time: 0.744992  data_time: 0.009758  memory: 4858  loss: 0.000791  loss_kpt: 0.000791  acc_pose: 0.208333
+09/13 01:10:56 - mmengine - INFO - Epoch(train)   [1][ 7600/37454]  lr: 5.000000e-04  eta: 67 days, 12:08:37  time: 0.746768  data_time: 0.011072  memory: 4858  loss: 0.000910  loss_kpt: 0.000910  acc_pose: 0.400000
+09/13 01:11:33 - mmengine - INFO - Epoch(train)   [1][ 7650/37454]  lr: 5.000000e-04  eta: 67 days, 12:07:16  time: 0.741428  data_time: 0.008891  memory: 4858  loss: 0.000884  loss_kpt: 0.000884  acc_pose: 0.500000
+09/13 01:12:10 - mmengine - INFO - Epoch(train)   [1][ 7700/37454]  lr: 5.000000e-04  eta: 67 days, 12:09:41  time: 0.745811  data_time: 0.010104  memory: 4858  loss: 0.000894  loss_kpt: 0.000894  acc_pose: 0.181818
+09/13 01:12:48 - mmengine - INFO - Epoch(train)   [1][ 7750/37454]  lr: 5.000000e-04  eta: 67 days, 12:10:46  time: 0.744301  data_time: 0.009522  memory: 4858  loss: 0.000869  loss_kpt: 0.000869  acc_pose: 0.142857
+09/13 01:13:25 - mmengine - INFO - Epoch(train)   [1][ 7800/37454]  lr: 5.000000e-04  eta: 67 days, 12:10:53  time: 0.743169  data_time: 0.007866  memory: 4858  loss: 0.000843  loss_kpt: 0.000843  acc_pose: 0.333333
+09/13 01:14:02 - mmengine - INFO - Epoch(train)   [1][ 7850/37454]  lr: 5.000000e-04  eta: 67 days, 12:11:02  time: 0.743232  data_time: 0.012037  memory: 4858  loss: 0.000818  loss_kpt: 0.000818  acc_pose: 0.125000
+09/13 01:14:39 - mmengine - INFO - Epoch(train)   [1][ 7900/37454]  lr: 5.000000e-04  eta: 67 days, 12:10:21  time: 0.742213  data_time: 0.010015  memory: 4858  loss: 0.000869  loss_kpt: 0.000869  acc_pose: 0.071429
+09/13 01:15:16 - mmengine - INFO - Epoch(train)   [1][ 7950/37454]  lr: 5.000000e-04  eta: 67 days, 12:10:28  time: 0.743210  data_time: 0.009913  memory: 4858  loss: 0.000843  loss_kpt: 0.000843  acc_pose: 0.312500
+09/13 01:15:53 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 01:15:53 - mmengine - INFO - Epoch(train)   [1][ 8000/37454]  lr: 5.000000e-04  eta: 67 days, 12:10:01  time: 0.742512  data_time: 0.010513  memory: 4858  loss: 0.000910  loss_kpt: 0.000910  acc_pose: 0.187500
+09/13 01:16:31 - mmengine - INFO - Epoch(train)   [1][ 8050/37454]  lr: 5.000000e-04  eta: 67 days, 12:11:39  time: 0.745087  data_time: 0.010769  memory: 4858  loss: 0.000871  loss_kpt: 0.000871  acc_pose: 0.125000
+09/13 01:17:08 - mmengine - INFO - Epoch(train)   [1][ 8100/37454]  lr: 5.000000e-04  eta: 67 days, 12:15:15  time: 0.747550  data_time: 0.014355  memory: 4858  loss: 0.000850  loss_kpt: 0.000850  acc_pose: 0.944444
+09/13 01:17:45 - mmengine - INFO - Epoch(train)   [1][ 8150/37454]  lr: 5.000000e-04  eta: 67 days, 12:14:55  time: 0.742719  data_time: 0.009059  memory: 4858  loss: 0.000808  loss_kpt: 0.000808  acc_pose: 0.294118
+09/13 01:18:22 - mmengine - INFO - Epoch(train)   [1][ 8200/37454]  lr: 5.000000e-04  eta: 67 days, 12:15:48  time: 0.744231  data_time: 0.009929  memory: 4858  loss: 0.000935  loss_kpt: 0.000935  acc_pose: 0.147059
+09/13 01:18:59 - mmengine - INFO - Epoch(train)   [1][ 8250/37454]  lr: 5.000000e-04  eta: 67 days, 12:13:26  time: 0.740187  data_time: 0.008992  memory: 4858  loss: 0.000815  loss_kpt: 0.000815  acc_pose: 0.133333
+09/13 01:19:36 - mmengine - INFO - Epoch(train)   [1][ 8300/37454]  lr: 5.000000e-04  eta: 67 days, 12:13:07  time: 0.742740  data_time: 0.008478  memory: 4858  loss: 0.000852  loss_kpt: 0.000852  acc_pose: 0.617647
+09/13 01:20:14 - mmengine - INFO - Epoch(train)   [1][ 8350/37454]  lr: 5.000000e-04  eta: 67 days, 12:13:01  time: 0.743019  data_time: 0.009098  memory: 4858  loss: 0.000830  loss_kpt: 0.000830  acc_pose: 0.687500
+09/13 01:20:51 - mmengine - INFO - Epoch(train)   [1][ 8400/37454]  lr: 5.000000e-04  eta: 67 days, 12:13:32  time: 0.743826  data_time: 0.010524  memory: 4858  loss: 0.000870  loss_kpt: 0.000870  acc_pose: 0.562500
+09/13 01:21:28 - mmengine - INFO - Epoch(train)   [1][ 8450/37454]  lr: 5.000000e-04  eta: 67 days, 12:14:47  time: 0.744785  data_time: 0.007920  memory: 4858  loss: 0.000797  loss_kpt: 0.000797  acc_pose: 0.125000
+09/13 01:22:05 - mmengine - INFO - Epoch(train)   [1][ 8500/37454]  lr: 5.000000e-04  eta: 67 days, 12:15:02  time: 0.743531  data_time: 0.009176  memory: 4858  loss: 0.000801  loss_kpt: 0.000801  acc_pose: 0.250000
+09/13 01:22:42 - mmengine - INFO - Epoch(train)   [1][ 8550/37454]  lr: 5.000000e-04  eta: 67 days, 12:14:40  time: 0.742722  data_time: 0.008864  memory: 4858  loss: 0.000810  loss_kpt: 0.000810  acc_pose: 0.350000
+09/13 01:23:20 - mmengine - INFO - Epoch(train)   [1][ 8600/37454]  lr: 5.000000e-04  eta: 67 days, 12:15:41  time: 0.744556  data_time: 0.009766  memory: 4858  loss: 0.000800  loss_kpt: 0.000800  acc_pose: 0.178571
+09/13 01:23:57 - mmengine - INFO - Epoch(train)   [1][ 8650/37454]  lr: 5.000000e-04  eta: 67 days, 12:21:41  time: 0.751144  data_time: 0.011677  memory: 4858  loss: 0.000869  loss_kpt: 0.000869  acc_pose: 0.538462
+09/13 01:24:34 - mmengine - INFO - Epoch(train)   [1][ 8700/37454]  lr: 5.000000e-04  eta: 67 days, 12:22:07  time: 0.743863  data_time: 0.009509  memory: 4858  loss: 0.000896  loss_kpt: 0.000896  acc_pose: 0.666667
+09/13 01:25:12 - mmengine - INFO - Epoch(train)   [1][ 8750/37454]  lr: 5.000000e-04  eta: 67 days, 12:26:02  time: 0.748537  data_time: 0.016952  memory: 4858  loss: 0.000841  loss_kpt: 0.000841  acc_pose: 0.250000
+09/13 01:25:49 - mmengine - INFO - Epoch(train)   [1][ 8800/37454]  lr: 5.000000e-04  eta: 67 days, 12:28:57  time: 0.747259  data_time: 0.015991  memory: 4858  loss: 0.000795  loss_kpt: 0.000795  acc_pose: 0.357143
+09/13 01:26:26 - mmengine - INFO - Epoch(train)   [1][ 8850/37454]  lr: 5.000000e-04  eta: 67 days, 12:30:09  time: 0.744993  data_time: 0.012574  memory: 4858  loss: 0.000779  loss_kpt: 0.000779  acc_pose: 0.323529
+09/13 01:27:03 - mmengine - INFO - Epoch(train)   [1][ 8900/37454]  lr: 5.000000e-04  eta: 67 days, 12:28:55  time: 0.741697  data_time: 0.008258  memory: 4858  loss: 0.000899  loss_kpt: 0.000899  acc_pose: 0.333333
+09/13 01:27:40 - mmengine - INFO - Epoch(train)   [1][ 8950/37454]  lr: 5.000000e-04  eta: 67 days, 12:26:47  time: 0.740475  data_time: 0.006972  memory: 4858  loss: 0.000893  loss_kpt: 0.000893  acc_pose: 0.250000
+09/13 01:28:18 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 01:28:18 - mmengine - INFO - Epoch(train)   [1][ 9000/37454]  lr: 5.000000e-04  eta: 67 days, 12:26:00  time: 0.742308  data_time: 0.010076  memory: 4858  loss: 0.000870  loss_kpt: 0.000870  acc_pose: 0.000000
+09/13 01:28:55 - mmengine - INFO - Epoch(train)   [1][ 9050/37454]  lr: 5.000000e-04  eta: 67 days, 12:24:56  time: 0.741922  data_time: 0.008652  memory: 4858  loss: 0.000851  loss_kpt: 0.000851  acc_pose: 0.676471
+09/13 01:29:33 - mmengine - INFO - Epoch(train)   [1][ 9100/37454]  lr: 5.000000e-04  eta: 67 days, 12:40:11  time: 0.764568  data_time: 0.010820  memory: 4858  loss: 0.000823  loss_kpt: 0.000823  acc_pose: 0.428571
+09/13 01:30:10 - mmengine - INFO - Epoch(train)   [1][ 9150/37454]  lr: 5.000000e-04  eta: 67 days, 12:40:06  time: 0.743390  data_time: 0.007795  memory: 4858  loss: 0.000865  loss_kpt: 0.000865  acc_pose: 0.406250
+09/13 01:30:47 - mmengine - INFO - Epoch(train)   [1][ 9200/37454]  lr: 5.000000e-04  eta: 67 days, 12:39:27  time: 0.742607  data_time: 0.008291  memory: 4858  loss: 0.000917  loss_kpt: 0.000917  acc_pose: 0.343750
+09/13 01:31:24 - mmengine - INFO - Epoch(train)   [1][ 9250/37454]  lr: 5.000000e-04  eta: 67 days, 12:39:00  time: 0.742889  data_time: 0.008475  memory: 4858  loss: 0.000907  loss_kpt: 0.000907  acc_pose: 0.187500
+09/13 01:32:01 - mmengine - INFO - Epoch(train)   [1][ 9300/37454]  lr: 5.000000e-04  eta: 67 days, 12:38:02  time: 0.742158  data_time: 0.008503  memory: 4858  loss: 0.000853  loss_kpt: 0.000853  acc_pose: 0.533333
+09/13 01:32:45 - mmengine - INFO - Epoch(train)   [1][ 9350/37454]  lr: 5.000000e-04  eta: 67 days, 14:11:25  time: 0.876919  data_time: 0.142513  memory: 4858  loss: 0.000845  loss_kpt: 0.000845  acc_pose: 0.300000
+09/13 01:33:22 - mmengine - INFO - Epoch(train)   [1][ 9400/37454]  lr: 5.000000e-04  eta: 67 days, 14:09:02  time: 0.740839  data_time: 0.007880  memory: 4858  loss: 0.000814  loss_kpt: 0.000814  acc_pose: 0.466667
+09/13 01:34:00 - mmengine - INFO - Epoch(train)   [1][ 9450/37454]  lr: 5.000000e-04  eta: 67 days, 14:07:48  time: 0.742457  data_time: 0.011145  memory: 4858  loss: 0.000939  loss_kpt: 0.000939  acc_pose: 0.500000
+09/13 01:34:37 - mmengine - INFO - Epoch(train)   [1][ 9500/37454]  lr: 5.000000e-04  eta: 67 days, 14:07:11  time: 0.743361  data_time: 0.011167  memory: 4858  loss: 0.000891  loss_kpt: 0.000891  acc_pose: 0.647059
+09/13 01:35:14 - mmengine - INFO - Epoch(train)   [1][ 9550/37454]  lr: 5.000000e-04  eta: 67 days, 14:09:09  time: 0.747115  data_time: 0.010312  memory: 4858  loss: 0.000868  loss_kpt: 0.000868  acc_pose: 0.529412
+09/13 01:35:51 - mmengine - INFO - Epoch(train)   [1][ 9600/37454]  lr: 5.000000e-04  eta: 67 days, 14:06:23  time: 0.740214  data_time: 0.007765  memory: 4858  loss: 0.000852  loss_kpt: 0.000852  acc_pose: 0.392857
+09/13 01:36:28 - mmengine - INFO - Epoch(train)   [1][ 9650/37454]  lr: 5.000000e-04  eta: 67 days, 14:05:06  time: 0.742388  data_time: 0.009277  memory: 4858  loss: 0.000896  loss_kpt: 0.000896  acc_pose: 0.352941
+09/13 01:37:05 - mmengine - INFO - Epoch(train)   [1][ 9700/37454]  lr: 5.000000e-04  eta: 67 days, 14:03:55  time: 0.742496  data_time: 0.008678  memory: 4858  loss: 0.000866  loss_kpt: 0.000866  acc_pose: 0.562500
+09/13 01:37:42 - mmengine - INFO - Epoch(train)   [1][ 9750/37454]  lr: 5.000000e-04  eta: 67 days, 14:03:23  time: 0.743471  data_time: 0.009747  memory: 4858  loss: 0.000778  loss_kpt: 0.000778  acc_pose: 0.423077
+09/13 01:38:20 - mmengine - INFO - Epoch(train)   [1][ 9800/37454]  lr: 5.000000e-04  eta: 67 days, 14:03:55  time: 0.745089  data_time: 0.010011  memory: 4858  loss: 0.000852  loss_kpt: 0.000852  acc_pose: 0.269231
+09/13 01:38:57 - mmengine - INFO - Epoch(train)   [1][ 9850/37454]  lr: 5.000000e-04  eta: 67 days, 14:03:25  time: 0.743511  data_time: 0.008940  memory: 4858  loss: 0.000866  loss_kpt: 0.000866  acc_pose: 0.433333
+09/13 01:39:34 - mmengine - INFO - Epoch(train)   [1][ 9900/37454]  lr: 5.000000e-04  eta: 67 days, 14:01:53  time: 0.741993  data_time: 0.008467  memory: 4858  loss: 0.000861  loss_kpt: 0.000861  acc_pose: 0.115385
+09/13 01:40:11 - mmengine - INFO - Epoch(train)   [1][ 9950/37454]  lr: 5.000000e-04  eta: 67 days, 14:02:49  time: 0.745683  data_time: 0.012273  memory: 4858  loss: 0.000834  loss_kpt: 0.000834  acc_pose: 0.038462
+09/13 01:40:48 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 01:40:48 - mmengine - INFO - Epoch(train)   [1][10000/37454]  lr: 5.000000e-04  eta: 67 days, 14:02:24  time: 0.743679  data_time: 0.009389  memory: 4858  loss: 0.000880  loss_kpt: 0.000880  acc_pose: 0.617647
+09/13 01:41:26 - mmengine - INFO - Epoch(train)   [1][10050/37454]  lr: 5.000000e-04  eta: 67 days, 14:03:00  time: 0.745224  data_time: 0.012270  memory: 4858  loss: 0.000832  loss_kpt: 0.000832  acc_pose: 0.266667
+09/13 01:42:03 - mmengine - INFO - Epoch(train)   [1][10100/37454]  lr: 5.000000e-04  eta: 67 days, 14:02:32  time: 0.743613  data_time: 0.010400  memory: 4858  loss: 0.000835  loss_kpt: 0.000835  acc_pose: 0.500000
+09/13 01:42:40 - mmengine - INFO - Epoch(train)   [1][10150/37454]  lr: 5.000000e-04  eta: 67 days, 14:03:58  time: 0.746558  data_time: 0.012816  memory: 4858  loss: 0.000811  loss_kpt: 0.000811  acc_pose: 0.318182
+09/13 01:43:18 - mmengine - INFO - Epoch(train)   [1][10200/37454]  lr: 5.000000e-04  eta: 67 days, 14:04:48  time: 0.745657  data_time: 0.010526  memory: 4858  loss: 0.000821  loss_kpt: 0.000821  acc_pose: 0.312500
+09/13 01:43:55 - mmengine - INFO - Epoch(train)   [1][10250/37454]  lr: 5.000000e-04  eta: 67 days, 14:03:47  time: 0.742773  data_time: 0.008235  memory: 4858  loss: 0.000861  loss_kpt: 0.000861  acc_pose: 0.333333
+09/13 01:44:32 - mmengine - INFO - Epoch(train)   [1][10300/37454]  lr: 5.000000e-04  eta: 67 days, 14:06:22  time: 0.748431  data_time: 0.010741  memory: 4858  loss: 0.000809  loss_kpt: 0.000809  acc_pose: 0.181818
+09/13 01:45:09 - mmengine - INFO - Epoch(train)   [1][10350/37454]  lr: 5.000000e-04  eta: 67 days, 14:07:15  time: 0.745792  data_time: 0.010792  memory: 4858  loss: 0.000805  loss_kpt: 0.000805  acc_pose: 0.125000
+09/13 01:45:47 - mmengine - INFO - Epoch(train)   [1][10400/37454]  lr: 5.000000e-04  eta: 67 days, 14:11:03  time: 0.750457  data_time: 0.012970  memory: 4858  loss: 0.000829  loss_kpt: 0.000829  acc_pose: 0.529412
+09/13 01:46:24 - mmengine - INFO - Epoch(train)   [1][10450/37454]  lr: 5.000000e-04  eta: 67 days, 14:13:55  time: 0.749014  data_time: 0.014003  memory: 4858  loss: 0.000816  loss_kpt: 0.000816  acc_pose: 0.566667
+09/13 01:47:02 - mmengine - INFO - Epoch(train)   [1][10500/37454]  lr: 5.000000e-04  eta: 67 days, 14:15:14  time: 0.746615  data_time: 0.007025  memory: 4858  loss: 0.000850  loss_kpt: 0.000850  acc_pose: 0.406250
+09/13 01:47:39 - mmengine - INFO - Epoch(train)   [1][10550/37454]  lr: 5.000000e-04  eta: 67 days, 14:15:32  time: 0.744970  data_time: 0.010657  memory: 4858  loss: 0.000833  loss_kpt: 0.000833  acc_pose: 0.200000
+09/13 01:48:16 - mmengine - INFO - Epoch(train)   [1][10600/37454]  lr: 5.000000e-04  eta: 67 days, 14:15:31  time: 0.744499  data_time: 0.007086  memory: 4858  loss: 0.000874  loss_kpt: 0.000874  acc_pose: 0.500000
+09/13 01:48:54 - mmengine - INFO - Epoch(train)   [1][10650/37454]  lr: 5.000000e-04  eta: 67 days, 14:17:08  time: 0.747146  data_time: 0.012245  memory: 4858  loss: 0.000815  loss_kpt: 0.000815  acc_pose: 0.000000
+09/13 01:49:31 - mmengine - INFO - Epoch(train)   [1][10700/37454]  lr: 5.000000e-04  eta: 67 days, 14:18:06  time: 0.746124  data_time: 0.011891  memory: 4858  loss: 0.000827  loss_kpt: 0.000827  acc_pose: 0.375000
+09/13 01:50:08 - mmengine - INFO - Epoch(train)   [1][10750/37454]  lr: 5.000000e-04  eta: 67 days, 14:19:10  time: 0.746321  data_time: 0.008640  memory: 4858  loss: 0.000864  loss_kpt: 0.000864  acc_pose: 0.588235
+09/13 01:50:45 - mmengine - INFO - Epoch(train)   [1][10800/37454]  lr: 5.000000e-04  eta: 67 days, 14:20:07  time: 0.746162  data_time: 0.010844  memory: 4858  loss: 0.000775  loss_kpt: 0.000775  acc_pose: 0.531250
+09/13 01:51:23 - mmengine - INFO - Epoch(train)   [1][10850/37454]  lr: 5.000000e-04  eta: 67 days, 14:19:00  time: 0.742750  data_time: 0.008585  memory: 4858  loss: 0.000850  loss_kpt: 0.000850  acc_pose: 0.307692
+09/13 01:52:00 - mmengine - INFO - Epoch(train)   [1][10900/37454]  lr: 5.000000e-04  eta: 67 days, 14:20:17  time: 0.746738  data_time: 0.012098  memory: 4858  loss: 0.000839  loss_kpt: 0.000839  acc_pose: 0.333333
+09/13 01:52:37 - mmengine - INFO - Epoch(train)   [1][10950/37454]  lr: 5.000000e-04  eta: 67 days, 14:19:52  time: 0.743898  data_time: 0.008572  memory: 4858  loss: 0.000835  loss_kpt: 0.000835  acc_pose: 0.384615
+09/13 01:53:14 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 01:53:14 - mmengine - INFO - Epoch(train)   [1][11000/37454]  lr: 5.000000e-04  eta: 67 days, 14:18:30  time: 0.742333  data_time: 0.008070  memory: 4858  loss: 0.000859  loss_kpt: 0.000859  acc_pose: 0.366667
+09/13 01:53:52 - mmengine - INFO - Epoch(train)   [1][11050/37454]  lr: 5.000000e-04  eta: 67 days, 14:21:22  time: 0.749461  data_time: 0.010806  memory: 4858  loss: 0.000773  loss_kpt: 0.000773  acc_pose: 0.000000
+09/13 01:54:29 - mmengine - INFO - Epoch(train)   [1][11100/37454]  lr: 5.000000e-04  eta: 67 days, 14:21:46  time: 0.745342  data_time: 0.010206  memory: 4858  loss: 0.000776  loss_kpt: 0.000776  acc_pose: 0.428571
+09/13 01:55:07 - mmengine - INFO - Epoch(train)   [1][11150/37454]  lr: 5.000000e-04  eta: 67 days, 14:24:42  time: 0.749660  data_time: 0.015139  memory: 4858  loss: 0.000883  loss_kpt: 0.000883  acc_pose: 0.375000
+09/13 01:55:44 - mmengine - INFO - Epoch(train)   [1][11200/37454]  lr: 5.000000e-04  eta: 67 days, 14:24:32  time: 0.744418  data_time: 0.009207  memory: 4858  loss: 0.000886  loss_kpt: 0.000886  acc_pose: 0.307692
+09/13 01:56:21 - mmengine - INFO - Epoch(train)   [1][11250/37454]  lr: 5.000000e-04  eta: 67 days, 14:24:14  time: 0.744194  data_time: 0.009025  memory: 4858  loss: 0.000867  loss_kpt: 0.000867  acc_pose: 0.178571
+09/13 01:56:58 - mmengine - INFO - Epoch(train)   [1][11300/37454]  lr: 5.000000e-04  eta: 67 days, 14:24:33  time: 0.745272  data_time: 0.010975  memory: 4858  loss: 0.000850  loss_kpt: 0.000850  acc_pose: 0.318182
+09/13 01:57:35 - mmengine - INFO - Epoch(train)   [1][11350/37454]  lr: 5.000000e-04  eta: 67 days, 14:23:59  time: 0.743737  data_time: 0.009328  memory: 4858  loss: 0.000846  loss_kpt: 0.000846  acc_pose: 0.441176
+09/13 01:58:12 - mmengine - INFO - Epoch(train)   [1][11400/37454]  lr: 5.000000e-04  eta: 67 days, 14:22:02  time: 0.741332  data_time: 0.007419  memory: 4858  loss: 0.000847  loss_kpt: 0.000847  acc_pose: 0.593750
+09/13 01:58:50 - mmengine - INFO - Epoch(train)   [1][11450/37454]  lr: 5.000000e-04  eta: 67 days, 14:20:12  time: 0.741515  data_time: 0.008249  memory: 4858  loss: 0.000816  loss_kpt: 0.000816  acc_pose: 0.125000
+09/13 01:59:27 - mmengine - INFO - Epoch(train)   [1][11500/37454]  lr: 5.000000e-04  eta: 67 days, 14:21:12  time: 0.746473  data_time: 0.011265  memory: 4858  loss: 0.000843  loss_kpt: 0.000843  acc_pose: 0.411765
+09/13 02:00:04 - mmengine - INFO - Epoch(train)   [1][11550/37454]  lr: 5.000000e-04  eta: 67 days, 14:21:44  time: 0.745700  data_time: 0.010815  memory: 4858  loss: 0.000793  loss_kpt: 0.000793  acc_pose: 0.500000
+09/13 02:00:41 - mmengine - INFO - Epoch(train)   [1][11600/37454]  lr: 5.000000e-04  eta: 67 days, 14:20:36  time: 0.742728  data_time: 0.008685  memory: 4858  loss: 0.000792  loss_kpt: 0.000792  acc_pose: 0.233333
+09/13 02:01:18 - mmengine - INFO - Epoch(train)   [1][11650/37454]  lr: 5.000000e-04  eta: 67 days, 14:19:20  time: 0.742509  data_time: 0.009560  memory: 4858  loss: 0.000787  loss_kpt: 0.000787  acc_pose: 0.281250
+09/13 02:01:56 - mmengine - INFO - Epoch(train)   [1][11700/37454]  lr: 5.000000e-04  eta: 67 days, 14:18:51  time: 0.743874  data_time: 0.008735  memory: 4858  loss: 0.000824  loss_kpt: 0.000824  acc_pose: 0.593750
+09/13 02:02:33 - mmengine - INFO - Epoch(train)   [1][11750/37454]  lr: 5.000000e-04  eta: 67 days, 14:20:06  time: 0.747019  data_time: 0.011024  memory: 4858  loss: 0.000847  loss_kpt: 0.000847  acc_pose: 0.035714
+09/13 02:03:10 - mmengine - INFO - Epoch(train)   [1][11800/37454]  lr: 5.000000e-04  eta: 67 days, 14:21:57  time: 0.748101  data_time: 0.012850  memory: 4858  loss: 0.000847  loss_kpt: 0.000847  acc_pose: 0.300000
+09/13 02:03:48 - mmengine - INFO - Epoch(train)   [1][11850/37454]  lr: 5.000000e-04  eta: 67 days, 14:23:31  time: 0.747636  data_time: 0.010482  memory: 4858  loss: 0.000847  loss_kpt: 0.000847  acc_pose: 0.000000
+09/13 02:04:25 - mmengine - INFO - Epoch(train)   [1][11900/37454]  lr: 5.000000e-04  eta: 67 days, 14:26:32  time: 0.750307  data_time: 0.010988  memory: 4858  loss: 0.000815  loss_kpt: 0.000815  acc_pose: 0.461538
+09/13 02:05:02 - mmengine - INFO - Epoch(train)   [1][11950/37454]  lr: 5.000000e-04  eta: 67 days, 14:25:38  time: 0.743214  data_time: 0.010033  memory: 4858  loss: 0.000867  loss_kpt: 0.000867  acc_pose: 0.250000
+09/13 02:05:40 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 02:05:40 - mmengine - INFO - Epoch(train)   [1][12000/37454]  lr: 5.000000e-04  eta: 67 days, 14:26:36  time: 0.746637  data_time: 0.009392  memory: 4858  loss: 0.000872  loss_kpt: 0.000872  acc_pose: 0.000000
+09/13 02:06:17 - mmengine - INFO - Epoch(train)   [1][12050/37454]  lr: 5.000000e-04  eta: 67 days, 14:27:03  time: 0.745702  data_time: 0.011213  memory: 4858  loss: 0.000804  loss_kpt: 0.000804  acc_pose: 0.285714
+09/13 02:06:54 - mmengine - INFO - Epoch(train)   [1][12100/37454]  lr: 5.000000e-04  eta: 67 days, 14:27:13  time: 0.745187  data_time: 0.009323  memory: 4858  loss: 0.000795  loss_kpt: 0.000795  acc_pose: 0.615385
+09/13 02:07:32 - mmengine - INFO - Epoch(train)   [1][12150/37454]  lr: 5.000000e-04  eta: 67 days, 14:28:32  time: 0.747373  data_time: 0.011986  memory: 4858  loss: 0.000787  loss_kpt: 0.000787  acc_pose: 0.366667
+09/13 02:08:09 - mmengine - INFO - Epoch(train)   [1][12200/37454]  lr: 5.000000e-04  eta: 67 days, 14:28:46  time: 0.745329  data_time: 0.008456  memory: 4858  loss: 0.000836  loss_kpt: 0.000836  acc_pose: 0.312500
+09/13 02:08:46 - mmengine - INFO - Epoch(train)   [1][12250/37454]  lr: 5.000000e-04  eta: 67 days, 14:28:30  time: 0.744451  data_time: 0.008915  memory: 4858  loss: 0.000742  loss_kpt: 0.000742  acc_pose: 0.285714
+09/13 02:09:23 - mmengine - INFO - Epoch(train)   [1][12300/37454]  lr: 5.000000e-04  eta: 67 days, 14:28:23  time: 0.744716  data_time: 0.009208  memory: 4858  loss: 0.000734  loss_kpt: 0.000734  acc_pose: 0.466667
+09/13 02:10:01 - mmengine - INFO - Epoch(train)   [1][12350/37454]  lr: 5.000000e-04  eta: 67 days, 14:28:56  time: 0.745977  data_time: 0.011507  memory: 4858  loss: 0.000789  loss_kpt: 0.000789  acc_pose: 0.115385
+09/13 02:10:38 - mmengine - INFO - Epoch(train)   [1][12400/37454]  lr: 5.000000e-04  eta: 67 days, 14:31:14  time: 0.749320  data_time: 0.010355  memory: 4858  loss: 0.000841  loss_kpt: 0.000841  acc_pose: 0.312500
+09/13 02:11:15 - mmengine - INFO - Epoch(train)   [1][12450/37454]  lr: 5.000000e-04  eta: 67 days, 14:30:48  time: 0.744145  data_time: 0.009388  memory: 4858  loss: 0.000897  loss_kpt: 0.000897  acc_pose: 0.384615
+09/13 02:11:53 - mmengine - INFO - Epoch(train)   [1][12500/37454]  lr: 5.000000e-04  eta: 67 days, 14:30:05  time: 0.743632  data_time: 0.010920  memory: 4858  loss: 0.000828  loss_kpt: 0.000828  acc_pose: 0.400000
+09/13 02:12:30 - mmengine - INFO - Epoch(train)   [1][12550/37454]  lr: 5.000000e-04  eta: 67 days, 14:30:43  time: 0.746200  data_time: 0.010884  memory: 4858  loss: 0.000768  loss_kpt: 0.000768  acc_pose: 0.222222
+09/13 02:13:07 - mmengine - INFO - Epoch(train)   [1][12600/37454]  lr: 5.000000e-04  eta: 67 days, 14:29:43  time: 0.743116  data_time: 0.009023  memory: 4858  loss: 0.000839  loss_kpt: 0.000839  acc_pose: 0.250000
+09/13 02:13:44 - mmengine - INFO - Epoch(train)   [1][12650/37454]  lr: 5.000000e-04  eta: 67 days, 14:31:22  time: 0.748172  data_time: 0.012826  memory: 4858  loss: 0.000924  loss_kpt: 0.000924  acc_pose: 0.071429
+09/13 02:14:22 - mmengine - INFO - Epoch(train)   [1][12700/37454]  lr: 5.000000e-04  eta: 67 days, 14:31:45  time: 0.745787  data_time: 0.008395  memory: 4858  loss: 0.000796  loss_kpt: 0.000796  acc_pose: 0.764706
+09/13 02:14:59 - mmengine - INFO - Epoch(train)   [1][12750/37454]  lr: 5.000000e-04  eta: 67 days, 14:33:27  time: 0.748364  data_time: 0.013730  memory: 4858  loss: 0.000856  loss_kpt: 0.000856  acc_pose: 0.500000
+09/13 02:15:36 - mmengine - INFO - Epoch(train)   [1][12800/37454]  lr: 5.000000e-04  eta: 67 days, 14:32:57  time: 0.744088  data_time: 0.007440  memory: 4858  loss: 0.000812  loss_kpt: 0.000812  acc_pose: 0.375000
+09/13 02:16:14 - mmengine - INFO - Epoch(train)   [1][12850/37454]  lr: 5.000000e-04  eta: 67 days, 14:31:55  time: 0.743050  data_time: 0.009223  memory: 4858  loss: 0.000812  loss_kpt: 0.000812  acc_pose: 0.617647
+09/13 02:16:51 - mmengine - INFO - Epoch(train)   [1][12900/37454]  lr: 5.000000e-04  eta: 67 days, 14:33:20  time: 0.747861  data_time: 0.010264  memory: 4858  loss: 0.000878  loss_kpt: 0.000878  acc_pose: 0.533333
+09/13 02:17:28 - mmengine - INFO - Epoch(train)   [1][12950/37454]  lr: 5.000000e-04  eta: 67 days, 14:33:58  time: 0.746360  data_time: 0.009902  memory: 4858  loss: 0.000769  loss_kpt: 0.000769  acc_pose: 0.500000
+09/13 02:18:06 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 02:18:06 - mmengine - INFO - Epoch(train)   [1][13000/37454]  lr: 5.000000e-04  eta: 67 days, 14:34:12  time: 0.745591  data_time: 0.007764  memory: 4858  loss: 0.000847  loss_kpt: 0.000847  acc_pose: 0.428571
+09/13 02:18:43 - mmengine - INFO - Epoch(train)   [1][13050/37454]  lr: 5.000000e-04  eta: 67 days, 14:34:43  time: 0.746144  data_time: 0.011516  memory: 4858  loss: 0.000749  loss_kpt: 0.000749  acc_pose: 0.181818
+09/13 02:19:20 - mmengine - INFO - Epoch(train)   [1][13100/37454]  lr: 5.000000e-04  eta: 67 days, 14:34:11  time: 0.744052  data_time: 0.010430  memory: 4858  loss: 0.000861  loss_kpt: 0.000861  acc_pose: 0.214286
+09/13 02:19:57 - mmengine - INFO - Epoch(train)   [1][13150/37454]  lr: 5.000000e-04  eta: 67 days, 14:34:59  time: 0.746771  data_time: 0.012259  memory: 4858  loss: 0.000807  loss_kpt: 0.000807  acc_pose: 0.375000
+09/13 02:20:35 - mmengine - INFO - Epoch(train)   [1][13200/37454]  lr: 5.000000e-04  eta: 67 days, 14:36:45  time: 0.748728  data_time: 0.012319  memory: 4858  loss: 0.000819  loss_kpt: 0.000819  acc_pose: 0.529412
+09/13 02:21:12 - mmengine - INFO - Epoch(train)   [1][13250/37454]  lr: 5.000000e-04  eta: 67 days, 14:37:59  time: 0.747647  data_time: 0.013258  memory: 4858  loss: 0.000832  loss_kpt: 0.000832  acc_pose: 0.357143
+09/13 02:21:50 - mmengine - INFO - Epoch(train)   [1][13300/37454]  lr: 5.000000e-04  eta: 67 days, 14:38:02  time: 0.745327  data_time: 0.010058  memory: 4858  loss: 0.000833  loss_kpt: 0.000833  acc_pose: 0.233333
+09/13 02:22:27 - mmengine - INFO - Epoch(train)   [1][13350/37454]  lr: 5.000000e-04  eta: 67 days, 14:38:00  time: 0.745118  data_time: 0.008862  memory: 4858  loss: 0.000824  loss_kpt: 0.000824  acc_pose: 0.428571
+09/13 02:23:04 - mmengine - INFO - Epoch(train)   [1][13400/37454]  lr: 5.000000e-04  eta: 67 days, 14:38:45  time: 0.746756  data_time: 0.007797  memory: 4858  loss: 0.000822  loss_kpt: 0.000822  acc_pose: 0.384615
+09/13 02:23:41 - mmengine - INFO - Epoch(train)   [1][13450/37454]  lr: 5.000000e-04  eta: 67 days, 14:39:01  time: 0.745782  data_time: 0.007891  memory: 4858  loss: 0.000873  loss_kpt: 0.000873  acc_pose: 0.000000
+09/13 02:24:19 - mmengine - INFO - Epoch(train)   [1][13500/37454]  lr: 5.000000e-04  eta: 67 days, 14:39:27  time: 0.746160  data_time: 0.009998  memory: 4858  loss: 0.000802  loss_kpt: 0.000802  acc_pose: 0.093750
+09/13 02:24:56 - mmengine - INFO - Epoch(train)   [1][13550/37454]  lr: 5.000000e-04  eta: 67 days, 14:38:52  time: 0.744055  data_time: 0.008835  memory: 4858  loss: 0.000872  loss_kpt: 0.000872  acc_pose: 0.375000
+09/13 02:25:33 - mmengine - INFO - Epoch(train)   [1][13600/37454]  lr: 5.000000e-04  eta: 67 days, 14:37:22  time: 0.742117  data_time: 0.009311  memory: 4858  loss: 0.000783  loss_kpt: 0.000783  acc_pose: 0.321429
+09/13 02:26:10 - mmengine - INFO - Epoch(train)   [1][13650/37454]  lr: 5.000000e-04  eta: 67 days, 14:37:44  time: 0.746054  data_time: 0.007939  memory: 4858  loss: 0.000847  loss_kpt: 0.000847  acc_pose: 0.156250
+09/13 02:26:48 - mmengine - INFO - Epoch(train)   [1][13700/37454]  lr: 5.000000e-04  eta: 67 days, 14:37:40  time: 0.745116  data_time: 0.008355  memory: 4858  loss: 0.000810  loss_kpt: 0.000810  acc_pose: 0.178571
+09/13 02:27:25 - mmengine - INFO - Epoch(train)   [1][13750/37454]  lr: 5.000000e-04  eta: 67 days, 14:37:27  time: 0.744848  data_time: 0.009782  memory: 4858  loss: 0.000774  loss_kpt: 0.000774  acc_pose: 0.352941
+09/13 02:28:02 - mmengine - INFO - Epoch(train)   [1][13800/37454]  lr: 5.000000e-04  eta: 67 days, 14:37:03  time: 0.744432  data_time: 0.010297  memory: 4858  loss: 0.000794  loss_kpt: 0.000794  acc_pose: 0.181818
+09/13 02:28:39 - mmengine - INFO - Epoch(train)   [1][13850/37454]  lr: 5.000000e-04  eta: 67 days, 14:37:35  time: 0.746433  data_time: 0.009520  memory: 4858  loss: 0.000839  loss_kpt: 0.000839  acc_pose: 0.375000
+09/13 02:29:17 - mmengine - INFO - Epoch(train)   [1][13900/37454]  lr: 5.000000e-04  eta: 67 days, 14:36:53  time: 0.743803  data_time: 0.008690  memory: 4858  loss: 0.000799  loss_kpt: 0.000799  acc_pose: 0.133333
+09/13 02:29:54 - mmengine - INFO - Epoch(train)   [1][13950/37454]  lr: 5.000000e-04  eta: 67 days, 14:38:15  time: 0.748239  data_time: 0.012970  memory: 4858  loss: 0.000767  loss_kpt: 0.000767  acc_pose: 0.107143
+09/13 02:30:31 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 02:30:31 - mmengine - INFO - Epoch(train)   [1][14000/37454]  lr: 5.000000e-04  eta: 67 days, 14:39:22  time: 0.747712  data_time: 0.007586  memory: 4858  loss: 0.000841  loss_kpt: 0.000841  acc_pose: 0.294118
+09/13 02:31:09 - mmengine - INFO - Epoch(train)   [1][14050/37454]  lr: 5.000000e-04  eta: 67 days, 14:38:47  time: 0.744099  data_time: 0.010402  memory: 4858  loss: 0.000840  loss_kpt: 0.000840  acc_pose: 0.352941
+09/13 02:31:46 - mmengine - INFO - Epoch(train)   [1][14100/37454]  lr: 5.000000e-04  eta: 67 days, 14:39:24  time: 0.746716  data_time: 0.013271  memory: 4858  loss: 0.000838  loss_kpt: 0.000838  acc_pose: 0.400000
+09/13 02:32:23 - mmengine - INFO - Epoch(train)   [1][14150/37454]  lr: 5.000000e-04  eta: 67 days, 14:39:23  time: 0.745338  data_time: 0.008515  memory: 4858  loss: 0.000748  loss_kpt: 0.000748  acc_pose: 0.700000
+09/13 02:33:00 - mmengine - INFO - Epoch(train)   [1][14200/37454]  lr: 5.000000e-04  eta: 67 days, 14:38:44  time: 0.743942  data_time: 0.008627  memory: 4858  loss: 0.000805  loss_kpt: 0.000805  acc_pose: 0.333333
+09/13 02:33:38 - mmengine - INFO - Epoch(train)   [1][14250/37454]  lr: 5.000000e-04  eta: 67 days, 14:39:38  time: 0.747361  data_time: 0.010581  memory: 4858  loss: 0.000869  loss_kpt: 0.000869  acc_pose: 0.312500
+09/13 02:34:15 - mmengine - INFO - Epoch(train)   [1][14300/37454]  lr: 5.000000e-04  eta: 67 days, 14:38:53  time: 0.743752  data_time: 0.008744  memory: 4858  loss: 0.000841  loss_kpt: 0.000841  acc_pose: 0.764706
+09/13 02:34:52 - mmengine - INFO - Epoch(train)   [1][14350/37454]  lr: 5.000000e-04  eta: 67 days, 14:40:38  time: 0.749256  data_time: 0.014000  memory: 4858  loss: 0.000821  loss_kpt: 0.000821  acc_pose: 0.535714
+09/13 02:35:30 - mmengine - INFO - Epoch(train)   [1][14400/37454]  lr: 5.000000e-04  eta: 67 days, 14:41:08  time: 0.746538  data_time: 0.011745  memory: 4858  loss: 0.000845  loss_kpt: 0.000845  acc_pose: 0.153846
+09/13 02:36:07 - mmengine - INFO - Epoch(train)   [1][14450/37454]  lr: 5.000000e-04  eta: 67 days, 14:40:02  time: 0.742990  data_time: 0.008791  memory: 4858  loss: 0.000817  loss_kpt: 0.000817  acc_pose: 0.558824
+09/13 02:36:45 - mmengine - INFO - Epoch(train)   [1][14500/37454]  lr: 5.000000e-04  eta: 67 days, 14:46:14  time: 0.759189  data_time: 0.011618  memory: 4858  loss: 0.000859  loss_kpt: 0.000859  acc_pose: 0.150000
+09/13 02:37:22 - mmengine - INFO - Epoch(train)   [1][14550/37454]  lr: 5.000000e-04  eta: 67 days, 14:47:31  time: 0.748359  data_time: 0.009031  memory: 4858  loss: 0.000810  loss_kpt: 0.000810  acc_pose: 0.300000
+09/13 02:38:00 - mmengine - INFO - Epoch(train)   [1][14600/37454]  lr: 5.000000e-04  eta: 67 days, 14:48:41  time: 0.748116  data_time: 0.014809  memory: 4858  loss: 0.000794  loss_kpt: 0.000794  acc_pose: 0.500000
+09/13 02:38:37 - mmengine - INFO - Epoch(train)   [1][14650/37454]  lr: 5.000000e-04  eta: 67 days, 14:47:54  time: 0.743805  data_time: 0.009401  memory: 4858  loss: 0.000835  loss_kpt: 0.000835  acc_pose: 0.233333
+09/13 02:39:14 - mmengine - INFO - Epoch(train)   [1][14700/37454]  lr: 5.000000e-04  eta: 67 days, 14:49:05  time: 0.748188  data_time: 0.011352  memory: 4858  loss: 0.000800  loss_kpt: 0.000800  acc_pose: 0.178571
+09/13 02:39:53 - mmengine - INFO - Epoch(train)   [1][14750/37454]  lr: 5.000000e-04  eta: 67 days, 14:59:50  time: 0.769805  data_time: 0.008692  memory: 4858  loss: 0.000863  loss_kpt: 0.000863  acc_pose: 0.562500
+09/13 02:40:30 - mmengine - INFO - Epoch(train)   [1][14800/37454]  lr: 5.000000e-04  eta: 67 days, 15:02:28  time: 0.751601  data_time: 0.010233  memory: 4858  loss: 0.000858  loss_kpt: 0.000858  acc_pose: 0.205882
+09/13 02:41:08 - mmengine - INFO - Epoch(train)   [1][14850/37454]  lr: 5.000000e-04  eta: 67 days, 15:02:07  time: 0.744896  data_time: 0.009160  memory: 4858  loss: 0.000829  loss_kpt: 0.000829  acc_pose: 0.464286
+09/13 02:41:45 - mmengine - INFO - Epoch(train)   [1][14900/37454]  lr: 5.000000e-04  eta: 67 days, 15:01:51  time: 0.745052  data_time: 0.009837  memory: 4858  loss: 0.000826  loss_kpt: 0.000826  acc_pose: 0.357143
+09/13 02:42:22 - mmengine - INFO - Epoch(train)   [1][14950/37454]  lr: 5.000000e-04  eta: 67 days, 15:02:15  time: 0.746626  data_time: 0.010648  memory: 4858  loss: 0.000833  loss_kpt: 0.000833  acc_pose: 0.291667
+09/13 02:43:00 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 02:43:00 - mmengine - INFO - Epoch(train)   [1][15000/37454]  lr: 5.000000e-04  eta: 67 days, 15:02:09  time: 0.745462  data_time: 0.011674  memory: 4858  loss: 0.000759  loss_kpt: 0.000759  acc_pose: 0.533333
+09/13 02:43:37 - mmengine - INFO - Epoch(train)   [1][15050/37454]  lr: 5.000000e-04  eta: 67 days, 15:01:47  time: 0.744886  data_time: 0.008923  memory: 4858  loss: 0.000812  loss_kpt: 0.000812  acc_pose: 0.437500
+09/13 02:44:14 - mmengine - INFO - Epoch(train)   [1][15100/37454]  lr: 5.000000e-04  eta: 67 days, 15:03:16  time: 0.749163  data_time: 0.009970  memory: 4858  loss: 0.000784  loss_kpt: 0.000784  acc_pose: 0.100000
+09/13 02:44:52 - mmengine - INFO - Epoch(train)   [1][15150/37454]  lr: 5.000000e-04  eta: 67 days, 15:03:24  time: 0.746058  data_time: 0.009834  memory: 4858  loss: 0.000808  loss_kpt: 0.000808  acc_pose: 0.529412
+09/13 02:45:29 - mmengine - INFO - Epoch(train)   [1][15200/37454]  lr: 5.000000e-04  eta: 67 days, 15:04:05  time: 0.747336  data_time: 0.009646  memory: 4858  loss: 0.000831  loss_kpt: 0.000831  acc_pose: 0.676471
+09/13 02:46:06 - mmengine - INFO - Epoch(train)   [1][15250/37454]  lr: 5.000000e-04  eta: 67 days, 15:03:34  time: 0.744565  data_time: 0.008575  memory: 4858  loss: 0.000772  loss_kpt: 0.000772  acc_pose: 0.531250
+09/13 02:46:44 - mmengine - INFO - Epoch(train)   [1][15300/37454]  lr: 5.000000e-04  eta: 67 days, 15:05:22  time: 0.749963  data_time: 0.015938  memory: 4858  loss: 0.000823  loss_kpt: 0.000823  acc_pose: 0.687500
+09/13 02:47:21 - mmengine - INFO - Epoch(train)   [1][15350/37454]  lr: 5.000000e-04  eta: 67 days, 15:05:12  time: 0.745433  data_time: 0.010426  memory: 4858  loss: 0.000821  loss_kpt: 0.000821  acc_pose: 0.461538
+09/13 02:47:58 - mmengine - INFO - Epoch(train)   [1][15400/37454]  lr: 5.000000e-04  eta: 67 days, 15:03:43  time: 0.742319  data_time: 0.008547  memory: 4858  loss: 0.000786  loss_kpt: 0.000786  acc_pose: 0.617647
+09/13 02:48:35 - mmengine - INFO - Epoch(train)   [1][15450/37454]  lr: 5.000000e-04  eta: 67 days, 15:04:07  time: 0.746712  data_time: 0.008581  memory: 4858  loss: 0.000787  loss_kpt: 0.000787  acc_pose: 0.500000
+09/13 02:49:13 - mmengine - INFO - Epoch(train)   [1][15500/37454]  lr: 5.000000e-04  eta: 67 days, 15:04:45  time: 0.747318  data_time: 0.010418  memory: 4858  loss: 0.000786  loss_kpt: 0.000786  acc_pose: 0.375000
+09/13 02:49:50 - mmengine - INFO - Epoch(train)   [1][15550/37454]  lr: 5.000000e-04  eta: 67 days, 15:05:32  time: 0.747715  data_time: 0.010111  memory: 4858  loss: 0.000863  loss_kpt: 0.000863  acc_pose: 0.250000
+09/13 02:50:28 - mmengine - INFO - Epoch(train)   [1][15600/37454]  lr: 5.000000e-04  eta: 67 days, 15:08:05  time: 0.751912  data_time: 0.008728  memory: 4858  loss: 0.000806  loss_kpt: 0.000806  acc_pose: 0.272727
+09/13 02:51:05 - mmengine - INFO - Epoch(train)   [1][15650/37454]  lr: 5.000000e-04  eta: 67 days, 15:08:21  time: 0.746513  data_time: 0.010600  memory: 4858  loss: 0.000826  loss_kpt: 0.000826  acc_pose: 0.366667
+09/13 02:51:42 - mmengine - INFO - Epoch(train)   [1][15700/37454]  lr: 5.000000e-04  eta: 67 days, 15:08:43  time: 0.746765  data_time: 0.009259  memory: 4858  loss: 0.000857  loss_kpt: 0.000857  acc_pose: 0.470588
+09/13 02:52:20 - mmengine - INFO - Epoch(train)   [1][15750/37454]  lr: 5.000000e-04  eta: 67 days, 15:10:46  time: 0.750857  data_time: 0.010110  memory: 4858  loss: 0.000779  loss_kpt: 0.000779  acc_pose: 0.500000
+09/13 02:52:57 - mmengine - INFO - Epoch(train)   [1][15800/37454]  lr: 5.000000e-04  eta: 67 days, 15:10:50  time: 0.746088  data_time: 0.008826  memory: 4858  loss: 0.000765  loss_kpt: 0.000765  acc_pose: 0.187500
+09/13 02:53:35 - mmengine - INFO - Epoch(train)   [1][15850/37454]  lr: 5.000000e-04  eta: 67 days, 15:10:32  time: 0.745222  data_time: 0.010272  memory: 4858  loss: 0.000756  loss_kpt: 0.000756  acc_pose: 0.500000
+09/13 02:54:12 - mmengine - INFO - Epoch(train)   [1][15900/37454]  lr: 5.000000e-04  eta: 67 days, 15:10:03  time: 0.744762  data_time: 0.008241  memory: 4858  loss: 0.000781  loss_kpt: 0.000781  acc_pose: 0.352941
+09/13 02:54:49 - mmengine - INFO - Epoch(train)   [1][15950/37454]  lr: 5.000000e-04  eta: 67 days, 15:10:19  time: 0.746578  data_time: 0.011106  memory: 4858  loss: 0.000848  loss_kpt: 0.000848  acc_pose: 0.423077
+09/13 02:55:33 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 02:55:33 - mmengine - INFO - Epoch(train)   [1][16000/37454]  lr: 5.000000e-04  eta: 67 days, 16:06:32  time: 0.883492  data_time: 0.010097  memory: 4858  loss: 0.000762  loss_kpt: 0.000762  acc_pose: 0.125000
+09/13 02:56:11 - mmengine - INFO - Epoch(train)   [1][16050/37454]  lr: 5.000000e-04  eta: 67 days, 16:06:56  time: 0.747379  data_time: 0.009998  memory: 4858  loss: 0.000771  loss_kpt: 0.000771  acc_pose: 0.411765
+09/13 02:56:48 - mmengine - INFO - Epoch(train)   [1][16100/37454]  lr: 5.000000e-04  eta: 67 days, 16:07:33  time: 0.747928  data_time: 0.007640  memory: 4858  loss: 0.000849  loss_kpt: 0.000849  acc_pose: 0.375000
+09/13 02:57:25 - mmengine - INFO - Epoch(train)   [1][16150/37454]  lr: 5.000000e-04  eta: 67 days, 16:08:04  time: 0.747675  data_time: 0.008103  memory: 4858  loss: 0.000808  loss_kpt: 0.000808  acc_pose: 0.000000
+09/13 02:58:03 - mmengine - INFO - Epoch(train)   [1][16200/37454]  lr: 5.000000e-04  eta: 67 days, 16:09:13  time: 0.749298  data_time: 0.010772  memory: 4858  loss: 0.000867  loss_kpt: 0.000867  acc_pose: 0.375000
+09/13 02:58:40 - mmengine - INFO - Epoch(train)   [1][16250/37454]  lr: 5.000000e-04  eta: 67 days, 16:09:09  time: 0.746313  data_time: 0.009020  memory: 4858  loss: 0.000791  loss_kpt: 0.000791  acc_pose: 0.366667
+09/13 02:59:18 - mmengine - INFO - Epoch(train)   [1][16300/37454]  lr: 5.000000e-04  eta: 67 days, 16:09:53  time: 0.748271  data_time: 0.008968  memory: 4858  loss: 0.000825  loss_kpt: 0.000825  acc_pose: 0.000000
+09/13 02:59:55 - mmengine - INFO - Epoch(train)   [1][16350/37454]  lr: 5.000000e-04  eta: 67 days, 16:10:11  time: 0.747235  data_time: 0.011641  memory: 4858  loss: 0.000889  loss_kpt: 0.000889  acc_pose: 0.266667
+09/13 03:00:32 - mmengine - INFO - Epoch(train)   [1][16400/37454]  lr: 5.000000e-04  eta: 67 days, 16:10:42  time: 0.747798  data_time: 0.010216  memory: 4858  loss: 0.000829  loss_kpt: 0.000829  acc_pose: 0.821429
+09/13 03:01:10 - mmengine - INFO - Epoch(train)   [1][16450/37454]  lr: 5.000000e-04  eta: 67 days, 16:11:31  time: 0.748577  data_time: 0.009425  memory: 4858  loss: 0.000748  loss_kpt: 0.000748  acc_pose: 0.617647
+09/13 03:01:47 - mmengine - INFO - Epoch(train)   [1][16500/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:14  time: 0.748315  data_time: 0.009085  memory: 4858  loss: 0.000810  loss_kpt: 0.000810  acc_pose: 0.433333
+09/13 03:02:25 - mmengine - INFO - Epoch(train)   [1][16550/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:04  time: 0.748641  data_time: 0.008923  memory: 4858  loss: 0.000753  loss_kpt: 0.000753  acc_pose: 0.470588
+09/13 03:03:02 - mmengine - INFO - Epoch(train)   [1][16600/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:49  time: 0.745919  data_time: 0.009596  memory: 4858  loss: 0.000787  loss_kpt: 0.000787  acc_pose: 0.071429
+09/13 03:03:39 - mmengine - INFO - Epoch(train)   [1][16650/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:16  time: 0.745162  data_time: 0.010650  memory: 4858  loss: 0.000781  loss_kpt: 0.000781  acc_pose: 0.500000
+09/13 03:04:17 - mmengine - INFO - Epoch(train)   [1][16700/37454]  lr: 5.000000e-04  eta: 67 days, 16:11:38  time: 0.744952  data_time: 0.008106  memory: 4858  loss: 0.000794  loss_kpt: 0.000794  acc_pose: 0.558824
+09/13 03:04:54 - mmengine - INFO - Epoch(train)   [1][16750/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:38  time: 0.749148  data_time: 0.007755  memory: 4858  loss: 0.000773  loss_kpt: 0.000773  acc_pose: 0.133333
+09/13 03:05:31 - mmengine - INFO - Epoch(train)   [1][16800/37454]  lr: 5.000000e-04  eta: 67 days, 16:11:34  time: 0.743840  data_time: 0.008995  memory: 4858  loss: 0.000798  loss_kpt: 0.000798  acc_pose: 0.150000
+09/13 03:06:08 - mmengine - INFO - Epoch(train)   [1][16850/37454]  lr: 5.000000e-04  eta: 67 days, 16:11:23  time: 0.746135  data_time: 0.008117  memory: 4858  loss: 0.000805  loss_kpt: 0.000805  acc_pose: 0.428571
+09/13 03:06:46 - mmengine - INFO - Epoch(train)   [1][16900/37454]  lr: 5.000000e-04  eta: 67 days, 16:10:50  time: 0.745149  data_time: 0.008330  memory: 4858  loss: 0.000810  loss_kpt: 0.000810  acc_pose: 0.676471
+09/13 03:07:23 - mmengine - INFO - Epoch(train)   [1][16950/37454]  lr: 5.000000e-04  eta: 67 days, 16:10:39  time: 0.746161  data_time: 0.010020  memory: 4858  loss: 0.000776  loss_kpt: 0.000776  acc_pose: 0.718750
+09/13 03:08:00 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 03:08:00 - mmengine - INFO - Epoch(train)   [1][17000/37454]  lr: 5.000000e-04  eta: 67 days, 16:11:03  time: 0.747643  data_time: 0.008699  memory: 4858  loss: 0.000795  loss_kpt: 0.000795  acc_pose: 0.433333
+09/13 03:08:38 - mmengine - INFO - Epoch(train)   [1][17050/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:51  time: 0.751300  data_time: 0.013312  memory: 4858  loss: 0.000810  loss_kpt: 0.000810  acc_pose: 0.411765
+09/13 03:09:15 - mmengine - INFO - Epoch(train)   [1][17100/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:14  time: 0.745062  data_time: 0.010876  memory: 4858  loss: 0.000820  loss_kpt: 0.000820  acc_pose: 0.411765
+09/13 03:09:53 - mmengine - INFO - Epoch(train)   [1][17150/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:08  time: 0.746388  data_time: 0.008706  memory: 4858  loss: 0.000791  loss_kpt: 0.000791  acc_pose: 0.625000
+09/13 03:10:30 - mmengine - INFO - Epoch(train)   [1][17200/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:34  time: 0.747785  data_time: 0.012400  memory: 4858  loss: 0.000762  loss_kpt: 0.000762  acc_pose: 0.250000
+09/13 03:11:07 - mmengine - INFO - Epoch(train)   [1][17250/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:02  time: 0.747913  data_time: 0.010032  memory: 4858  loss: 0.000784  loss_kpt: 0.000784  acc_pose: 0.388889
+09/13 03:11:45 - mmengine - INFO - Epoch(train)   [1][17300/37454]  lr: 5.000000e-04  eta: 67 days, 16:14:22  time: 0.750216  data_time: 0.009054  memory: 4858  loss: 0.000852  loss_kpt: 0.000852  acc_pose: 0.214286
+09/13 03:12:22 - mmengine - INFO - Epoch(train)   [1][17350/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:20  time: 0.751917  data_time: 0.009349  memory: 4858  loss: 0.000825  loss_kpt: 0.000825  acc_pose: 0.647059
+09/13 03:13:00 - mmengine - INFO - Epoch(train)   [1][17400/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:58  time: 0.748424  data_time: 0.010790  memory: 4858  loss: 0.000742  loss_kpt: 0.000742  acc_pose: 0.366667
+09/13 03:13:37 - mmengine - INFO - Epoch(train)   [1][17450/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:55  time: 0.743942  data_time: 0.008943  memory: 4858  loss: 0.000835  loss_kpt: 0.000835  acc_pose: 0.718750
+09/13 03:14:14 - mmengine - INFO - Epoch(train)   [1][17500/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:29  time: 0.745609  data_time: 0.008127  memory: 4858  loss: 0.000803  loss_kpt: 0.000803  acc_pose: 0.281250
+09/13 03:14:52 - mmengine - INFO - Epoch(train)   [1][17550/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:34  time: 0.749626  data_time: 0.009151  memory: 4858  loss: 0.000802  loss_kpt: 0.000802  acc_pose: 0.571429
+09/13 03:15:29 - mmengine - INFO - Epoch(train)   [1][17600/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:00  time: 0.745285  data_time: 0.007631  memory: 4858  loss: 0.000752  loss_kpt: 0.000752  acc_pose: 0.600000
+09/13 03:16:07 - mmengine - INFO - Epoch(train)   [1][17650/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:28  time: 0.747992  data_time: 0.011236  memory: 4858  loss: 0.000791  loss_kpt: 0.000791  acc_pose: 0.533333
+09/13 03:16:44 - mmengine - INFO - Epoch(train)   [1][17700/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:30  time: 0.746925  data_time: 0.010624  memory: 4858  loss: 0.000796  loss_kpt: 0.000796  acc_pose: 0.558824
+09/13 03:17:21 - mmengine - INFO - Epoch(train)   [1][17750/37454]  lr: 5.000000e-04  eta: 67 days, 16:17:10  time: 0.748582  data_time: 0.011208  memory: 4858  loss: 0.000823  loss_kpt: 0.000823  acc_pose: 0.500000
+09/13 03:17:59 - mmengine - INFO - Epoch(train)   [1][17800/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:41  time: 0.745487  data_time: 0.008904  memory: 4858  loss: 0.000744  loss_kpt: 0.000744  acc_pose: 0.147059
+09/13 03:18:36 - mmengine - INFO - Epoch(train)   [1][17850/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:04  time: 0.745150  data_time: 0.009111  memory: 4858  loss: 0.000811  loss_kpt: 0.000811  acc_pose: 0.500000
+09/13 03:19:13 - mmengine - INFO - Epoch(train)   [1][17900/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:58  time: 0.746566  data_time: 0.010907  memory: 4858  loss: 0.000786  loss_kpt: 0.000786  acc_pose: 0.366667
+09/13 03:19:50 - mmengine - INFO - Epoch(train)   [1][17950/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:24  time: 0.745282  data_time: 0.008603  memory: 4858  loss: 0.000807  loss_kpt: 0.000807  acc_pose: 0.500000
+09/13 03:20:28 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 03:20:28 - mmengine - INFO - Epoch(train)   [1][18000/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:13  time: 0.749061  data_time: 0.012070  memory: 4858  loss: 0.000848  loss_kpt: 0.000848  acc_pose: 0.466667
+09/13 03:21:05 - mmengine - INFO - Epoch(train)   [1][18050/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:40  time: 0.745343  data_time: 0.009062  memory: 4858  loss: 0.000788  loss_kpt: 0.000788  acc_pose: 0.000000
+09/13 03:21:43 - mmengine - INFO - Epoch(train)   [1][18100/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:40  time: 0.746869  data_time: 0.010231  memory: 4858  loss: 0.000802  loss_kpt: 0.000802  acc_pose: 0.468750
+09/13 03:22:20 - mmengine - INFO - Epoch(train)   [1][18150/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:56  time: 0.750375  data_time: 0.010863  memory: 4858  loss: 0.000754  loss_kpt: 0.000754  acc_pose: 0.593750
+09/13 03:22:57 - mmengine - INFO - Epoch(train)   [1][18200/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:37  time: 0.746006  data_time: 0.009874  memory: 4858  loss: 0.000774  loss_kpt: 0.000774  acc_pose: 0.357143
+09/13 03:23:35 - mmengine - INFO - Epoch(train)   [1][18250/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:11  time: 0.745704  data_time: 0.010617  memory: 4858  loss: 0.000823  loss_kpt: 0.000823  acc_pose: 0.312500
+09/13 03:24:12 - mmengine - INFO - Epoch(train)   [1][18300/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:18  time: 0.744420  data_time: 0.010268  memory: 4858  loss: 0.000762  loss_kpt: 0.000762  acc_pose: 0.153846
+09/13 03:24:49 - mmengine - INFO - Epoch(train)   [1][18350/37454]  lr: 5.000000e-04  eta: 67 days, 16:14:49  time: 0.745529  data_time: 0.009243  memory: 4858  loss: 0.000755  loss_kpt: 0.000755  acc_pose: 0.090909
+09/13 03:25:26 - mmengine - INFO - Epoch(train)   [1][18400/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:57  time: 0.744475  data_time: 0.007981  memory: 4858  loss: 0.000801  loss_kpt: 0.000801  acc_pose: 0.000000
+09/13 03:26:04 - mmengine - INFO - Epoch(train)   [1][18450/37454]  lr: 5.000000e-04  eta: 67 days, 16:14:06  time: 0.747339  data_time: 0.009471  memory: 4858  loss: 0.000761  loss_kpt: 0.000761  acc_pose: 0.230769
+09/13 03:26:42 - mmengine - INFO - Epoch(train)   [1][18500/37454]  lr: 5.000000e-04  eta: 67 days, 16:17:39  time: 0.756966  data_time: 0.018078  memory: 4858  loss: 0.000801  loss_kpt: 0.000801  acc_pose: 0.666667
+09/13 03:27:19 - mmengine - INFO - Epoch(train)   [1][18550/37454]  lr: 5.000000e-04  eta: 67 days, 16:18:00  time: 0.747990  data_time: 0.010941  memory: 4858  loss: 0.000789  loss_kpt: 0.000789  acc_pose: 0.730769
+09/13 03:27:56 - mmengine - INFO - Epoch(train)   [1][18600/37454]  lr: 5.000000e-04  eta: 67 days, 16:17:51  time: 0.746545  data_time: 0.013604  memory: 4858  loss: 0.000779  loss_kpt: 0.000779  acc_pose: 0.441176
+09/13 03:28:34 - mmengine - INFO - Epoch(train)   [1][18650/37454]  lr: 5.000000e-04  eta: 67 days, 16:17:16  time: 0.745279  data_time: 0.008688  memory: 4858  loss: 0.000725  loss_kpt: 0.000725  acc_pose: 0.416667
+09/13 03:29:11 - mmengine - INFO - Epoch(train)   [1][18700/37454]  lr: 5.000000e-04  eta: 67 days, 16:17:43  time: 0.748306  data_time: 0.012150  memory: 4858  loss: 0.000771  loss_kpt: 0.000771  acc_pose: 0.352941
+09/13 03:29:49 - mmengine - INFO - Epoch(train)   [1][18750/37454]  lr: 5.000000e-04  eta: 67 days, 16:19:18  time: 0.751520  data_time: 0.011668  memory: 4858  loss: 0.000776  loss_kpt: 0.000776  acc_pose: 0.333333
+09/13 03:30:26 - mmengine - INFO - Epoch(train)   [1][18800/37454]  lr: 5.000000e-04  eta: 67 days, 16:19:07  time: 0.746521  data_time: 0.009456  memory: 4858  loss: 0.000815  loss_kpt: 0.000815  acc_pose: 0.454545
+09/13 03:31:03 - mmengine - INFO - Epoch(train)   [1][18850/37454]  lr: 5.000000e-04  eta: 67 days, 16:19:03  time: 0.746825  data_time: 0.009864  memory: 4858  loss: 0.000736  loss_kpt: 0.000736  acc_pose: 0.590909
+09/13 03:31:41 - mmengine - INFO - Epoch(train)   [1][18900/37454]  lr: 5.000000e-04  eta: 67 days, 16:19:25  time: 0.748076  data_time: 0.010041  memory: 4858  loss: 0.000843  loss_kpt: 0.000843  acc_pose: 0.558824
+09/13 03:32:18 - mmengine - INFO - Epoch(train)   [1][18950/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:44  time: 0.750871  data_time: 0.010710  memory: 4858  loss: 0.000742  loss_kpt: 0.000742  acc_pose: 0.133333
+09/13 03:32:56 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 03:32:56 - mmengine - INFO - Epoch(train)   [1][19000/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:01  time: 0.745001  data_time: 0.010395  memory: 4858  loss: 0.000800  loss_kpt: 0.000800  acc_pose: 0.468750
+09/13 03:33:34 - mmengine - INFO - Epoch(train)   [1][19050/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:32  time: 0.766050  data_time: 0.027397  memory: 4858  loss: 0.000768  loss_kpt: 0.000768  acc_pose: 0.531250
+09/13 03:34:11 - mmengine - INFO - Epoch(train)   [1][19100/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:33  time: 0.747176  data_time: 0.009997  memory: 4858  loss: 0.000740  loss_kpt: 0.000740  acc_pose: 0.545455
+09/13 03:34:49 - mmengine - INFO - Epoch(train)   [1][19150/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:48  time: 0.747871  data_time: 0.010223  memory: 4858  loss: 0.000817  loss_kpt: 0.000817  acc_pose: 0.444444
+09/13 03:35:26 - mmengine - INFO - Epoch(train)   [1][19200/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:31  time: 0.746362  data_time: 0.010176  memory: 4858  loss: 0.000772  loss_kpt: 0.000772  acc_pose: 0.705882
+09/13 03:36:03 - mmengine - INFO - Epoch(train)   [1][19250/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:19  time: 0.746550  data_time: 0.008265  memory: 4858  loss: 0.000794  loss_kpt: 0.000794  acc_pose: 0.281250
+09/13 03:36:41 - mmengine - INFO - Epoch(train)   [1][19300/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:10  time: 0.746718  data_time: 0.008694  memory: 4858  loss: 0.000756  loss_kpt: 0.000756  acc_pose: 0.192308
+09/13 03:37:18 - mmengine - INFO - Epoch(train)   [1][19350/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:22  time: 0.747775  data_time: 0.010987  memory: 4858  loss: 0.000813  loss_kpt: 0.000813  acc_pose: 0.285714
+09/13 03:37:55 - mmengine - INFO - Epoch(train)   [1][19400/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:08  time: 0.749457  data_time: 0.010955  memory: 4858  loss: 0.000848  loss_kpt: 0.000848  acc_pose: 0.558824
+09/13 03:38:33 - mmengine - INFO - Epoch(train)   [1][19450/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:19  time: 0.750740  data_time: 0.009520  memory: 4858  loss: 0.000777  loss_kpt: 0.000777  acc_pose: 0.625000
+09/13 03:39:10 - mmengine - INFO - Epoch(train)   [1][19500/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:20  time: 0.747281  data_time: 0.009960  memory: 4858  loss: 0.000759  loss_kpt: 0.000759  acc_pose: 0.458333
+09/13 03:39:48 - mmengine - INFO - Epoch(train)   [1][19550/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:35  time: 0.750961  data_time: 0.011496  memory: 4858  loss: 0.000736  loss_kpt: 0.000736  acc_pose: 0.500000
+09/13 03:40:25 - mmengine - INFO - Epoch(train)   [1][19600/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:59  time: 0.745481  data_time: 0.008297  memory: 4858  loss: 0.000742  loss_kpt: 0.000742  acc_pose: 0.307692
+09/13 03:41:02 - mmengine - INFO - Epoch(train)   [1][19650/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:21  time: 0.745309  data_time: 0.007340  memory: 4858  loss: 0.000714  loss_kpt: 0.000714  acc_pose: 0.718750
+09/13 03:41:40 - mmengine - INFO - Epoch(train)   [1][19700/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:47  time: 0.745568  data_time: 0.007509  memory: 4858  loss: 0.000789  loss_kpt: 0.000789  acc_pose: 0.823529
+09/13 03:42:17 - mmengine - INFO - Epoch(train)   [1][19750/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:41  time: 0.746955  data_time: 0.008126  memory: 4858  loss: 0.000819  loss_kpt: 0.000819  acc_pose: 0.464286
+09/13 03:42:54 - mmengine - INFO - Epoch(train)   [1][19800/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:06  time: 0.745545  data_time: 0.010623  memory: 4858  loss: 0.000789  loss_kpt: 0.000789  acc_pose: 0.392857
+09/13 03:43:32 - mmengine - INFO - Epoch(train)   [1][19850/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:32  time: 0.748581  data_time: 0.009743  memory: 4858  loss: 0.000836  loss_kpt: 0.000836  acc_pose: 0.588235
+09/13 03:44:09 - mmengine - INFO - Epoch(train)   [1][19900/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:28  time: 0.747084  data_time: 0.010906  memory: 4858  loss: 0.000728  loss_kpt: 0.000728  acc_pose: 0.461538
+09/13 03:44:46 - mmengine - INFO - Epoch(train)   [1][19950/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:43  time: 0.745026  data_time: 0.009561  memory: 4858  loss: 0.000761  loss_kpt: 0.000761  acc_pose: 0.208333
+09/13 03:45:24 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 03:45:24 - mmengine - INFO - Epoch(train)   [1][20000/37454]  lr: 5.000000e-04  eta: 67 days, 16:25:57  time: 0.744945  data_time: 0.009188  memory: 4858  loss: 0.000802  loss_kpt: 0.000802  acc_pose: 0.705882
+09/13 03:46:01 - mmengine - INFO - Epoch(train)   [1][20050/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:00  time: 0.747462  data_time: 0.007762  memory: 4858  loss: 0.000857  loss_kpt: 0.000857  acc_pose: 0.000000
+09/13 03:46:38 - mmengine - INFO - Epoch(train)   [1][20100/37454]  lr: 5.000000e-04  eta: 67 days, 16:25:54  time: 0.747010  data_time: 0.009136  memory: 4858  loss: 0.000847  loss_kpt: 0.000847  acc_pose: 0.433333
+09/13 03:47:16 - mmengine - INFO - Epoch(train)   [1][20150/37454]  lr: 5.000000e-04  eta: 67 days, 16:25:18  time: 0.745520  data_time: 0.009542  memory: 4858  loss: 0.000847  loss_kpt: 0.000847  acc_pose: 0.088235
+09/13 03:47:53 - mmengine - INFO - Epoch(train)   [1][20200/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:00  time: 0.743308  data_time: 0.006981  memory: 4858  loss: 0.000727  loss_kpt: 0.000727  acc_pose: 0.312500
+09/13 03:48:30 - mmengine - INFO - Epoch(train)   [1][20250/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:50  time: 0.749899  data_time: 0.009138  memory: 4858  loss: 0.000736  loss_kpt: 0.000736  acc_pose: 0.615385
+09/13 03:49:09 - mmengine - INFO - Epoch(train)   [1][20300/37454]  lr: 5.000000e-04  eta: 67 days, 16:30:00  time: 0.763369  data_time: 0.009823  memory: 4858  loss: 0.000822  loss_kpt: 0.000822  acc_pose: 0.321429
+09/13 03:49:47 - mmengine - INFO - Epoch(train)   [1][20350/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:08  time: 0.772722  data_time: 0.010755  memory: 4858  loss: 0.000768  loss_kpt: 0.000768  acc_pose: 0.500000
+09/13 03:50:25 - mmengine - INFO - Epoch(train)   [1][20400/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:20  time: 0.748093  data_time: 0.009575  memory: 4858  loss: 0.000775  loss_kpt: 0.000775  acc_pose: 0.566667
+09/13 03:51:02 - mmengine - INFO - Epoch(train)   [1][20450/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:54  time: 0.746140  data_time: 0.011019  memory: 4858  loss: 0.000808  loss_kpt: 0.000808  acc_pose: 0.100000
+09/13 03:51:40 - mmengine - INFO - Epoch(train)   [1][20500/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:23  time: 0.752159  data_time: 0.012104  memory: 4858  loss: 0.000773  loss_kpt: 0.000773  acc_pose: 0.533333
+09/13 03:52:17 - mmengine - INFO - Epoch(train)   [1][20550/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:09  time: 0.746780  data_time: 0.008984  memory: 4858  loss: 0.000822  loss_kpt: 0.000822  acc_pose: 0.500000
+09/13 03:52:54 - mmengine - INFO - Epoch(train)   [1][20600/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:29  time: 0.745406  data_time: 0.008094  memory: 4858  loss: 0.000744  loss_kpt: 0.000744  acc_pose: 0.653846
+09/13 03:53:32 - mmengine - INFO - Epoch(train)   [1][20650/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:06  time: 0.752621  data_time: 0.016171  memory: 4858  loss: 0.000759  loss_kpt: 0.000759  acc_pose: 0.346154
+09/13 03:54:09 - mmengine - INFO - Epoch(train)   [1][20700/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:29  time: 0.748738  data_time: 0.009638  memory: 4858  loss: 0.000776  loss_kpt: 0.000776  acc_pose: 0.208333
+09/13 03:54:47 - mmengine - INFO - Epoch(train)   [1][20750/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:09  time: 0.752864  data_time: 0.016756  memory: 4858  loss: 0.000824  loss_kpt: 0.000824  acc_pose: 0.269231
+09/13 03:55:24 - mmengine - INFO - Epoch(train)   [1][20800/37454]  lr: 5.000000e-04  eta: 67 days, 16:43:07  time: 0.750643  data_time: 0.010051  memory: 4858  loss: 0.000825  loss_kpt: 0.000825  acc_pose: 0.125000
+09/13 03:56:02 - mmengine - INFO - Epoch(train)   [1][20850/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:53  time: 0.746858  data_time: 0.010681  memory: 4858  loss: 0.000771  loss_kpt: 0.000771  acc_pose: 0.300000
+09/13 03:56:39 - mmengine - INFO - Epoch(train)   [1][20900/37454]  lr: 5.000000e-04  eta: 67 days, 16:43:22  time: 0.749164  data_time: 0.011179  memory: 4858  loss: 0.000823  loss_kpt: 0.000823  acc_pose: 0.714286
+09/13 03:57:17 - mmengine - INFO - Epoch(train)   [1][20950/37454]  lr: 5.000000e-04  eta: 67 days, 16:43:30  time: 0.748036  data_time: 0.007938  memory: 4858  loss: 0.000805  loss_kpt: 0.000805  acc_pose: 0.111111
+09/13 03:57:54 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 03:57:54 - mmengine - INFO - Epoch(train)   [1][21000/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:33  time: 0.744564  data_time: 0.010193  memory: 4858  loss: 0.000722  loss_kpt: 0.000722  acc_pose: 0.500000
+09/13 03:58:31 - mmengine - INFO - Epoch(train)   [1][21050/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:57  time: 0.748928  data_time: 0.012998  memory: 4858  loss: 0.000831  loss_kpt: 0.000831  acc_pose: 0.214286
+09/13 03:59:09 - mmengine - INFO - Epoch(train)   [1][21100/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:45  time: 0.743730  data_time: 0.008451  memory: 4858  loss: 0.000767  loss_kpt: 0.000767  acc_pose: 0.705882
+09/13 03:59:46 - mmengine - INFO - Epoch(train)   [1][21150/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:10  time: 0.745769  data_time: 0.008406  memory: 4858  loss: 0.000816  loss_kpt: 0.000816  acc_pose: 0.250000
+09/13 04:00:23 - mmengine - INFO - Epoch(train)   [1][21200/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:21  time: 0.748265  data_time: 0.010635  memory: 4858  loss: 0.000781  loss_kpt: 0.000781  acc_pose: 0.346154
+09/13 04:01:01 - mmengine - INFO - Epoch(train)   [1][21250/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:36  time: 0.748440  data_time: 0.012646  memory: 4858  loss: 0.000770  loss_kpt: 0.000770  acc_pose: 0.615385
+09/13 04:01:38 - mmengine - INFO - Epoch(train)   [1][21300/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:33  time: 0.747501  data_time: 0.007704  memory: 4858  loss: 0.000818  loss_kpt: 0.000818  acc_pose: 0.666667
+09/13 04:02:15 - mmengine - INFO - Epoch(train)   [1][21350/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:44  time: 0.748311  data_time: 0.013432  memory: 4858  loss: 0.000728  loss_kpt: 0.000728  acc_pose: 0.441176
+09/13 04:02:53 - mmengine - INFO - Epoch(train)   [1][21400/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:59  time: 0.751787  data_time: 0.012415  memory: 4858  loss: 0.000723  loss_kpt: 0.000723  acc_pose: 0.416667
+09/13 04:03:30 - mmengine - INFO - Epoch(train)   [1][21450/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:06  time: 0.744781  data_time: 0.008018  memory: 4858  loss: 0.000771  loss_kpt: 0.000771  acc_pose: 0.647059
+09/13 04:04:08 - mmengine - INFO - Epoch(train)   [1][21500/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:48  time: 0.750035  data_time: 0.011170  memory: 4858  loss: 0.000818  loss_kpt: 0.000818  acc_pose: 0.781250
+09/13 04:04:45 - mmengine - INFO - Epoch(train)   [1][21550/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:13  time: 0.745765  data_time: 0.009447  memory: 4858  loss: 0.000855  loss_kpt: 0.000855  acc_pose: 0.529412
+09/13 04:05:22 - mmengine - INFO - Epoch(train)   [1][21600/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:36  time: 0.745722  data_time: 0.007252  memory: 4858  loss: 0.000836  loss_kpt: 0.000836  acc_pose: 0.423077
+09/13 04:06:00 - mmengine - INFO - Epoch(train)   [1][21650/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:25  time: 0.743809  data_time: 0.008698  memory: 4858  loss: 0.000743  loss_kpt: 0.000743  acc_pose: 0.500000
+09/13 04:06:37 - mmengine - INFO - Epoch(train)   [1][21700/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:46  time: 0.745560  data_time: 0.008464  memory: 4858  loss: 0.000792  loss_kpt: 0.000792  acc_pose: 0.000000
+09/13 04:07:14 - mmengine - INFO - Epoch(train)   [1][21750/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:49  time: 0.747934  data_time: 0.008631  memory: 4858  loss: 0.000796  loss_kpt: 0.000796  acc_pose: 0.294118
+09/13 04:07:52 - mmengine - INFO - Epoch(train)   [1][21800/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:06  time: 0.745335  data_time: 0.010737  memory: 4858  loss: 0.000812  loss_kpt: 0.000812  acc_pose: 0.423077
+09/13 04:08:29 - mmengine - INFO - Epoch(train)   [1][21850/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:47  time: 0.746688  data_time: 0.008060  memory: 4858  loss: 0.000707  loss_kpt: 0.000707  acc_pose: 0.535714
+09/13 04:09:06 - mmengine - INFO - Epoch(train)   [1][21900/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:23  time: 0.746418  data_time: 0.008352  memory: 4858  loss: 0.000754  loss_kpt: 0.000754  acc_pose: 0.533333
+09/13 04:09:44 - mmengine - INFO - Epoch(train)   [1][21950/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:51  time: 0.745994  data_time: 0.007465  memory: 4858  loss: 0.000792  loss_kpt: 0.000792  acc_pose: 0.464286
+09/13 04:10:21 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 04:10:21 - mmengine - INFO - Epoch(train)   [1][22000/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:13  time: 0.748997  data_time: 0.010337  memory: 4858  loss: 0.000832  loss_kpt: 0.000832  acc_pose: 0.366667
+09/13 04:10:58 - mmengine - INFO - Epoch(train)   [1][22050/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:27  time: 0.748595  data_time: 0.008660  memory: 4858  loss: 0.000748  loss_kpt: 0.000748  acc_pose: 0.352941
+09/13 04:11:36 - mmengine - INFO - Epoch(train)   [1][22100/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:27  time: 0.747810  data_time: 0.010953  memory: 4858  loss: 0.000806  loss_kpt: 0.000806  acc_pose: 0.117647
+09/13 04:12:13 - mmengine - INFO - Epoch(train)   [1][22150/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:24  time: 0.747630  data_time: 0.009214  memory: 4858  loss: 0.000775  loss_kpt: 0.000775  acc_pose: 0.529412
+09/13 04:12:51 - mmengine - INFO - Epoch(train)   [1][22200/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:41  time: 0.748773  data_time: 0.011171  memory: 4858  loss: 0.000727  loss_kpt: 0.000727  acc_pose: 0.384615
+09/13 04:13:28 - mmengine - INFO - Epoch(train)   [1][22250/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:16  time: 0.742965  data_time: 0.007117  memory: 4858  loss: 0.000773  loss_kpt: 0.000773  acc_pose: 0.882353
+09/13 04:14:05 - mmengine - INFO - Epoch(train)   [1][22300/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:21  time: 0.748152  data_time: 0.008278  memory: 4858  loss: 0.000761  loss_kpt: 0.000761  acc_pose: 0.617647
+09/13 04:14:43 - mmengine - INFO - Epoch(train)   [1][22350/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:10  time: 0.747192  data_time: 0.008892  memory: 4858  loss: 0.000723  loss_kpt: 0.000723  acc_pose: 0.406250
+09/13 04:15:20 - mmengine - INFO - Epoch(train)   [1][22400/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:59  time: 0.750651  data_time: 0.009663  memory: 4858  loss: 0.000760  loss_kpt: 0.000760  acc_pose: 0.535714
+09/13 04:15:58 - mmengine - INFO - Epoch(train)   [1][22450/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:59  time: 0.751288  data_time: 0.012159  memory: 4858  loss: 0.000772  loss_kpt: 0.000772  acc_pose: 0.230769
+09/13 04:16:35 - mmengine - INFO - Epoch(train)   [1][22500/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:52  time: 0.750898  data_time: 0.009932  memory: 4858  loss: 0.000786  loss_kpt: 0.000786  acc_pose: 0.653846
+09/13 04:17:13 - mmengine - INFO - Epoch(train)   [1][22550/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:22  time: 0.746201  data_time: 0.008247  memory: 4858  loss: 0.000770  loss_kpt: 0.000770  acc_pose: 0.264706
+09/13 04:17:50 - mmengine - INFO - Epoch(train)   [1][22600/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:31  time: 0.748405  data_time: 0.012735  memory: 4858  loss: 0.000781  loss_kpt: 0.000781  acc_pose: 0.307692
+09/13 04:18:27 - mmengine - INFO - Epoch(train)   [1][22650/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:15  time: 0.746987  data_time: 0.011026  memory: 4858  loss: 0.000813  loss_kpt: 0.000813  acc_pose: 0.088235
+09/13 04:19:05 - mmengine - INFO - Epoch(train)   [1][22700/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:00  time: 0.747036  data_time: 0.009590  memory: 4858  loss: 0.000729  loss_kpt: 0.000729  acc_pose: 0.588235
+09/13 04:19:42 - mmengine - INFO - Epoch(train)   [1][22750/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:02  time: 0.748035  data_time: 0.010123  memory: 4858  loss: 0.000833  loss_kpt: 0.000833  acc_pose: 0.466667
+09/13 04:20:19 - mmengine - INFO - Epoch(train)   [1][22800/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:34  time: 0.746301  data_time: 0.007500  memory: 4858  loss: 0.000734  loss_kpt: 0.000734  acc_pose: 0.433333
+09/13 04:20:57 - mmengine - INFO - Epoch(train)   [1][22850/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:46  time: 0.748643  data_time: 0.009285  memory: 4858  loss: 0.000680  loss_kpt: 0.000680  acc_pose: 0.125000
+09/13 04:21:35 - mmengine - INFO - Epoch(train)   [1][22900/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:48  time: 0.755088  data_time: 0.010425  memory: 4858  loss: 0.000704  loss_kpt: 0.000704  acc_pose: 0.066667
+09/13 04:22:12 - mmengine - INFO - Epoch(train)   [1][22950/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:54  time: 0.748358  data_time: 0.010885  memory: 4858  loss: 0.000780  loss_kpt: 0.000780  acc_pose: 0.437500
+09/13 04:22:49 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 04:22:49 - mmengine - INFO - Epoch(train)   [1][23000/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:52  time: 0.747850  data_time: 0.008576  memory: 4858  loss: 0.000763  loss_kpt: 0.000763  acc_pose: 0.458333
+09/13 04:23:27 - mmengine - INFO - Epoch(train)   [1][23050/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:24  time: 0.746375  data_time: 0.011020  memory: 4858  loss: 0.000765  loss_kpt: 0.000765  acc_pose: 0.437500
+09/13 04:24:04 - mmengine - INFO - Epoch(train)   [1][23100/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:22  time: 0.751416  data_time: 0.011232  memory: 4858  loss: 0.000753  loss_kpt: 0.000753  acc_pose: 0.468750
+09/13 04:24:42 - mmengine - INFO - Epoch(train)   [1][23150/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:08  time: 0.750696  data_time: 0.012437  memory: 4858  loss: 0.000815  loss_kpt: 0.000815  acc_pose: 0.208333
+09/13 04:25:19 - mmengine - INFO - Epoch(train)   [1][23200/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:56  time: 0.750917  data_time: 0.010316  memory: 4858  loss: 0.000784  loss_kpt: 0.000784  acc_pose: 0.571429
+09/13 04:25:57 - mmengine - INFO - Epoch(train)   [1][23250/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:17  time: 0.745723  data_time: 0.008395  memory: 4858  loss: 0.000804  loss_kpt: 0.000804  acc_pose: 0.558824
+09/13 04:26:34 - mmengine - INFO - Epoch(train)   [1][23300/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:29  time: 0.745201  data_time: 0.006922  memory: 4858  loss: 0.000751  loss_kpt: 0.000751  acc_pose: 0.423077
+09/13 04:27:11 - mmengine - INFO - Epoch(train)   [1][23350/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:30  time: 0.744560  data_time: 0.007504  memory: 4858  loss: 0.000773  loss_kpt: 0.000773  acc_pose: 0.500000
+09/13 04:27:49 - mmengine - INFO - Epoch(train)   [1][23400/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:05  time: 0.750125  data_time: 0.012937  memory: 4858  loss: 0.000801  loss_kpt: 0.000801  acc_pose: 0.352941
+09/13 04:28:26 - mmengine - INFO - Epoch(train)   [1][23450/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:46  time: 0.746926  data_time: 0.010353  memory: 4858  loss: 0.000780  loss_kpt: 0.000780  acc_pose: 0.538462
+09/13 04:29:04 - mmengine - INFO - Epoch(train)   [1][23500/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:23  time: 0.750300  data_time: 0.007345  memory: 4858  loss: 0.000755  loss_kpt: 0.000755  acc_pose: 0.500000
+09/13 04:29:41 - mmengine - INFO - Epoch(train)   [1][23550/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:28  time: 0.748396  data_time: 0.010556  memory: 4858  loss: 0.000777  loss_kpt: 0.000777  acc_pose: 0.333333
+09/13 04:30:18 - mmengine - INFO - Epoch(train)   [1][23600/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:55  time: 0.749765  data_time: 0.008283  memory: 4858  loss: 0.000755  loss_kpt: 0.000755  acc_pose: 0.607143
+09/13 04:30:56 - mmengine - INFO - Epoch(train)   [1][23650/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:58  time: 0.748273  data_time: 0.012336  memory: 4858  loss: 0.000801  loss_kpt: 0.000801  acc_pose: 0.392857
+09/13 04:31:33 - mmengine - INFO - Epoch(train)   [1][23700/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:31  time: 0.746491  data_time: 0.009959  memory: 4858  loss: 0.000752  loss_kpt: 0.000752  acc_pose: 0.428571
+09/13 04:32:11 - mmengine - INFO - Epoch(train)   [1][23750/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:32  time: 0.748194  data_time: 0.010573  memory: 4858  loss: 0.000721  loss_kpt: 0.000721  acc_pose: 0.433333
+09/13 04:32:48 - mmengine - INFO - Epoch(train)   [1][23800/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:46  time: 0.745378  data_time: 0.009313  memory: 4858  loss: 0.000695  loss_kpt: 0.000695  acc_pose: 0.533333
+09/13 04:33:25 - mmengine - INFO - Epoch(train)   [1][23850/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:07  time: 0.745746  data_time: 0.008762  memory: 4858  loss: 0.000749  loss_kpt: 0.000749  acc_pose: 0.583333
+09/13 04:34:03 - mmengine - INFO - Epoch(train)   [1][23900/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:42  time: 0.746660  data_time: 0.011335  memory: 4858  loss: 0.000749  loss_kpt: 0.000749  acc_pose: 0.500000
+09/13 04:34:40 - mmengine - INFO - Epoch(train)   [1][23950/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:51  time: 0.748681  data_time: 0.008220  memory: 4858  loss: 0.000732  loss_kpt: 0.000732  acc_pose: 0.583333
+09/13 04:35:18 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 04:35:18 - mmengine - INFO - Epoch(train)   [1][24000/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:21  time: 0.750051  data_time: 0.010321  memory: 4858  loss: 0.000778  loss_kpt: 0.000778  acc_pose: 0.142857
+09/13 04:35:55 - mmengine - INFO - Epoch(train)   [1][24050/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:22  time: 0.748240  data_time: 0.010109  memory: 4858  loss: 0.000786  loss_kpt: 0.000786  acc_pose: 0.529412
+09/13 04:36:32 - mmengine - INFO - Epoch(train)   [1][24100/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:45  time: 0.749609  data_time: 0.010110  memory: 4858  loss: 0.000810  loss_kpt: 0.000810  acc_pose: 0.281250
+09/13 04:37:10 - mmengine - INFO - Epoch(train)   [1][24150/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:15  time: 0.746353  data_time: 0.009666  memory: 4858  loss: 0.000749  loss_kpt: 0.000749  acc_pose: 0.535714
+09/13 04:37:47 - mmengine - INFO - Epoch(train)   [1][24200/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:48  time: 0.746531  data_time: 0.008174  memory: 4858  loss: 0.000841  loss_kpt: 0.000841  acc_pose: 0.500000
+09/13 04:38:25 - mmengine - INFO - Epoch(train)   [1][24250/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:55  time: 0.748649  data_time: 0.009806  memory: 4858  loss: 0.000777  loss_kpt: 0.000777  acc_pose: 0.687500
+09/13 04:39:02 - mmengine - INFO - Epoch(train)   [1][24300/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:30  time: 0.746661  data_time: 0.007593  memory: 4858  loss: 0.000796  loss_kpt: 0.000796  acc_pose: 0.437500
+09/13 04:39:39 - mmengine - INFO - Epoch(train)   [1][24350/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:51  time: 0.745799  data_time: 0.009377  memory: 4858  loss: 0.000697  loss_kpt: 0.000697  acc_pose: 0.666667
+09/13 04:40:16 - mmengine - INFO - Epoch(train)   [1][24400/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:49  time: 0.744423  data_time: 0.007487  memory: 4858  loss: 0.000754  loss_kpt: 0.000754  acc_pose: 0.625000
+09/13 04:40:54 - mmengine - INFO - Epoch(train)   [1][24450/37454]  lr: 5.000000e-04  eta: 67 days, 16:36:26  time: 0.743038  data_time: 0.007603  memory: 4858  loss: 0.000766  loss_kpt: 0.000766  acc_pose: 0.558824
+09/13 04:41:31 - mmengine - INFO - Epoch(train)   [1][24500/37454]  lr: 5.000000e-04  eta: 67 days, 16:36:51  time: 0.749781  data_time: 0.009220  memory: 4858  loss: 0.000761  loss_kpt: 0.000761  acc_pose: 0.125000
+09/13 04:42:09 - mmengine - INFO - Epoch(train)   [1][24550/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:12  time: 0.749569  data_time: 0.013759  memory: 4858  loss: 0.000765  loss_kpt: 0.000765  acc_pose: 0.529412
+09/13 04:42:46 - mmengine - INFO - Epoch(train)   [1][24600/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:46  time: 0.750402  data_time: 0.009665  memory: 4858  loss: 0.000750  loss_kpt: 0.000750  acc_pose: 0.350000
+09/13 04:43:24 - mmengine - INFO - Epoch(train)   [1][24650/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:17  time: 0.750241  data_time: 0.011140  memory: 4858  loss: 0.000758  loss_kpt: 0.000758  acc_pose: 0.115385
+09/13 04:44:01 - mmengine - INFO - Epoch(train)   [1][24700/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:15  time: 0.744383  data_time: 0.007218  memory: 4858  loss: 0.000725  loss_kpt: 0.000725  acc_pose: 0.000000
+09/13 04:44:38 - mmengine - INFO - Epoch(train)   [1][24750/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:02  time: 0.747494  data_time: 0.010955  memory: 4858  loss: 0.000805  loss_kpt: 0.000805  acc_pose: 0.529412
+09/13 04:45:16 - mmengine - INFO - Epoch(train)   [1][24800/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:19  time: 0.749352  data_time: 0.011987  memory: 4858  loss: 0.000729  loss_kpt: 0.000729  acc_pose: 0.500000
+09/13 04:45:53 - mmengine - INFO - Epoch(train)   [1][24850/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:43  time: 0.749867  data_time: 0.013155  memory: 4858  loss: 0.000767  loss_kpt: 0.000767  acc_pose: 0.437500
+09/13 04:46:31 - mmengine - INFO - Epoch(train)   [1][24900/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:10  time: 0.750023  data_time: 0.010223  memory: 4858  loss: 0.000786  loss_kpt: 0.000786  acc_pose: 0.750000
+09/13 04:47:08 - mmengine - INFO - Epoch(train)   [1][24950/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:10  time: 0.748329  data_time: 0.007044  memory: 4858  loss: 0.000786  loss_kpt: 0.000786  acc_pose: 0.357143
+09/13 04:47:45 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 04:47:45 - mmengine - INFO - Epoch(train)   [1][25000/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:32  time: 0.745907  data_time: 0.008731  memory: 4858  loss: 0.000717  loss_kpt: 0.000717  acc_pose: 0.090909
+09/13 04:48:23 - mmengine - INFO - Epoch(train)   [1][25050/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:41  time: 0.748960  data_time: 0.009171  memory: 4858  loss: 0.000761  loss_kpt: 0.000761  acc_pose: 0.416667
+09/13 04:49:00 - mmengine - INFO - Epoch(train)   [1][25100/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:05  time: 0.746061  data_time: 0.008917  memory: 4858  loss: 0.000756  loss_kpt: 0.000756  acc_pose: 0.705882
+09/13 04:49:37 - mmengine - INFO - Epoch(train)   [1][25150/37454]  lr: 5.000000e-04  eta: 67 days, 16:36:48  time: 0.747258  data_time: 0.010450  memory: 4858  loss: 0.000792  loss_kpt: 0.000792  acc_pose: 0.600000
+09/13 04:50:15 - mmengine - INFO - Epoch(train)   [1][25200/37454]  lr: 5.000000e-04  eta: 67 days, 16:36:43  time: 0.748082  data_time: 0.010606  memory: 4858  loss: 0.000724  loss_kpt: 0.000724  acc_pose: 0.416667
+09/13 04:50:52 - mmengine - INFO - Epoch(train)   [1][25250/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:47  time: 0.744783  data_time: 0.008366  memory: 4858  loss: 0.000727  loss_kpt: 0.000727  acc_pose: 0.392857
+09/13 04:51:30 - mmengine - INFO - Epoch(train)   [1][25300/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:49  time: 0.748519  data_time: 0.010364  memory: 4858  loss: 0.000768  loss_kpt: 0.000768  acc_pose: 0.000000
+09/13 04:52:07 - mmengine - INFO - Epoch(train)   [1][25350/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:09  time: 0.745815  data_time: 0.008564  memory: 4858  loss: 0.000741  loss_kpt: 0.000741  acc_pose: 0.423077
+09/13 04:52:44 - mmengine - INFO - Epoch(train)   [1][25400/37454]  lr: 5.000000e-04  eta: 67 days, 16:34:47  time: 0.746921  data_time: 0.010137  memory: 4858  loss: 0.000739  loss_kpt: 0.000739  acc_pose: 0.000000
+09/13 04:53:22 - mmengine - INFO - Epoch(train)   [1][25450/37454]  lr: 5.000000e-04  eta: 67 days, 16:34:05  time: 0.745678  data_time: 0.008555  memory: 4858  loss: 0.000758  loss_kpt: 0.000758  acc_pose: 0.500000
+09/13 04:53:59 - mmengine - INFO - Epoch(train)   [1][25500/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:53  time: 0.747658  data_time: 0.012324  memory: 4858  loss: 0.000739  loss_kpt: 0.000739  acc_pose: 0.464286
+09/13 04:54:36 - mmengine - INFO - Epoch(train)   [1][25550/37454]  lr: 5.000000e-04  eta: 67 days, 16:34:12  time: 0.749682  data_time: 0.008952  memory: 4858  loss: 0.000749  loss_kpt: 0.000749  acc_pose: 0.718750
+09/13 04:55:14 - mmengine - INFO - Epoch(train)   [1][25600/37454]  lr: 5.000000e-04  eta: 67 days, 16:34:34  time: 0.749834  data_time: 0.010875  memory: 4858  loss: 0.000791  loss_kpt: 0.000791  acc_pose: 0.571429
+09/13 04:55:51 - mmengine - INFO - Epoch(train)   [1][25650/37454]  lr: 5.000000e-04  eta: 67 days, 16:34:24  time: 0.747786  data_time: 0.008813  memory: 4858  loss: 0.000748  loss_kpt: 0.000748  acc_pose: 0.571429
+09/13 04:56:29 - mmengine - INFO - Epoch(train)   [1][25700/37454]  lr: 5.000000e-04  eta: 67 days, 16:34:44  time: 0.749758  data_time: 0.011688  memory: 4858  loss: 0.000789  loss_kpt: 0.000789  acc_pose: 0.382353
+09/13 04:57:06 - mmengine - INFO - Epoch(train)   [1][25750/37454]  lr: 5.000000e-04  eta: 67 days, 16:34:58  time: 0.749391  data_time: 0.008474  memory: 4858  loss: 0.000735  loss_kpt: 0.000735  acc_pose: 0.166667
+09/13 04:57:45 - mmengine - INFO - Epoch(train)   [1][25800/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:17  time: 0.769482  data_time: 0.010662  memory: 4858  loss: 0.000733  loss_kpt: 0.000733  acc_pose: 0.562500
+09/13 04:58:22 - mmengine - INFO - Epoch(train)   [1][25850/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:43  time: 0.746261  data_time: 0.007799  memory: 4858  loss: 0.000698  loss_kpt: 0.000698  acc_pose: 0.733333
+09/13 04:58:59 - mmengine - INFO - Epoch(train)   [1][25900/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:39  time: 0.744341  data_time: 0.007708  memory: 4858  loss: 0.000748  loss_kpt: 0.000748  acc_pose: 0.529412
+09/13 04:59:37 - mmengine - INFO - Epoch(train)   [1][25950/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:08  time: 0.762336  data_time: 0.009183  memory: 4858  loss: 0.000783  loss_kpt: 0.000783  acc_pose: 0.617647
+09/13 05:00:15 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 05:00:15 - mmengine - INFO - Epoch(train)   [1][26000/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:41  time: 0.746826  data_time: 0.010180  memory: 4858  loss: 0.000771  loss_kpt: 0.000771  acc_pose: 0.214286
+09/13 05:00:52 - mmengine - INFO - Epoch(train)   [1][26050/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:34  time: 0.748079  data_time: 0.009493  memory: 4858  loss: 0.000723  loss_kpt: 0.000723  acc_pose: 0.406250
+09/13 05:01:30 - mmengine - INFO - Epoch(train)   [1][26100/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:57  time: 0.750106  data_time: 0.010959  memory: 4858  loss: 0.000710  loss_kpt: 0.000710  acc_pose: 0.366667
+09/13 05:02:07 - mmengine - INFO - Epoch(train)   [1][26150/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:00  time: 0.748840  data_time: 0.012085  memory: 4858  loss: 0.000788  loss_kpt: 0.000788  acc_pose: 0.321429
+09/13 05:02:45 - mmengine - INFO - Epoch(train)   [1][26200/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:28  time: 0.750470  data_time: 0.008804  memory: 4858  loss: 0.000694  loss_kpt: 0.000694  acc_pose: 0.656250
+09/13 05:03:22 - mmengine - INFO - Epoch(train)   [1][26250/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:05  time: 0.747046  data_time: 0.011257  memory: 4858  loss: 0.000774  loss_kpt: 0.000774  acc_pose: 0.562500
+09/13 05:03:59 - mmengine - INFO - Epoch(train)   [1][26300/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:13  time: 0.749184  data_time: 0.009944  memory: 4858  loss: 0.000729  loss_kpt: 0.000729  acc_pose: 0.318182
+09/13 05:04:37 - mmengine - INFO - Epoch(train)   [1][26350/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:45  time: 0.750788  data_time: 0.010951  memory: 4858  loss: 0.000790  loss_kpt: 0.000790  acc_pose: 0.433333
+09/13 05:05:14 - mmengine - INFO - Epoch(train)   [1][26400/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:14  time: 0.746588  data_time: 0.008685  memory: 4858  loss: 0.000729  loss_kpt: 0.000729  acc_pose: 0.529412
+09/13 05:05:52 - mmengine - INFO - Epoch(train)   [1][26450/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:21  time: 0.749073  data_time: 0.006881  memory: 4858  loss: 0.000730  loss_kpt: 0.000730  acc_pose: 0.500000
+09/13 05:06:29 - mmengine - INFO - Epoch(train)   [1][26500/37454]  lr: 5.000000e-04  eta: 67 days, 16:42:09  time: 0.747906  data_time: 0.011556  memory: 4858  loss: 0.000785  loss_kpt: 0.000785  acc_pose: 0.375000
+09/13 05:07:07 - mmengine - INFO - Epoch(train)   [1][26550/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:25  time: 0.745650  data_time: 0.008716  memory: 4858  loss: 0.000754  loss_kpt: 0.000754  acc_pose: 0.500000
+09/13 05:07:44 - mmengine - INFO - Epoch(train)   [1][26600/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:07  time: 0.747463  data_time: 0.008837  memory: 4858  loss: 0.000737  loss_kpt: 0.000737  acc_pose: 0.588235
+09/13 05:08:21 - mmengine - INFO - Epoch(train)   [1][26650/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:36  time: 0.750636  data_time: 0.009090  memory: 4858  loss: 0.000730  loss_kpt: 0.000730  acc_pose: 0.264706
+09/13 05:08:59 - mmengine - INFO - Epoch(train)   [1][26700/37454]  lr: 5.000000e-04  eta: 67 days, 16:41:31  time: 0.748394  data_time: 0.008363  memory: 4858  loss: 0.000826  loss_kpt: 0.000826  acc_pose: 0.285714
+09/13 05:09:36 - mmengine - INFO - Epoch(train)   [1][26750/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:53  time: 0.746118  data_time: 0.008694  memory: 4858  loss: 0.000749  loss_kpt: 0.000749  acc_pose: 0.705882
+09/13 05:10:14 - mmengine - INFO - Epoch(train)   [1][26800/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:29  time: 0.747076  data_time: 0.008509  memory: 4858  loss: 0.000792  loss_kpt: 0.000792  acc_pose: 0.500000
+09/13 05:10:51 - mmengine - INFO - Epoch(train)   [1][26850/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:36  time: 0.749187  data_time: 0.009958  memory: 4858  loss: 0.000767  loss_kpt: 0.000767  acc_pose: 0.235294
+09/13 05:11:28 - mmengine - INFO - Epoch(train)   [1][26900/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:49  time: 0.745503  data_time: 0.009487  memory: 4858  loss: 0.000703  loss_kpt: 0.000703  acc_pose: 0.250000
+09/13 05:12:06 - mmengine - INFO - Epoch(train)   [1][26950/37454]  lr: 5.000000e-04  eta: 67 days, 16:40:15  time: 0.750493  data_time: 0.010213  memory: 4858  loss: 0.000685  loss_kpt: 0.000685  acc_pose: 0.533333
+09/13 05:12:43 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 05:12:43 - mmengine - INFO - Epoch(train)   [1][27000/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:44  time: 0.746645  data_time: 0.009692  memory: 4858  loss: 0.000760  loss_kpt: 0.000760  acc_pose: 0.250000
+09/13 05:13:21 - mmengine - INFO - Epoch(train)   [1][27050/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:45  time: 0.748843  data_time: 0.011916  memory: 4858  loss: 0.000788  loss_kpt: 0.000788  acc_pose: 0.576923
+09/13 05:13:58 - mmengine - INFO - Epoch(train)   [1][27100/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:27  time: 0.747519  data_time: 0.010344  memory: 4858  loss: 0.000819  loss_kpt: 0.000819  acc_pose: 0.233333
+09/13 05:14:35 - mmengine - INFO - Epoch(train)   [1][27150/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:01  time: 0.746942  data_time: 0.008444  memory: 4858  loss: 0.000719  loss_kpt: 0.000719  acc_pose: 0.294118
+09/13 05:15:13 - mmengine - INFO - Epoch(train)   [1][27200/37454]  lr: 5.000000e-04  eta: 67 days, 16:39:01  time: 0.748770  data_time: 0.009739  memory: 4858  loss: 0.000783  loss_kpt: 0.000783  acc_pose: 0.269231
+09/13 05:15:50 - mmengine - INFO - Epoch(train)   [1][27250/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:44  time: 0.747588  data_time: 0.011152  memory: 4858  loss: 0.000718  loss_kpt: 0.000718  acc_pose: 0.545455
+09/13 05:16:28 - mmengine - INFO - Epoch(train)   [1][27300/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:41  time: 0.748602  data_time: 0.008587  memory: 4858  loss: 0.000725  loss_kpt: 0.000725  acc_pose: 0.208333
+09/13 05:17:05 - mmengine - INFO - Epoch(train)   [1][27350/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:24  time: 0.747611  data_time: 0.009903  memory: 4858  loss: 0.000755  loss_kpt: 0.000755  acc_pose: 0.633333
+09/13 05:17:42 - mmengine - INFO - Epoch(train)   [1][27400/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:25  time: 0.748875  data_time: 0.010102  memory: 4858  loss: 0.000789  loss_kpt: 0.000789  acc_pose: 0.035714
+09/13 05:18:20 - mmengine - INFO - Epoch(train)   [1][27450/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:05  time: 0.747413  data_time: 0.009059  memory: 4858  loss: 0.000774  loss_kpt: 0.000774  acc_pose: 0.500000
+09/13 05:18:57 - mmengine - INFO - Epoch(train)   [1][27500/37454]  lr: 5.000000e-04  eta: 67 days, 16:38:46  time: 0.751714  data_time: 0.012631  memory: 4858  loss: 0.000780  loss_kpt: 0.000780  acc_pose: 0.464286
+09/13 05:19:35 - mmengine - INFO - Epoch(train)   [1][27550/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:57  time: 0.745373  data_time: 0.008768  memory: 4858  loss: 0.000682  loss_kpt: 0.000682  acc_pose: 0.083333
+09/13 05:20:12 - mmengine - INFO - Epoch(train)   [1][27600/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:28  time: 0.746834  data_time: 0.009537  memory: 4858  loss: 0.000806  loss_kpt: 0.000806  acc_pose: 0.535714
+09/13 05:20:49 - mmengine - INFO - Epoch(train)   [1][27650/37454]  lr: 5.000000e-04  eta: 67 days, 16:37:04  time: 0.747116  data_time: 0.009863  memory: 4858  loss: 0.000713  loss_kpt: 0.000713  acc_pose: 0.593750
+09/13 05:21:27 - mmengine - INFO - Epoch(train)   [1][27700/37454]  lr: 5.000000e-04  eta: 67 days, 16:36:36  time: 0.746873  data_time: 0.008437  memory: 4858  loss: 0.000791  loss_kpt: 0.000791  acc_pose: 0.000000
+09/13 05:22:04 - mmengine - INFO - Epoch(train)   [1][27750/37454]  lr: 5.000000e-04  eta: 67 days, 16:36:10  time: 0.747044  data_time: 0.008348  memory: 4858  loss: 0.000783  loss_kpt: 0.000783  acc_pose: 0.323529
+09/13 05:22:41 - mmengine - INFO - Epoch(train)   [1][27800/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:48  time: 0.747277  data_time: 0.009169  memory: 4858  loss: 0.000751  loss_kpt: 0.000751  acc_pose: 0.411765
+09/13 05:23:19 - mmengine - INFO - Epoch(train)   [1][27850/37454]  lr: 5.000000e-04  eta: 67 days, 16:36:15  time: 0.750851  data_time: 0.008133  memory: 4858  loss: 0.000758  loss_kpt: 0.000758  acc_pose: 0.000000
+09/13 05:23:56 - mmengine - INFO - Epoch(train)   [1][27900/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:57  time: 0.747572  data_time: 0.009048  memory: 4858  loss: 0.000779  loss_kpt: 0.000779  acc_pose: 0.617647
+09/13 05:24:34 - mmengine - INFO - Epoch(train)   [1][27950/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:54  time: 0.748659  data_time: 0.009080  memory: 4858  loss: 0.000783  loss_kpt: 0.000783  acc_pose: 0.750000
+09/13 05:25:11 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 05:25:11 - mmengine - INFO - Epoch(train)   [1][28000/37454]  lr: 5.000000e-04  eta: 67 days, 16:36:11  time: 0.750113  data_time: 0.009597  memory: 4858  loss: 0.000755  loss_kpt: 0.000755  acc_pose: 0.352941
+09/13 05:25:49 - mmengine - INFO - Epoch(train)   [1][28050/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:58  time: 0.748007  data_time: 0.008484  memory: 4858  loss: 0.000767  loss_kpt: 0.000767  acc_pose: 0.538462
+09/13 05:26:26 - mmengine - INFO - Epoch(train)   [1][28100/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:50  time: 0.748325  data_time: 0.007086  memory: 4858  loss: 0.000710  loss_kpt: 0.000710  acc_pose: 0.500000
+09/13 05:27:04 - mmengine - INFO - Epoch(train)   [1][28150/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:37  time: 0.748002  data_time: 0.010217  memory: 4858  loss: 0.000772  loss_kpt: 0.000772  acc_pose: 0.911765
+09/13 05:27:41 - mmengine - INFO - Epoch(train)   [1][28200/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:18  time: 0.747588  data_time: 0.007981  memory: 4858  loss: 0.000784  loss_kpt: 0.000784  acc_pose: 0.300000
+09/13 05:28:18 - mmengine - INFO - Epoch(train)   [1][28250/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:07  time: 0.748152  data_time: 0.010278  memory: 4858  loss: 0.000786  loss_kpt: 0.000786  acc_pose: 0.200000
+09/13 05:28:56 - mmengine - INFO - Epoch(train)   [1][28300/37454]  lr: 5.000000e-04  eta: 67 days, 16:35:19  time: 0.749862  data_time: 0.010851  memory: 4858  loss: 0.000740  loss_kpt: 0.000740  acc_pose: 0.294118
+09/13 05:29:33 - mmengine - INFO - Epoch(train)   [1][28350/37454]  lr: 5.000000e-04  eta: 67 days, 16:34:16  time: 0.744374  data_time: 0.010053  memory: 4858  loss: 0.000754  loss_kpt: 0.000754  acc_pose: 0.576923
+09/13 05:30:11 - mmengine - INFO - Epoch(train)   [1][28400/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:56  time: 0.747518  data_time: 0.007534  memory: 4858  loss: 0.000695  loss_kpt: 0.000695  acc_pose: 0.300000
+09/13 05:30:48 - mmengine - INFO - Epoch(train)   [1][28450/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:43  time: 0.748065  data_time: 0.010572  memory: 4858  loss: 0.000701  loss_kpt: 0.000701  acc_pose: 0.343750
+09/13 05:31:25 - mmengine - INFO - Epoch(train)   [1][28500/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:47  time: 0.749248  data_time: 0.008974  memory: 4858  loss: 0.000757  loss_kpt: 0.000757  acc_pose: 0.590909
+09/13 05:32:03 - mmengine - INFO - Epoch(train)   [1][28550/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:44  time: 0.748787  data_time: 0.012681  memory: 4858  loss: 0.000733  loss_kpt: 0.000733  acc_pose: 0.772727
+09/13 05:32:40 - mmengine - INFO - Epoch(train)   [1][28600/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:46  time: 0.749144  data_time: 0.008072  memory: 4858  loss: 0.000754  loss_kpt: 0.000754  acc_pose: 0.647059
+09/13 05:33:18 - mmengine - INFO - Epoch(train)   [1][28650/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:53  time: 0.749482  data_time: 0.013065  memory: 4858  loss: 0.000739  loss_kpt: 0.000739  acc_pose: 0.300000
+09/13 05:33:55 - mmengine - INFO - Epoch(train)   [1][28700/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:04  time: 0.745432  data_time: 0.009168  memory: 4858  loss: 0.000782  loss_kpt: 0.000782  acc_pose: 0.450000
+09/13 05:34:33 - mmengine - INFO - Epoch(train)   [1][28750/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:29  time: 0.750894  data_time: 0.009738  memory: 4858  loss: 0.000840  loss_kpt: 0.000840  acc_pose: 0.468750
+09/13 05:35:10 - mmengine - INFO - Epoch(train)   [1][28800/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:25  time: 0.748754  data_time: 0.010479  memory: 4858  loss: 0.000740  loss_kpt: 0.000740  acc_pose: 0.343750
+09/13 05:35:47 - mmengine - INFO - Epoch(train)   [1][28850/37454]  lr: 5.000000e-04  eta: 67 days, 16:32:58  time: 0.747052  data_time: 0.010259  memory: 4858  loss: 0.000730  loss_kpt: 0.000730  acc_pose: 0.250000
+09/13 05:36:25 - mmengine - INFO - Epoch(train)   [1][28900/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:01  time: 0.749248  data_time: 0.010495  memory: 4858  loss: 0.000736  loss_kpt: 0.000736  acc_pose: 0.033333
+09/13 05:37:02 - mmengine - INFO - Epoch(train)   [1][28950/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:17  time: 0.750258  data_time: 0.008408  memory: 4858  loss: 0.000744  loss_kpt: 0.000744  acc_pose: 0.300000
+09/13 05:37:40 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 05:37:40 - mmengine - INFO - Epoch(train)   [1][29000/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:32  time: 0.750222  data_time: 0.009276  memory: 4858  loss: 0.000772  loss_kpt: 0.000772  acc_pose: 0.866667
+09/13 05:38:17 - mmengine - INFO - Epoch(train)   [1][29050/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:32  time: 0.749094  data_time: 0.010034  memory: 4858  loss: 0.000770  loss_kpt: 0.000770  acc_pose: 0.406250
+09/13 05:38:55 - mmengine - INFO - Epoch(train)   [1][29100/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:13  time: 0.747667  data_time: 0.008691  memory: 4858  loss: 0.000694  loss_kpt: 0.000694  acc_pose: 0.647059
+09/13 05:39:32 - mmengine - INFO - Epoch(train)   [1][29150/37454]  lr: 5.000000e-04  eta: 67 days, 16:32:45  time: 0.747024  data_time: 0.009125  memory: 4858  loss: 0.000779  loss_kpt: 0.000779  acc_pose: 0.437500
+09/13 05:40:10 - mmengine - INFO - Epoch(train)   [1][29200/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:06  time: 0.750657  data_time: 0.009045  memory: 4858  loss: 0.000763  loss_kpt: 0.000763  acc_pose: 0.500000
+09/13 05:40:47 - mmengine - INFO - Epoch(train)   [1][29250/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:41  time: 0.751746  data_time: 0.009750  memory: 4858  loss: 0.000758  loss_kpt: 0.000758  acc_pose: 0.433333
+09/13 05:41:25 - mmengine - INFO - Epoch(train)   [1][29300/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:16  time: 0.747238  data_time: 0.007609  memory: 4858  loss: 0.000698  loss_kpt: 0.000698  acc_pose: 0.343750
+09/13 05:42:02 - mmengine - INFO - Epoch(train)   [1][29350/37454]  lr: 5.000000e-04  eta: 67 days, 16:33:01  time: 0.748047  data_time: 0.009114  memory: 4858  loss: 0.000728  loss_kpt: 0.000728  acc_pose: 0.000000
+09/13 05:42:39 - mmengine - INFO - Epoch(train)   [1][29400/37454]  lr: 5.000000e-04  eta: 67 days, 16:31:58  time: 0.744373  data_time: 0.008179  memory: 4858  loss: 0.000750  loss_kpt: 0.000750  acc_pose: 0.705882
+09/13 05:43:17 - mmengine - INFO - Epoch(train)   [1][29450/37454]  lr: 5.000000e-04  eta: 67 days, 16:31:12  time: 0.745732  data_time: 0.009013  memory: 4858  loss: 0.000751  loss_kpt: 0.000751  acc_pose: 0.607143
+09/13 05:43:54 - mmengine - INFO - Epoch(train)   [1][29500/37454]  lr: 5.000000e-04  eta: 67 days, 16:31:16  time: 0.749435  data_time: 0.009605  memory: 4858  loss: 0.000744  loss_kpt: 0.000744  acc_pose: 0.041667
+09/13 05:44:32 - mmengine - INFO - Epoch(train)   [1][29550/37454]  lr: 5.000000e-04  eta: 67 days, 16:31:21  time: 0.749551  data_time: 0.008597  memory: 4858  loss: 0.000755  loss_kpt: 0.000755  acc_pose: 0.687500
+09/13 05:45:09 - mmengine - INFO - Epoch(train)   [1][29600/37454]  lr: 5.000000e-04  eta: 67 days, 16:30:19  time: 0.744489  data_time: 0.007462  memory: 4858  loss: 0.000721  loss_kpt: 0.000721  acc_pose: 0.571429
+09/13 05:45:46 - mmengine - INFO - Epoch(train)   [1][29650/37454]  lr: 5.000000e-04  eta: 67 days, 16:30:18  time: 0.749103  data_time: 0.009848  memory: 4858  loss: 0.000734  loss_kpt: 0.000734  acc_pose: 0.346154
+09/13 05:46:24 - mmengine - INFO - Epoch(train)   [1][29700/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:44  time: 0.746606  data_time: 0.008984  memory: 4858  loss: 0.000779  loss_kpt: 0.000779  acc_pose: 0.250000
+09/13 05:47:01 - mmengine - INFO - Epoch(train)   [1][29750/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:25  time: 0.747783  data_time: 0.007530  memory: 4858  loss: 0.000755  loss_kpt: 0.000755  acc_pose: 0.735294
+09/13 05:47:38 - mmengine - INFO - Epoch(train)   [1][29800/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:29  time: 0.744913  data_time: 0.008152  memory: 4858  loss: 0.000718  loss_kpt: 0.000718  acc_pose: 0.428571
+09/13 05:48:16 - mmengine - INFO - Epoch(train)   [1][29850/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:33  time: 0.754079  data_time: 0.016192  memory: 4858  loss: 0.000748  loss_kpt: 0.000748  acc_pose: 0.500000
+09/13 05:48:53 - mmengine - INFO - Epoch(train)   [1][29900/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:28  time: 0.748856  data_time: 0.008747  memory: 4858  loss: 0.000736  loss_kpt: 0.000736  acc_pose: 0.441176
+09/13 05:49:31 - mmengine - INFO - Epoch(train)   [1][29950/37454]  lr: 5.000000e-04  eta: 67 days, 16:30:20  time: 0.753159  data_time: 0.013199  memory: 4858  loss: 0.000813  loss_kpt: 0.000813  acc_pose: 0.062500
+09/13 05:50:08 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 05:50:08 - mmengine - INFO - Epoch(train)   [1][30000/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:56  time: 0.747431  data_time: 0.009286  memory: 4858  loss: 0.000674  loss_kpt: 0.000674  acc_pose: 0.264706
+09/13 05:50:46 - mmengine - INFO - Epoch(train)   [1][30050/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:46  time: 0.748454  data_time: 0.008724  memory: 4858  loss: 0.000702  loss_kpt: 0.000702  acc_pose: 0.437500
+09/13 05:51:23 - mmengine - INFO - Epoch(train)   [1][30100/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:27  time: 0.747790  data_time: 0.011019  memory: 4858  loss: 0.000740  loss_kpt: 0.000740  acc_pose: 0.500000
+09/13 05:52:01 - mmengine - INFO - Epoch(train)   [1][30150/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:32  time: 0.749694  data_time: 0.010764  memory: 4858  loss: 0.000715  loss_kpt: 0.000715  acc_pose: 0.550000
+09/13 05:52:38 - mmengine - INFO - Epoch(train)   [1][30200/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:36  time: 0.749595  data_time: 0.011379  memory: 4858  loss: 0.000711  loss_kpt: 0.000711  acc_pose: 0.090909
+09/13 05:53:16 - mmengine - INFO - Epoch(train)   [1][30250/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:44  time: 0.745268  data_time: 0.009441  memory: 4858  loss: 0.000759  loss_kpt: 0.000759  acc_pose: 0.352941
+09/13 05:53:53 - mmengine - INFO - Epoch(train)   [1][30300/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:26  time: 0.747891  data_time: 0.012776  memory: 4858  loss: 0.000782  loss_kpt: 0.000782  acc_pose: 0.409091
+09/13 05:54:30 - mmengine - INFO - Epoch(train)   [1][30350/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:53  time: 0.746719  data_time: 0.009928  memory: 4858  loss: 0.000740  loss_kpt: 0.000740  acc_pose: 0.300000
+09/13 05:55:08 - mmengine - INFO - Epoch(train)   [1][30400/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:57  time: 0.749610  data_time: 0.010442  memory: 4858  loss: 0.000800  loss_kpt: 0.000800  acc_pose: 0.200000
+09/13 05:55:45 - mmengine - INFO - Epoch(train)   [1][30450/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:08  time: 0.745504  data_time: 0.007359  memory: 4858  loss: 0.000716  loss_kpt: 0.000716  acc_pose: 0.166667
+09/13 05:56:23 - mmengine - INFO - Epoch(train)   [1][30500/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:22  time: 0.750424  data_time: 0.009754  memory: 4858  loss: 0.000723  loss_kpt: 0.000723  acc_pose: 0.625000
+09/13 05:57:00 - mmengine - INFO - Epoch(train)   [1][30550/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:06  time: 0.748091  data_time: 0.010129  memory: 4858  loss: 0.000705  loss_kpt: 0.000705  acc_pose: 0.730769
+09/13 05:57:38 - mmengine - INFO - Epoch(train)   [1][30600/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:02  time: 0.753666  data_time: 0.010981  memory: 4858  loss: 0.000726  loss_kpt: 0.000726  acc_pose: 0.617647
+09/13 05:58:15 - mmengine - INFO - Epoch(train)   [1][30650/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:36  time: 0.747289  data_time: 0.007571  memory: 4858  loss: 0.000807  loss_kpt: 0.000807  acc_pose: 0.272727
+09/13 05:58:53 - mmengine - INFO - Epoch(train)   [1][30700/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:37  time: 0.749436  data_time: 0.013850  memory: 4858  loss: 0.000703  loss_kpt: 0.000703  acc_pose: 0.692308
+09/13 05:59:30 - mmengine - INFO - Epoch(train)   [1][30750/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:25  time: 0.748433  data_time: 0.009726  memory: 4858  loss: 0.000704  loss_kpt: 0.000704  acc_pose: 0.633333
+09/13 06:00:08 - mmengine - INFO - Epoch(train)   [1][30800/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:56  time: 0.751866  data_time: 0.012420  memory: 4858  loss: 0.000731  loss_kpt: 0.000731  acc_pose: 0.416667
+09/13 06:00:45 - mmengine - INFO - Epoch(train)   [1][30850/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:49  time: 0.748781  data_time: 0.010301  memory: 4858  loss: 0.000739  loss_kpt: 0.000739  acc_pose: 0.363636
+09/13 06:01:22 - mmengine - INFO - Epoch(train)   [1][30900/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:50  time: 0.749499  data_time: 0.009212  memory: 4858  loss: 0.000701  loss_kpt: 0.000701  acc_pose: 0.454545
+09/13 06:02:00 - mmengine - INFO - Epoch(train)   [1][30950/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:11  time: 0.751085  data_time: 0.007254  memory: 4858  loss: 0.000758  loss_kpt: 0.000758  acc_pose: 0.125000
+09/13 06:02:38 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 06:02:38 - mmengine - INFO - Epoch(train)   [1][31000/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:14  time: 0.749637  data_time: 0.009750  memory: 4858  loss: 0.000742  loss_kpt: 0.000742  acc_pose: 0.441176
+09/13 06:03:15 - mmengine - INFO - Epoch(train)   [1][31050/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:23  time: 0.750110  data_time: 0.010570  memory: 4858  loss: 0.000724  loss_kpt: 0.000724  acc_pose: 0.233333
+09/13 06:03:52 - mmengine - INFO - Epoch(train)   [1][31100/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:01  time: 0.747734  data_time: 0.009417  memory: 4858  loss: 0.000769  loss_kpt: 0.000769  acc_pose: 0.588235
+09/13 06:04:30 - mmengine - INFO - Epoch(train)   [1][31150/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:19  time: 0.746094  data_time: 0.009637  memory: 4858  loss: 0.000750  loss_kpt: 0.000750  acc_pose: 0.323529
+09/13 06:05:07 - mmengine - INFO - Epoch(train)   [1][31200/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:10  time: 0.748750  data_time: 0.007689  memory: 4858  loss: 0.000755  loss_kpt: 0.000755  acc_pose: 0.281250
+09/13 06:05:45 - mmengine - INFO - Epoch(train)   [1][31250/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:45  time: 0.747422  data_time: 0.010212  memory: 4858  loss: 0.000712  loss_kpt: 0.000712  acc_pose: 0.593750
+09/13 06:06:22 - mmengine - INFO - Epoch(train)   [1][31300/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:15  time: 0.747087  data_time: 0.008311  memory: 4858  loss: 0.000702  loss_kpt: 0.000702  acc_pose: 0.000000
+09/13 06:06:59 - mmengine - INFO - Epoch(train)   [1][31350/37454]  lr: 5.000000e-04  eta: 67 days, 16:25:25  time: 0.745452  data_time: 0.009820  memory: 4858  loss: 0.000691  loss_kpt: 0.000691  acc_pose: 0.312500
+09/13 06:07:37 - mmengine - INFO - Epoch(train)   [1][31400/37454]  lr: 5.000000e-04  eta: 67 days, 16:25:12  time: 0.748464  data_time: 0.007496  memory: 4858  loss: 0.000746  loss_kpt: 0.000746  acc_pose: 0.593750
+09/13 06:08:14 - mmengine - INFO - Epoch(train)   [1][31450/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:17  time: 0.745037  data_time: 0.007631  memory: 4858  loss: 0.000781  loss_kpt: 0.000781  acc_pose: 1.000000
+09/13 06:08:53 - mmengine - INFO - Epoch(train)   [1][31500/37454]  lr: 5.000000e-04  eta: 67 days, 16:31:17  time: 0.783272  data_time: 0.007953  memory: 4858  loss: 0.000771  loss_kpt: 0.000771  acc_pose: 0.576923
+09/13 06:09:31 - mmengine - INFO - Epoch(train)   [1][31550/37454]  lr: 5.000000e-04  eta: 67 days, 16:31:18  time: 0.749596  data_time: 0.008501  memory: 4858  loss: 0.000783  loss_kpt: 0.000783  acc_pose: 0.533333
+09/13 06:10:08 - mmengine - INFO - Epoch(train)   [1][31600/37454]  lr: 5.000000e-04  eta: 67 days, 16:31:01  time: 0.748234  data_time: 0.008177  memory: 4858  loss: 0.000737  loss_kpt: 0.000737  acc_pose: 0.533333
+09/13 06:10:45 - mmengine - INFO - Epoch(train)   [1][31650/37454]  lr: 5.000000e-04  eta: 67 days, 16:30:41  time: 0.747945  data_time: 0.009962  memory: 4858  loss: 0.000751  loss_kpt: 0.000751  acc_pose: 0.562500
+09/13 06:11:23 - mmengine - INFO - Epoch(train)   [1][31700/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:39  time: 0.744504  data_time: 0.007544  memory: 4858  loss: 0.000732  loss_kpt: 0.000732  acc_pose: 0.041667
+09/13 06:12:00 - mmengine - INFO - Epoch(train)   [1][31750/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:36  time: 0.749366  data_time: 0.009403  memory: 4858  loss: 0.000778  loss_kpt: 0.000778  acc_pose: 0.500000
+09/13 06:12:38 - mmengine - INFO - Epoch(train)   [1][31800/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:50  time: 0.750750  data_time: 0.008461  memory: 4858  loss: 0.000752  loss_kpt: 0.000752  acc_pose: 0.500000
+09/13 06:13:15 - mmengine - INFO - Epoch(train)   [1][31850/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:59  time: 0.750261  data_time: 0.009036  memory: 4858  loss: 0.000809  loss_kpt: 0.000809  acc_pose: 0.607143
+09/13 06:13:53 - mmengine - INFO - Epoch(train)   [1][31900/37454]  lr: 5.000000e-04  eta: 67 days, 16:30:01  time: 0.749832  data_time: 0.009169  memory: 4858  loss: 0.000669  loss_kpt: 0.000669  acc_pose: 0.285714
+09/13 06:14:30 - mmengine - INFO - Epoch(train)   [1][31950/37454]  lr: 5.000000e-04  eta: 67 days, 16:30:00  time: 0.749461  data_time: 0.008607  memory: 4858  loss: 0.000713  loss_kpt: 0.000713  acc_pose: 0.454545
+09/13 06:15:07 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 06:15:07 - mmengine - INFO - Epoch(train)   [1][32000/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:26  time: 0.746868  data_time: 0.008003  memory: 4858  loss: 0.000716  loss_kpt: 0.000716  acc_pose: 0.500000
+09/13 06:15:45 - mmengine - INFO - Epoch(train)   [1][32050/37454]  lr: 5.000000e-04  eta: 67 days, 16:29:10  time: 0.748360  data_time: 0.007696  memory: 4858  loss: 0.000739  loss_kpt: 0.000739  acc_pose: 0.321429
+09/13 06:16:22 - mmengine - INFO - Epoch(train)   [1][32100/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:22  time: 0.745669  data_time: 0.008025  memory: 4858  loss: 0.000749  loss_kpt: 0.000749  acc_pose: 0.375000
+09/13 06:17:00 - mmengine - INFO - Epoch(train)   [1][32150/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:02  time: 0.748007  data_time: 0.007301  memory: 4858  loss: 0.000653  loss_kpt: 0.000653  acc_pose: 0.642857
+09/13 06:17:37 - mmengine - INFO - Epoch(train)   [1][32200/37454]  lr: 5.000000e-04  eta: 67 days, 16:28:10  time: 0.750315  data_time: 0.008577  memory: 4858  loss: 0.000776  loss_kpt: 0.000776  acc_pose: 0.593750
+09/13 06:18:15 - mmengine - INFO - Epoch(train)   [1][32250/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:45  time: 0.747572  data_time: 0.007497  memory: 4858  loss: 0.000776  loss_kpt: 0.000776  acc_pose: 0.558824
+09/13 06:18:52 - mmengine - INFO - Epoch(train)   [1][32300/37454]  lr: 5.000000e-04  eta: 67 days, 16:27:13  time: 0.747000  data_time: 0.009665  memory: 4858  loss: 0.000741  loss_kpt: 0.000741  acc_pose: 0.291667
+09/13 06:19:29 - mmengine - INFO - Epoch(train)   [1][32350/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:42  time: 0.747170  data_time: 0.008177  memory: 4858  loss: 0.000753  loss_kpt: 0.000753  acc_pose: 0.343750
+09/13 06:20:07 - mmengine - INFO - Epoch(train)   [1][32400/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:50  time: 0.750283  data_time: 0.010527  memory: 4858  loss: 0.000702  loss_kpt: 0.000702  acc_pose: 0.617647
+09/13 06:20:44 - mmengine - INFO - Epoch(train)   [1][32450/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:46  time: 0.749353  data_time: 0.008340  memory: 4858  loss: 0.000784  loss_kpt: 0.000784  acc_pose: 0.852941
+09/13 06:21:22 - mmengine - INFO - Epoch(train)   [1][32500/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:48  time: 0.749885  data_time: 0.009384  memory: 4858  loss: 0.000757  loss_kpt: 0.000757  acc_pose: 0.617647
+09/13 06:21:59 - mmengine - INFO - Epoch(train)   [1][32550/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:48  time: 0.749664  data_time: 0.009575  memory: 4858  loss: 0.000743  loss_kpt: 0.000743  acc_pose: 0.437500
+09/13 06:22:37 - mmengine - INFO - Epoch(train)   [1][32600/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:26  time: 0.747957  data_time: 0.009280  memory: 4858  loss: 0.000732  loss_kpt: 0.000732  acc_pose: 0.468750
+09/13 06:23:14 - mmengine - INFO - Epoch(train)   [1][32650/37454]  lr: 5.000000e-04  eta: 67 days, 16:26:02  time: 0.747663  data_time: 0.007767  memory: 4858  loss: 0.000694  loss_kpt: 0.000694  acc_pose: 0.291667
+09/13 06:23:51 - mmengine - INFO - Epoch(train)   [1][32700/37454]  lr: 5.000000e-04  eta: 67 days, 16:25:24  time: 0.746599  data_time: 0.007499  memory: 4858  loss: 0.000718  loss_kpt: 0.000718  acc_pose: 0.117647
+09/13 06:24:29 - mmengine - INFO - Epoch(train)   [1][32750/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:40  time: 0.745991  data_time: 0.007237  memory: 4858  loss: 0.000711  loss_kpt: 0.000711  acc_pose: 0.400000
+09/13 06:25:06 - mmengine - INFO - Epoch(train)   [1][32800/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:09  time: 0.747190  data_time: 0.006262  memory: 4858  loss: 0.000728  loss_kpt: 0.000728  acc_pose: 0.538462
+09/13 06:25:44 - mmengine - INFO - Epoch(train)   [1][32850/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:19  time: 0.750606  data_time: 0.011247  memory: 4858  loss: 0.000697  loss_kpt: 0.000697  acc_pose: 0.857143
+09/13 06:26:21 - mmengine - INFO - Epoch(train)   [1][32900/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:02  time: 0.748264  data_time: 0.008052  memory: 4858  loss: 0.000761  loss_kpt: 0.000761  acc_pose: 0.076923
+09/13 06:26:59 - mmengine - INFO - Epoch(train)   [1][32950/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:00  time: 0.749589  data_time: 0.010196  memory: 4858  loss: 0.000760  loss_kpt: 0.000760  acc_pose: 0.458333
+09/13 06:27:36 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 06:27:36 - mmengine - INFO - Epoch(train)   [1][33000/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:17  time: 0.751193  data_time: 0.009848  memory: 4858  loss: 0.000717  loss_kpt: 0.000717  acc_pose: 0.178571
+09/13 06:28:14 - mmengine - INFO - Epoch(train)   [1][33050/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:16  time: 0.749751  data_time: 0.009161  memory: 4858  loss: 0.000746  loss_kpt: 0.000746  acc_pose: 0.911765
+09/13 06:28:51 - mmengine - INFO - Epoch(train)   [1][33100/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:22  time: 0.750292  data_time: 0.008138  memory: 4858  loss: 0.000692  loss_kpt: 0.000692  acc_pose: 0.458333
+09/13 06:29:29 - mmengine - INFO - Epoch(train)   [1][33150/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:14  time: 0.749131  data_time: 0.007894  memory: 4858  loss: 0.000754  loss_kpt: 0.000754  acc_pose: 0.807692
+09/13 06:30:06 - mmengine - INFO - Epoch(train)   [1][33200/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:10  time: 0.749414  data_time: 0.008917  memory: 4858  loss: 0.000722  loss_kpt: 0.000722  acc_pose: 0.500000
+09/13 06:30:44 - mmengine - INFO - Epoch(train)   [1][33250/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:06  time: 0.749478  data_time: 0.008589  memory: 4858  loss: 0.000705  loss_kpt: 0.000705  acc_pose: 0.156250
+09/13 06:31:21 - mmengine - INFO - Epoch(train)   [1][33300/37454]  lr: 5.000000e-04  eta: 67 days, 16:23:33  time: 0.747045  data_time: 0.008485  memory: 4858  loss: 0.000742  loss_kpt: 0.000742  acc_pose: 0.464286
+09/13 06:31:59 - mmengine - INFO - Epoch(train)   [1][33350/37454]  lr: 5.000000e-04  eta: 67 days, 16:24:03  time: 0.752414  data_time: 0.008571  memory: 4858  loss: 0.000725  loss_kpt: 0.000725  acc_pose: 0.205882
+09/13 06:32:36 - mmengine - INFO - Epoch(train)   [1][33400/37454]  lr: 5.000000e-04  eta: 67 days, 16:23:53  time: 0.748965  data_time: 0.009278  memory: 4858  loss: 0.000779  loss_kpt: 0.000779  acc_pose: 0.000000
+09/13 06:33:13 - mmengine - INFO - Epoch(train)   [1][33450/37454]  lr: 5.000000e-04  eta: 67 days, 16:23:31  time: 0.747941  data_time: 0.009498  memory: 4858  loss: 0.000769  loss_kpt: 0.000769  acc_pose: 0.437500
+09/13 06:33:51 - mmengine - INFO - Epoch(train)   [1][33500/37454]  lr: 5.000000e-04  eta: 67 days, 16:23:34  time: 0.750164  data_time: 0.008491  memory: 4858  loss: 0.000667  loss_kpt: 0.000667  acc_pose: 0.857143
+09/13 06:34:28 - mmengine - INFO - Epoch(train)   [1][33550/37454]  lr: 5.000000e-04  eta: 67 days, 16:23:19  time: 0.748610  data_time: 0.008974  memory: 4858  loss: 0.000756  loss_kpt: 0.000756  acc_pose: 0.633333
+09/13 06:35:06 - mmengine - INFO - Epoch(train)   [1][33600/37454]  lr: 5.000000e-04  eta: 67 days, 16:23:11  time: 0.749137  data_time: 0.010738  memory: 4858  loss: 0.000728  loss_kpt: 0.000728  acc_pose: 0.656250
+09/13 06:35:43 - mmengine - INFO - Epoch(train)   [1][33650/37454]  lr: 5.000000e-04  eta: 67 days, 16:22:43  time: 0.747470  data_time: 0.009311  memory: 4858  loss: 0.000745  loss_kpt: 0.000745  acc_pose: 0.566667
+09/13 06:36:21 - mmengine - INFO - Epoch(train)   [1][33700/37454]  lr: 5.000000e-04  eta: 67 days, 16:22:28  time: 0.748602  data_time: 0.008437  memory: 4858  loss: 0.000720  loss_kpt: 0.000720  acc_pose: 0.535714
+09/13 06:36:58 - mmengine - INFO - Epoch(train)   [1][33750/37454]  lr: 5.000000e-04  eta: 67 days, 16:22:10  time: 0.748362  data_time: 0.008936  memory: 4858  loss: 0.000713  loss_kpt: 0.000713  acc_pose: 0.000000
+09/13 06:37:35 - mmengine - INFO - Epoch(train)   [1][33800/37454]  lr: 5.000000e-04  eta: 67 days, 16:21:58  time: 0.748933  data_time: 0.010814  memory: 4858  loss: 0.000802  loss_kpt: 0.000802  acc_pose: 0.687500
+09/13 06:38:13 - mmengine - INFO - Epoch(train)   [1][33850/37454]  lr: 5.000000e-04  eta: 67 days, 16:22:36  time: 0.753142  data_time: 0.008739  memory: 4858  loss: 0.000722  loss_kpt: 0.000722  acc_pose: 0.750000
+09/13 06:38:51 - mmengine - INFO - Epoch(train)   [1][33900/37454]  lr: 5.000000e-04  eta: 67 days, 16:22:09  time: 0.747595  data_time: 0.008376  memory: 4858  loss: 0.000779  loss_kpt: 0.000779  acc_pose: 0.750000
+09/13 06:39:28 - mmengine - INFO - Epoch(train)   [1][33950/37454]  lr: 5.000000e-04  eta: 67 days, 16:21:47  time: 0.748056  data_time: 0.008140  memory: 4858  loss: 0.000698  loss_kpt: 0.000698  acc_pose: 0.323529
+09/13 06:40:05 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 06:40:05 - mmengine - INFO - Epoch(train)   [1][34000/37454]  lr: 5.000000e-04  eta: 67 days, 16:21:54  time: 0.750520  data_time: 0.008799  memory: 4858  loss: 0.000791  loss_kpt: 0.000791  acc_pose: 0.235294
+09/13 06:40:43 - mmengine - INFO - Epoch(train)   [1][34050/37454]  lr: 5.000000e-04  eta: 67 days, 16:21:41  time: 0.748819  data_time: 0.008599  memory: 4858  loss: 0.000737  loss_kpt: 0.000737  acc_pose: 0.558824
+09/13 06:41:20 - mmengine - INFO - Epoch(train)   [1][34100/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:48  time: 0.745390  data_time: 0.007221  memory: 4858  loss: 0.000647  loss_kpt: 0.000647  acc_pose: 0.500000
+09/13 06:41:58 - mmengine - INFO - Epoch(train)   [1][34150/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:31  time: 0.748479  data_time: 0.006985  memory: 4858  loss: 0.000725  loss_kpt: 0.000725  acc_pose: 0.363636
+09/13 06:42:35 - mmengine - INFO - Epoch(train)   [1][34200/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:40  time: 0.750717  data_time: 0.010967  memory: 4858  loss: 0.000736  loss_kpt: 0.000736  acc_pose: 0.375000
+09/13 06:43:13 - mmengine - INFO - Epoch(train)   [1][34250/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:16  time: 0.747895  data_time: 0.008817  memory: 4858  loss: 0.000767  loss_kpt: 0.000767  acc_pose: 0.441176
+09/13 06:43:50 - mmengine - INFO - Epoch(train)   [1][34300/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:23  time: 0.750588  data_time: 0.008520  memory: 4858  loss: 0.000728  loss_kpt: 0.000728  acc_pose: 0.029412
+09/13 06:44:28 - mmengine - INFO - Epoch(train)   [1][34350/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:21  time: 0.749888  data_time: 0.008502  memory: 4858  loss: 0.000709  loss_kpt: 0.000709  acc_pose: 0.000000
+09/13 06:45:05 - mmengine - INFO - Epoch(train)   [1][34400/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:43  time: 0.751863  data_time: 0.008968  memory: 4858  loss: 0.000710  loss_kpt: 0.000710  acc_pose: 0.441176
+09/13 06:45:43 - mmengine - INFO - Epoch(train)   [1][34450/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:49  time: 0.750588  data_time: 0.007106  memory: 4858  loss: 0.000713  loss_kpt: 0.000713  acc_pose: 0.125000
+09/13 06:46:20 - mmengine - INFO - Epoch(train)   [1][34500/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:12  time: 0.746807  data_time: 0.008184  memory: 4858  loss: 0.000697  loss_kpt: 0.000697  acc_pose: 0.035714
+09/13 06:46:58 - mmengine - INFO - Epoch(train)   [1][34550/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:35  time: 0.752010  data_time: 0.009840  memory: 4858  loss: 0.000745  loss_kpt: 0.000745  acc_pose: 0.375000
+09/13 06:47:35 - mmengine - INFO - Epoch(train)   [1][34600/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:21  time: 0.748801  data_time: 0.008250  memory: 4858  loss: 0.000701  loss_kpt: 0.000701  acc_pose: 0.941176
+09/13 06:48:13 - mmengine - INFO - Epoch(train)   [1][34650/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:36  time: 0.751442  data_time: 0.009431  memory: 4858  loss: 0.000712  loss_kpt: 0.000712  acc_pose: 0.250000
+09/13 06:48:50 - mmengine - INFO - Epoch(train)   [1][34700/37454]  lr: 5.000000e-04  eta: 67 days, 16:21:11  time: 0.753178  data_time: 0.014003  memory: 4858  loss: 0.000723  loss_kpt: 0.000723  acc_pose: 0.411765
+09/13 06:49:28 - mmengine - INFO - Epoch(train)   [1][34750/37454]  lr: 5.000000e-04  eta: 67 days, 16:21:01  time: 0.749157  data_time: 0.009001  memory: 4858  loss: 0.000707  loss_kpt: 0.000707  acc_pose: 0.000000
+09/13 06:50:05 - mmengine - INFO - Epoch(train)   [1][34800/37454]  lr: 5.000000e-04  eta: 67 days, 16:21:01  time: 0.750102  data_time: 0.009894  memory: 4858  loss: 0.000696  loss_kpt: 0.000696  acc_pose: 0.766667
+09/13 06:50:43 - mmengine - INFO - Epoch(train)   [1][34850/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:54  time: 0.749445  data_time: 0.007509  memory: 4858  loss: 0.000744  loss_kpt: 0.000744  acc_pose: 0.343750
+09/13 06:51:20 - mmengine - INFO - Epoch(train)   [1][34900/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:53  time: 0.750037  data_time: 0.007086  memory: 4858  loss: 0.000738  loss_kpt: 0.000738  acc_pose: 0.566667
+09/13 06:51:58 - mmengine - INFO - Epoch(train)   [1][34950/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:29  time: 0.747999  data_time: 0.009780  memory: 4858  loss: 0.000687  loss_kpt: 0.000687  acc_pose: 0.676471
+09/13 06:52:35 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 06:52:35 - mmengine - INFO - Epoch(train)   [1][35000/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:21  time: 0.749375  data_time: 0.008420  memory: 4858  loss: 0.000680  loss_kpt: 0.000680  acc_pose: 0.384615
+09/13 06:53:13 - mmengine - INFO - Epoch(train)   [1][35050/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:20  time: 0.750034  data_time: 0.007850  memory: 4858  loss: 0.000689  loss_kpt: 0.000689  acc_pose: 0.588235
+09/13 06:53:51 - mmengine - INFO - Epoch(train)   [1][35100/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:59  time: 0.753632  data_time: 0.012000  memory: 4858  loss: 0.000745  loss_kpt: 0.000745  acc_pose: 0.558824
+09/13 06:54:28 - mmengine - INFO - Epoch(train)   [1][35150/37454]  lr: 5.000000e-04  eta: 67 days, 16:21:04  time: 0.750631  data_time: 0.009357  memory: 4858  loss: 0.000722  loss_kpt: 0.000722  acc_pose: 0.647059
+09/13 06:55:05 - mmengine - INFO - Epoch(train)   [1][35200/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:33  time: 0.747412  data_time: 0.008471  memory: 4858  loss: 0.000687  loss_kpt: 0.000687  acc_pose: 0.230769
+09/13 06:55:43 - mmengine - INFO - Epoch(train)   [1][35250/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:01  time: 0.747225  data_time: 0.008336  memory: 4858  loss: 0.000753  loss_kpt: 0.000753  acc_pose: 0.312500
+09/13 06:56:20 - mmengine - INFO - Epoch(train)   [1][35300/37454]  lr: 5.000000e-04  eta: 67 days, 16:19:38  time: 0.748115  data_time: 0.009653  memory: 4858  loss: 0.000711  loss_kpt: 0.000711  acc_pose: 0.571429
+09/13 06:56:58 - mmengine - INFO - Epoch(train)   [1][35350/37454]  lr: 5.000000e-04  eta: 67 days, 16:18:58  time: 0.746635  data_time: 0.007827  memory: 4858  loss: 0.000732  loss_kpt: 0.000732  acc_pose: 0.733333
+09/13 06:57:35 - mmengine - INFO - Epoch(train)   [1][35400/37454]  lr: 5.000000e-04  eta: 67 days, 16:18:51  time: 0.749540  data_time: 0.007584  memory: 4858  loss: 0.000730  loss_kpt: 0.000730  acc_pose: 0.100000
+09/13 06:58:12 - mmengine - INFO - Epoch(train)   [1][35450/37454]  lr: 5.000000e-04  eta: 67 days, 16:18:23  time: 0.747606  data_time: 0.008388  memory: 4858  loss: 0.000751  loss_kpt: 0.000751  acc_pose: 0.312500
+09/13 06:58:50 - mmengine - INFO - Epoch(train)   [1][35500/37454]  lr: 5.000000e-04  eta: 67 days, 16:17:56  time: 0.747764  data_time: 0.007620  memory: 4858  loss: 0.000744  loss_kpt: 0.000744  acc_pose: 0.363636
+09/13 06:59:27 - mmengine - INFO - Epoch(train)   [1][35550/37454]  lr: 5.000000e-04  eta: 67 days, 16:17:34  time: 0.748201  data_time: 0.008530  memory: 4858  loss: 0.000737  loss_kpt: 0.000737  acc_pose: 0.416667
+09/13 07:00:05 - mmengine - INFO - Epoch(train)   [1][35600/37454]  lr: 5.000000e-04  eta: 67 days, 16:17:11  time: 0.748182  data_time: 0.008961  memory: 4858  loss: 0.000744  loss_kpt: 0.000744  acc_pose: 0.566667
+09/13 07:00:42 - mmengine - INFO - Epoch(train)   [1][35650/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:48  time: 0.748127  data_time: 0.007715  memory: 4858  loss: 0.000718  loss_kpt: 0.000718  acc_pose: 1.000000
+09/13 07:01:19 - mmengine - INFO - Epoch(train)   [1][35700/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:59  time: 0.745766  data_time: 0.007952  memory: 4858  loss: 0.000704  loss_kpt: 0.000704  acc_pose: 0.000000
+09/13 07:01:57 - mmengine - INFO - Epoch(train)   [1][35750/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:29  time: 0.752926  data_time: 0.010371  memory: 4858  loss: 0.000736  loss_kpt: 0.000736  acc_pose: 0.687500
+09/13 07:02:34 - mmengine - INFO - Epoch(train)   [1][35800/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:59  time: 0.747575  data_time: 0.009953  memory: 4858  loss: 0.000743  loss_kpt: 0.000743  acc_pose: 0.500000
+09/13 07:03:12 - mmengine - INFO - Epoch(train)   [1][35850/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:36  time: 0.748070  data_time: 0.008528  memory: 4858  loss: 0.000679  loss_kpt: 0.000679  acc_pose: 0.781250
+09/13 07:03:49 - mmengine - INFO - Epoch(train)   [1][35900/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:33  time: 0.750048  data_time: 0.010579  memory: 4858  loss: 0.000750  loss_kpt: 0.000750  acc_pose: 0.411765
+09/13 07:04:27 - mmengine - INFO - Epoch(train)   [1][35950/37454]  lr: 5.000000e-04  eta: 67 days, 16:14:58  time: 0.747048  data_time: 0.010272  memory: 4858  loss: 0.000698  loss_kpt: 0.000698  acc_pose: 0.625000
+09/13 07:05:04 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 07:05:04 - mmengine - INFO - Epoch(train)   [1][36000/37454]  lr: 5.000000e-04  eta: 67 days, 16:15:14  time: 0.751744  data_time: 0.009604  memory: 4858  loss: 0.000700  loss_kpt: 0.000700  acc_pose: 0.535714
+09/13 07:05:42 - mmengine - INFO - Epoch(train)   [1][36050/37454]  lr: 5.000000e-04  eta: 67 days, 16:14:50  time: 0.748062  data_time: 0.009340  memory: 4858  loss: 0.000741  loss_kpt: 0.000741  acc_pose: 0.233333
+09/13 07:06:19 - mmengine - INFO - Epoch(train)   [1][36100/37454]  lr: 5.000000e-04  eta: 67 days, 16:14:28  time: 0.748229  data_time: 0.009180  memory: 4858  loss: 0.000735  loss_kpt: 0.000735  acc_pose: 0.000000
+09/13 07:06:57 - mmengine - INFO - Epoch(train)   [1][36150/37454]  lr: 5.000000e-04  eta: 67 days, 16:14:08  time: 0.748491  data_time: 0.009692  memory: 4858  loss: 0.000707  loss_kpt: 0.000707  acc_pose: 0.333333
+09/13 07:07:34 - mmengine - INFO - Epoch(train)   [1][36200/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:47  time: 0.748382  data_time: 0.009198  memory: 4858  loss: 0.000749  loss_kpt: 0.000749  acc_pose: 0.911765
+09/13 07:08:11 - mmengine - INFO - Epoch(train)   [1][36250/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:03  time: 0.746170  data_time: 0.006750  memory: 4858  loss: 0.000711  loss_kpt: 0.000711  acc_pose: 0.350000
+09/13 07:08:49 - mmengine - INFO - Epoch(train)   [1][36300/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:58  time: 0.749894  data_time: 0.009696  memory: 4858  loss: 0.000699  loss_kpt: 0.000699  acc_pose: 0.529412
+09/13 07:09:26 - mmengine - INFO - Epoch(train)   [1][36350/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:51  time: 0.749634  data_time: 0.008696  memory: 4858  loss: 0.000753  loss_kpt: 0.000753  acc_pose: 0.406250
+09/13 07:10:04 - mmengine - INFO - Epoch(train)   [1][36400/37454]  lr: 5.000000e-04  eta: 67 days, 16:12:54  time: 0.750666  data_time: 0.006866  memory: 4858  loss: 0.000746  loss_kpt: 0.000746  acc_pose: 0.911765
+09/13 07:10:41 - mmengine - INFO - Epoch(train)   [1][36450/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:10  time: 0.751814  data_time: 0.011958  memory: 4858  loss: 0.000725  loss_kpt: 0.000725  acc_pose: 0.277778
+09/13 07:11:19 - mmengine - INFO - Epoch(train)   [1][36500/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:20  time: 0.751321  data_time: 0.007335  memory: 4858  loss: 0.000735  loss_kpt: 0.000735  acc_pose: 0.071429
+09/13 07:11:56 - mmengine - INFO - Epoch(train)   [1][36550/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:06  time: 0.749070  data_time: 0.007517  memory: 4858  loss: 0.000764  loss_kpt: 0.000764  acc_pose: 0.321429
+09/13 07:12:34 - mmengine - INFO - Epoch(train)   [1][36600/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:10  time: 0.750680  data_time: 0.009748  memory: 4858  loss: 0.000715  loss_kpt: 0.000715  acc_pose: 0.363636
+09/13 07:13:12 - mmengine - INFO - Epoch(train)   [1][36650/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:09  time: 0.750365  data_time: 0.010904  memory: 4858  loss: 0.000793  loss_kpt: 0.000793  acc_pose: 0.366667
+09/13 07:13:49 - mmengine - INFO - Epoch(train)   [1][36700/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:14  time: 0.750796  data_time: 0.008966  memory: 4858  loss: 0.000753  loss_kpt: 0.000753  acc_pose: 0.200000
+09/13 07:14:27 - mmengine - INFO - Epoch(train)   [1][36750/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:11  time: 0.750145  data_time: 0.010018  memory: 4858  loss: 0.000705  loss_kpt: 0.000705  acc_pose: 0.733333
+09/13 07:15:04 - mmengine - INFO - Epoch(train)   [1][36800/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:33  time: 0.752489  data_time: 0.010009  memory: 4858  loss: 0.000711  loss_kpt: 0.000711  acc_pose: 0.366667
+09/13 07:15:42 - mmengine - INFO - Epoch(train)   [1][36850/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:41  time: 0.751157  data_time: 0.010277  memory: 4858  loss: 0.000720  loss_kpt: 0.000720  acc_pose: 0.617647
+09/13 07:16:19 - mmengine - INFO - Epoch(train)   [1][36900/37454]  lr: 5.000000e-04  eta: 67 days, 16:13:30  time: 0.749453  data_time: 0.008361  memory: 4858  loss: 0.000755  loss_kpt: 0.000755  acc_pose: 0.450000
+09/13 07:16:57 - mmengine - INFO - Epoch(train)   [1][36950/37454]  lr: 5.000000e-04  eta: 67 days, 16:14:05  time: 0.753675  data_time: 0.009647  memory: 4858  loss: 0.000730  loss_kpt: 0.000730  acc_pose: 0.083333
+09/13 07:17:35 - mmengine - INFO - Exp name: aa_WTPose_SwinV2_b_w8_coco_384x384_1k_20230912_233548
+09/13 07:17:35 - mmengine - INFO - Epoch(train)   [1][37000/37454]  lr: 5.000000e-04  eta: 67 days, 16:16:52  time: 0.766313  data_time: 0.010342  memory: 4858  loss: 0.000733  loss_kpt: 0.000733  acc_pose: 0.375000
+09/13 07:18:14 - mmengine - INFO - Epoch(train)   [1][37050/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:18  time: 0.769929  data_time: 0.007307  memory: 4858  loss: 0.000689  loss_kpt: 0.000689  acc_pose: 0.409091
+09/13 07:18:51 - mmengine - INFO - Epoch(train)   [1][37100/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:19  time: 0.750676  data_time: 0.008385  memory: 4858  loss: 0.000725  loss_kpt: 0.000725  acc_pose: 0.583333
+09/13 07:19:29 - mmengine - INFO - Epoch(train)   [1][37150/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:10  time: 0.749661  data_time: 0.007071  memory: 4858  loss: 0.000711  loss_kpt: 0.000711  acc_pose: 0.272727
+09/13 07:20:06 - mmengine - INFO - Epoch(train)   [1][37200/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:10  time: 0.750554  data_time: 0.008151  memory: 4858  loss: 0.000804  loss_kpt: 0.000804  acc_pose: 0.576923
+09/13 07:20:44 - mmengine - INFO - Epoch(train)   [1][37250/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:31  time: 0.752524  data_time: 0.010014  memory: 4858  loss: 0.000745  loss_kpt: 0.000745  acc_pose: 0.625000
+09/13 07:21:21 - mmengine - INFO - Epoch(train)   [1][37300/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:13  time: 0.748869  data_time: 0.008165  memory: 4858  loss: 0.000714  loss_kpt: 0.000714  acc_pose: 0.409091
+09/13 07:21:59 - mmengine - INFO - Epoch(train)   [1][37350/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:40  time: 0.753160  data_time: 0.010254  memory: 4858  loss: 0.000730  loss_kpt: 0.000730  acc_pose: 0.535714
+09/13 07:22:37 - mmengine - INFO - Epoch(train)   [1][37400/37454]  lr: 5.000000e-04  eta: 67 days, 16:20:21  time: 0.748742  data_time: 0.009640  memory: 4858  loss: 0.000760  loss_kpt: 0.000760  acc_pose: 0.343750
+09/13 07:23:14 - mmengine - INFO - Epoch(train)   [1][37450/37454]  lr: 5.000000e-04  eta: 67 days, 16:19:34  time: 0.746078  data_time: 0.008293  memory: 4858  loss: 0.000716  loss_kpt: 0.000716  acc_pose: 0.285714

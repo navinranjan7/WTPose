@@ -1,0 +1,6 @@
+/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+Downloading: "https://download.openmmlab.com/mmclassification/v0/swin-v2/swinv2-large-w16_in21k-pre_3rdparty_in1k-256px_20220803-c40cbed7.pth" to /home/nr4325/.cache/torch/hub/checkpoints/swinv2-large-w16_in21k-pre_3rdparty_in1k-256px_20220803-c40cbed7.pth
+slurmstepd: error: *** JOB 17264828 ON skl-a-47 CANCELLED AT 2023-08-25T12:09:28 ***

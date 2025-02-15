@@ -1,4 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+
 import argparse
 import os
 import os.path as osp
@@ -155,6 +156,24 @@ def main():
 
     # start training
     runner.train()
+
+    # Check for frozen layers
+    frozen_layers = []
+    trainable_layers = []
+
+    for name, param in model.named_parameters():
+        if not param.requires_grad:
+            frozen_layers.append(name)
+        else:
+            trainable_layers.append(name)
+
+    print(f"Frozen layers ({len(frozen_layers)}):")
+    for layer in frozen_layers:
+        print(layer)
+
+    print(f"Trainable layers ({len(trainable_layers)}):")
+    for layer in trainable_layers:
+        print(layer)
 
 
 if __name__ == '__main__':

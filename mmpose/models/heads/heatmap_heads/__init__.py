@@ -5,8 +5,9 @@ from .cpm_head import CPMHead
 from .heatmap_head import HeatmapHead
 from .mspn_head import MSPNHead
 from .vipnas_head import ViPNASHead
+from .heatmap_head_WTPose import HeatmapHeadWTPose
 
 __all__ = [
     'HeatmapHead', 'CPMHead', 'MSPNHead', 'ViPNASHead',
-    'AssociativeEmbeddingHead', 'CIDHead'
+    'AssociativeEmbeddingHead', 'CIDHead', 'HeatmapHeadWTPose'
 ]

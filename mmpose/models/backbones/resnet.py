@@ -494,7 +494,7 @@ class ResNet(BaseBackbone):
         18: (BasicBlock, (2, 2, 2, 2)),
         34: (BasicBlock, (3, 4, 6, 3)),
         50: (Bottleneck, (3, 4, 6, 3)),
-        101: (Bottleneck, (3, 4, 23, 3)),
+        101: (Bottleneck, (3,4, 23, 3)),
         152: (Bottleneck, (3, 8, 36, 3))
     }
 
@@ -504,12 +504,12 @@ class ResNet(BaseBackbone):
                  stem_channels=64,
                  base_channels=64,
                  expansion=None,
-                 num_stages=4,
-                 strides=(1, 2, 2, 2),
-                 dilations=(1, 1, 1, 1),
-                 out_indices=(3, ),
+                 num_stages=1,
+                 strides=(1,),
+                 dilations=(1,),
+                 out_indices=(0, ),
                  style='pytorch',
-                 deep_stem=False,
+                 deep_stem=True,
                  avg_down=False,
                  frozen_stages=-1,
                  conv_cfg=None,
@@ -553,6 +553,7 @@ class ResNet(BaseBackbone):
         self.expansion = get_expansion(self.block, expansion)
 
         self._make_stem_layer(in_channels, stem_channels)
+        self.hw_shape = hw_shape
 
         self.res_layers = []
         _in_channels = stem_channels
@@ -582,6 +583,12 @@ class ResNet(BaseBackbone):
         self._freeze_stages()
 
         self.feat_dim = res_layer[-1].out_channels
+        
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=2, padding=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(64)
+        self.conv2 = nn.Conv2d(64, 64, kernel_size=3, stride=2, padding=1, bias=False)
+        self.bn2 = nn.BatchNorm2d(64)
+        self.relu = nn.ReLU(inplace=True)
 
     def make_res_layer(self, **kwargs):
         """Make a ResLayer."""
@@ -675,19 +682,24 @@ class ResNet(BaseBackbone):
 
     def forward(self, x):
         """Forward function."""
-        if self.deep_stem:
-            x = self.stem(x)
-        else:
-            x = self.conv1(x)
-            x = self.norm1(x)
-            x = self.relu(x)
-        x = self.maxpool(x)
+        # if self.deep_stem:
+        #     x = self.stem(x)
+        # else:
+        x = self.conv1(x)
+        x = self.bn1(x)
+        x = self.relu(x)
+        x = self.conv2(x)
+        x = self.bn2(x)
+        x = self.relu(x)
+        # x = self.maxpool(x)
         outs = []
         for i, layer_name in enumerate(self.res_layers):
             res_layer = getattr(self, layer_name)
             x = res_layer(x)
             if i in self.out_indices:
                 outs.append(x)
+        if len(outs) == 1:
+            return outs[0]
         return tuple(outs)
 
     def train(self, mode=True):

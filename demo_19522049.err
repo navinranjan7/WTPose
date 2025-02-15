@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "demo/topdown_demo_with_mmdet.py", line 292, in <module>
+    main()
+  File "demo/topdown_demo_with_mmdet.py", line 183, in main
+    pose_estimator = init_pose_estimator(
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/apis/inference.py", line 88, in init_model
+    config = Config.fromfile(config)
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/config/config.py", line 455, in fromfile
+    lazy_import is None and not Config._is_lazy_import(filename):
+  File "/home/nr4325/miniconda3/envs/pose4/lib/python3.8/site-packages/mmengine/config/config.py", line 1651, in _is_lazy_import
+    with open(filename, encoding='utf-8') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/hrnet_w48_coco_256x192.py'

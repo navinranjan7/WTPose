@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "tools/analysis_tools/get_flops.py", line 9, in <module>
+    from mmpose.apis.inference import init_model
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/apis/__init__.py", line 2, in <module>
+    from .inference import (collect_multi_frames, inference_bottomup,
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/apis/inference.py", line 17, in <module>
+    from mmpose.models.builder import build_pose_estimator
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/__init__.py", line 2, in <module>
+    from .backbones import *  # noqa
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/__init__.py", line 34, in <module>
+    from .wtpose_swinv1_wtm3a import wtposeSwinV1WTM3
+  File "/home/nr4325/Desktop/Pose4/mmpose/mmpose/models/backbones/wtpose_swinv1_wtm3a.py", line 559
+    self.conv1 = nn.Conv2d(in_dim, dim, 1, bias=False)s
+                                                      ^
+SyntaxError: invalid syntax
