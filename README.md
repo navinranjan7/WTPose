@@ -36,11 +36,11 @@ Using detection results from a detector that obtains 56 mAP on person. The confi
 |Model | Resolution | Params (M) | GFLOPs | AP | AR | config | log | weight |
 | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
 | Swin-T | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config]() | [log]() | [drive]() |
-| WTPose-T | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config]() | [log]() | [drive]() |
-| Swin-B | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config]() | [log]() | [drive]() |
-| WTPose-B | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config]() | [log]() | [drive]() |
-| Swin-L | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config]() | [log]() | [drive]() |
-| WTPose-L | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config]() | [log]() | [drive]() |
+| WTPose-T | 256x192 | 30.0 | 12.8 | 74.23 | 79.43 |[config]() | [log]() | [drive]() |
+| Swin-B | 256x192 | 93.0 | 19.0 | 73.72 | 79.32 |[config]() | [log]() | [drive]() |
+| WTPose-B | 256x192 | 89.3 | 25.6 | 74.96 | 80.51 |[config]() | [log]() | [drive]() |
+| Swin-L | 256x192 | 32.8 | 41.0 | 74.30 | 79.82 |[config]() | [log]() | [drive]() |
+| WTPose-L | 256x192 | 32.8 | 47.9 | 75.40 | 80.81 |[config]() | [log]() | [drive]() |
 
 ## **Installation**
 To use this code, clone the repository and install the dependencies:
