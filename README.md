@@ -1,5 +1,8 @@
 # **WTPose: Waterfall Transformer for Multi-Person Pose Estimaiton** 
-[T4V@CVPR 2023 (Poster)](https://arxiv.org/abs/2411.18944) [WACV Workshop 2025 (Oral)](https://github.com/navinranjan7/WTPose/blob/main/WTPose%20Waterfall%20Transformer%20for%20Multi-Person%20Pose%20Estimation.pdf)
+
+## **Paper Link**
+📄 [T4V@CVPR 2023 (Poster)](https://arxiv.org/abs/2411.18944)
+📄 [WACV Workshop 2025 (Oral)](https://github.com/navinranjan7/WTPose/blob/main/WTPose%20Waterfall%20Transformer%20for%20Multi-Person%20Pose%20Estimation.pdf)
 
 
 ## **Description**
@@ -29,10 +32,6 @@ Pose estimation examples using WTPose, showcasing the effectiveness of our appro
 <p align="center">
   <img src="https://github.com/navinranjan7/WTPose/blob/main/resources/WTPose_examples.png" width="80%" title="Pose Estimation Result 2">
 </p>
-
-## **Paper Link**
-📄 [T4V@CVPR 2023 (Poster)](https://arxiv.org/abs/2411.18944)
-📄 [WACV Workshop 2025 (Oral)](https://github.com/navinranjan7/WTPose/blob/main/WTPose%20Waterfall%20Transformer%20for%20Multi-Person%20Pose%20Estimation.pdf)
 
 ## **Installation**
 To use this code, clone the repository and install the dependencies:
