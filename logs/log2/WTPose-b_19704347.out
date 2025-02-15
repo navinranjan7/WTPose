@@ -6585,4 +6585,8 @@ DONE (t=0.37s).
  Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] =  0.762
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] =  0.865
 01/31 04:30:44 - mmengine - INFO - Epoch(val) [210][814/814]    coco/AP: 0.748681  coco/AP .5: 0.900996  coco/AP .75: 0.820952  coco/AP (M): 0.714568  coco/AP (L): 0.816527  coco/AR: 0.803794  coco/AR .5: 0.940963  coco/AR .75: 0.868860  coco/AR (M): 0.762032  coco/AR (L): 0.864994  data_time: 0.430358  time: 0.778766
+<<<<<<< HEAD
 01/31 04:30:46 - mmengine - INFO - The best checkpoint with 0.7507 coco/AP at 200 epoch is saved to best_coco_AP_epoch_200.pth.
+=======
+01/31 04:30:46 - mmengine - INFO - The best checkpoint with 0.7507 coco/AP at 200 epoch is saved to best_coco_AP_epoch_200.pth.
+>>>>>>> 834ab242 (Move to other dir)
