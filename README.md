@@ -30,6 +30,10 @@ Pose estimation examples using WTPose, showcasing the effectiveness of our appro
   <img src="https://github.com/navinranjan7/WTPose/blob/main/resources/WTPose_examples.png" width="80%" title="Pose Estimation Result 2">
 </p>
 
+## Results on MS COCO Val set
+Using detection results from a detector that obtains 56 mAP on person. The configs here are for both training and test.
+
+
 ## **Installation**
 To use this code, clone the repository and install the dependencies:
 ```bash
