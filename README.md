@@ -57,8 +57,9 @@ Using detection results from a detector that obtains 56 mAP on person. The confi
 | WTPose-L | 384x288 | 32.8 | 104.2 | 77.56 | 82.61 |config | log | - |
 
 
-## **Installation**
-To use this code, clone the repository and refer to [installation.md](https://mmpose.readthedocs.io/en/latest/installation.html) for more detailed installation and dataset preparation.
+# Installation and Setup
+
+To use this code, clone the repository and refer to [installation.md](https://mmpose.readthedocs.io/en/latest/installation.html) for more detailed installation and dataset preparation. Alternatively, you can use [environment.yaml](https://github.com/navinranjan7/WTPose/blob/main/environment.yaml) to create an environment.
 
 ## **Usage**
 Run the following command to start training or evaluation:
