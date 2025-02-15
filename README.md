@@ -1,7 +1,13 @@
 # **WTPose: Waterfall Transformer for Multi-Person Pose Estimaiton**
 
 ## **Description**
-This repository contains the pytorch implementation and experiments related to our paper: **"WTPose: Waterfall Transformer for Multi-Person Pose Estimaiton"**. The paper explores novel techniques in [briefly describe the core topic of your research, e.g., vision transformers, quantization, model compression, etc.].
+This repository contains the implementation and experiments related to our paper: **"WTPose: Waterfall Transformer for Pose Estimation"**. WTPose introduces a novel **Waterfall Transformer Module (WTM)** that enhances pose estimation by improving the performance of vision transformers like the Shifted Window (Swin) transformer. 
+
+The WTM processes multi-scale feature maps through its waterfall branches and utilizes a **dilated attention mechanism** to increase the Field-of-View (FOV), capturing both local and global context more effectively. This leads to significant improvements over baseline models. 
+
+Pose estimation examples using WTPose can be seen in the figures included in our paper.
+This repository contains the implementation and experiments related to our paper: **"Your Paper Title Here"**. The paper explores novel techniques in [briefly describe the core topic of your research, e.g., vision transformers, quantization, model compression, etc.].
+
 
 ## **Paper Link**
 📄 [T4V@CVPR 2023 (Poster)](https://arxiv.org/abs/2411.18944)
