@@ -13,7 +13,7 @@ generates K heatmaps, one per joint.
 The WTM processes feature maps from multiple levels of the backbone through its waterfall branches. It applies filtering operations based on a **dilated attention mechanism** to expand the Field-of-View (FOV) and effectively capture both local and global context. These innovations lead to significant improvements over baseline models.
 
 <p align="center">
-  <img src="https://github.com/navinranjan7/WTPose/blob/main/resources/WTPose.png" title="Waterfall Transformer Module">
+  <img src="https://github.com/navinranjan7/WTPose/blob/main/resources/WTM.png" title="Waterfall Transformer Module">
   Figure 2: The proposed waterfall transformer module. The inputs are multi-scale feature maps from all four stages of the Swin backbone
 and low-level features from the ResNet bottleneck. The waterfall module creates a waterfall flow, initially processing the input and then
 creating a new branch. The feature dimensions (spatial and channel dimensions) output by various blocks are shown in parentheses.
