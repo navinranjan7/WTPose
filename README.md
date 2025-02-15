@@ -43,7 +43,8 @@ Using detection results from a detector that obtains 56 mAP on person. The confi
 | WTPose-L | 256x192 | 32.8 | 47.9 | 75.40 | 80.81 |[config]() | [log]() | [drive]() |
 
 
-> 384x288 resolution 
+> 384x288 resolution
+
 |Model | Resolution | Params (M) | GFLOPs | AP | AR | config | log | weight |
 | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
 | Swin-T | 384x288 | 32.8 | 6.3 | 72.44 | 78.20 |[config]() | [log]() | [drive]() |
