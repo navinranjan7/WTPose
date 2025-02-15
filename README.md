@@ -1,9 +1,7 @@
-# **WTPose: Waterfall Transformer for Multi-Person Pose Estimaiton**
-
-[![DOI]([https://img.shields.io/badge/DOI-Link-blue.svg])](https://arxiv.org/abs/2411.18944)
+# **[WTPose: Waterfall Transformer for Multi-Person Pose Estimaiton](https://arxiv.org/abs/2411.18944)**
 
 ## **Description**
-This repository contains the implementation and experiments related to our paper: **"Your Paper Title Here"**. The paper explores novel techniques in [briefly describe the core topic of your research, e.g., vision transformers, quantization, model compression, etc.].
+This repository contains the pytorch implementation and experiments related to our paper: **"WTPose: Waterfall Transformer for Multi-Person Pose Estimaiton"**. The paper explores novel techniques in [briefly describe the core topic of your research, e.g., vision transformers, quantization, model compression, etc.].
 
 ## **Paper Link**
 📄 [Read the full paper here](your-paper-link-here)
