@@ -40,7 +40,7 @@ Using detection results from a detector that obtains 56 mAP on person. The confi
 | Swin-T | 256x192 | 32.8 | 6.3 | 72.44 | 78.20 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-t-p4-w7_8xb32-210e_coco-256x192.py) | log | - |
 | WTPose-T | 256x192 | 30.0 | 12.8 | 74.23 | 79.43 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtpose_swin_t_w7_coco_256x192_1k.py) | log | - |
 | Swin-B | 256x192 | 93.0 | 19.0 | 73.72 | 79.32 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-b-p4-w7_8xb32-210e_coco-256x192.py) | log | - |
-| WTPose-B | 256x192 | 89.3 | 25.6 | 74.96 | 80.51 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/wtm_resnet101_swin_b_w7_coco_256x192_1.py) | [log](https://github.com/navinranjan7/WTPose/blob/main/logs/log2/WTPose-b_19703812.err) | - |
+| WTPose-B | 256x192 | 89.3 | 25.6 | 74.96 | 80.51 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/wtm_resnet101_swin_b_w7_coco_256x192_1.py) | [log](https://github.com/navinranjan7/WTPose/blob/main/logs/log2/WTPose-b_19704347.out) | - |
 | Swin-L | 256x192 | 32.8 | 41.0 | 74.30 | 79.82 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_swin-l-p4-w7_8xb32-210e_coco-256x192.py) | log | - |
 | WTPose-L | 256x192 | 32.8 | 47.9 | 75.40 | 80.81 |[config](https://github.com/navinranjan7/WTPose/blob/main/configs/body_2d_keypoint/topdown_heatmap/coco/aa_wtpose_swin-l-p4-w7_coco_256x192.py) | log | - |
 
