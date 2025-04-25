@@ -1,5 +1,5 @@
 # **WTPose: Waterfall Transformer for Multi-Person Pose Estimaiton** 
-[T4V@CVPR 2023 (Poster)](https://arxiv.org/abs/2411.18944) | [WACV Workshop 2025 (Oral)](https://github.com/navinranjan7/WTPose/blob/main/WTPose%20Waterfall%20Transformer%20for%20Multi-Person%20Pose%20Estimation.pdf)
+[T4V@CVPR 2023 (Poster)](https://arxiv.org/abs/2411.18944) | [WACV Workshop 2025 (Oral)]([https://github.com/navinranjan7/WTPose/blob/main/WTPose%20Waterfall%20Transformer%20for%20Multi-Person%20Pose%20Estimation.pdf](https://openaccess.thecvf.com/content/WACV2025W/PRAW/html/Ranjan_WTPose_Waterfall_Transformer_for_Multi-person_Pose_Estimation_WACVW_2025_paper.html))
 
 
 ## **Description**
